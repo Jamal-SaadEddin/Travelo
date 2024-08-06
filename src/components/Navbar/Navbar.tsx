@@ -1,23 +1,12 @@
-import LogoutIcon from "@mui/icons-material/Logout";
-import ShoppingCartCheckoutIcon from "@mui/icons-material/ShoppingCartCheckout";
 import MuiAppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import MuiToolbar from "@mui/material/Toolbar";
-import Logo from "../../assets/travelo-logo-dark.png";
 import NavbarLink from "./NavbarLink";
-
-const rightLink = {
-  fontSize: 16,
-  color: "primary.dark",
-  ml: 3,
-  display: "flex",
-  alignItems: "center",
-  gap: 1,
-};
+import { leftNavLinks, rightNavLinks } from "./constants/links";
 
 const Navbar = () => {
   return (
-    <div>
+    <>
       <MuiAppBar
         elevation={0}
         position="fixed"
@@ -34,56 +23,27 @@ const Navbar = () => {
               gap: 5,
             }}
           >
-            <NavbarLink
-              href="/"
-              title="Travelo"
-              sx={{
-                fontSize: 24,
-                display: "flex",
-                alignItems: "center",
-                gap: 1,
-              }}
-              child_1={<img src={Logo} alt="travelo-logo" width={25} />}
-            />
-            <NavbarLink
-              href="/Featured-Deals"
-              sx={{ fontSize: 16 }}
-              title="Featured Deals"
-            />
-            <NavbarLink
-              href="/Recently-Visited-Hotels"
-              sx={{ fontSize: 16 }}
-              title="Recently-Visited-Hotels"
-            />
-            <NavbarLink
-              href="/Trending-Destination"
-              sx={{ fontSize: 16 }}
-              title="Trending Destination"
-            />
+            {leftNavLinks.map((link, index) => (
+              <NavbarLink key={index} {...link} />
+            ))}
           </Box>
           <Box
             sx={{
               flex: 1,
               display: "flex",
               justifyContent: "flex-end",
+              alignItems: "center",
+              gap: 3,
             }}
           >
-            <NavbarLink
-              href="/checkout"
-              sx={rightLink}
-              child_1={<ShoppingCartCheckoutIcon />}
-            />
-            <NavbarLink
-              href="/login"
-              sx={rightLink}
-              title="Logout"
-              child_2={<LogoutIcon />}
-            />
+            {rightNavLinks.map((link, index) => (
+              <NavbarLink key={index} {...link} />
+            ))}
           </Box>
         </MuiToolbar>
       </MuiAppBar>
       <MuiToolbar />
-    </div>
+    </>
   );
 };
 
