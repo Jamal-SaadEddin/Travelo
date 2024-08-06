@@ -1,5 +1,5 @@
 import { Link } from "@mui/material";
-import NavLink from "./entities/NavLink";
+import NavLink from "../entities/NavLink";
 
 const NavbarLink = ({ href, sx, title, child_1, child_2 }: NavLink) => {
   return (

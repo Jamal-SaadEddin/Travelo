@@ -1,9 +1,9 @@
 import { Hidden } from "@mui/material";
 import MuiAppBar from "@mui/material/AppBar";
 import MuiToolbar from "@mui/material/Toolbar";
-import NavbarLink from "./NavbarLink";
-import NavbarList from "./NavbarList";
-import NavbarMenu from "./NavbarMenu";
+import NavbarLink from "./components/NavbarLink";
+import NavbarList from "./components/NavbarList";
+import NavbarMenu from "./components/NavbarMenu";
 import { leftNavLinks, rightNavLinks } from "./constants/links";
 
 const Navbar = () => {
