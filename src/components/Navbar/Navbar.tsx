@@ -2,9 +2,9 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import ShoppingCartCheckoutIcon from "@mui/icons-material/ShoppingCartCheckout";
 import MuiAppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
-import Link from "@mui/material/Link";
 import MuiToolbar from "@mui/material/Toolbar";
 import Logo from "../../assets/travelo-logo-dark.png";
+import NavbarLink from "./NavbarLink";
 
 const rightLink = {
   fontSize: 16,
@@ -34,48 +34,32 @@ const Navbar = () => {
               gap: 5,
             }}
           >
-            <Link
-              variant="h6"
-              underline="none"
-              color="inherit"
+            <NavbarLink
               href="/"
+              title="Travelo"
               sx={{
                 fontSize: 24,
                 display: "flex",
                 alignItems: "center",
                 gap: 1,
               }}
-            >
-              <img src={Logo} alt="travelo-logo" width={25} />
-              Travelo
-            </Link>
-            <Link
-              variant="h6"
-              underline="none"
-              color="inherit"
+              child_1={<img src={Logo} alt="travelo-logo" width={25} />}
+            />
+            <NavbarLink
               href="/Featured-Deals"
               sx={{ fontSize: 16 }}
-            >
-              Featured Deals
-            </Link>
-            <Link
-              variant="h6"
-              underline="none"
-              color="inherit"
+              title="Featured Deals"
+            />
+            <NavbarLink
               href="/Recently-Visited-Hotels"
               sx={{ fontSize: 16 }}
-            >
-              Recently Visited Hotels
-            </Link>
-            <Link
-              variant="h6"
-              underline="none"
-              color="inherit"
+              title="Recently-Visited-Hotels"
+            />
+            <NavbarLink
               href="/Trending-Destination"
               sx={{ fontSize: 16 }}
-            >
-              Trending Destination
-            </Link>
+              title="Trending Destination"
+            />
           </Box>
           <Box
             sx={{
@@ -84,24 +68,17 @@ const Navbar = () => {
               justifyContent: "flex-end",
             }}
           >
-            <Link
-              color="inherit"
-              variant="h6"
-              underline="none"
+            <NavbarLink
               href="/checkout"
               sx={rightLink}
-            >
-              <ShoppingCartCheckoutIcon />
-            </Link>
-            <Link
-              color="inherit"
-              variant="h6"
-              underline="none"
+              child_1={<ShoppingCartCheckoutIcon />}
+            />
+            <NavbarLink
               href="/login"
               sx={rightLink}
-            >
-              Logout <LogoutIcon />
-            </Link>
+              title="Logout"
+              child_2={<LogoutIcon />}
+            />
           </Box>
         </MuiToolbar>
       </MuiAppBar>
