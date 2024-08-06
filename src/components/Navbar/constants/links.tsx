@@ -35,13 +35,17 @@ export const leftNavLinks: NavLink[] = [
 const rightLink = {
   fontSize: 16,
   color: "primary.dark",
-  // ml: 3,
   display: "flex",
   alignItems: "center",
   gap: 1,
 };
 
 export const rightNavLinks: NavLink[] = [
-  { href: "/checkout", sx: rightLink, child_1: <ShoppingCartCheckoutIcon /> },
+  {
+    href: "/checkout",
+    sx: rightLink,
+    title: "Checkout",
+    child_2: <ShoppingCartCheckoutIcon />,
+  },
   { href: "/login", sx: rightLink, title: "Logout", child_2: <LogoutIcon /> },
 ];
