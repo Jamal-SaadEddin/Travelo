@@ -12,7 +12,7 @@ const Navbar = () => {
       <MuiAppBar
         elevation={0}
         position="fixed"
-        sx={{ px: { xs: 1, lg: 7, xl: 35 }, bgcolor: "inherit" }}
+        sx={{ px: { xs: 1, lg: 7, xl: 15 }, bgcolor: "inherit" }}
       >
         <MuiToolbar
           sx={{ justifyContent: "space-between", px: 0, bgcolor: "inherit" }}
