@@ -1,10 +1,11 @@
+import { Container } from "@mui/material";
 import HeroSection from "../../components/HeroSection";
 
 const HomePage = () => {
   return (
-    <div>
+    <Container maxWidth="xl">
       <HeroSection />
-    </div>
+    </Container>
   );
 };
 

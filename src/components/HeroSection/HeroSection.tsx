@@ -17,7 +17,6 @@ const styles = {
   heroText: {
     position: "absolute",
     top: "5%",
-    left: "7.5%",
     textAlign: "start",
     textWrap: "nowrap",
   },
@@ -26,7 +25,6 @@ const styles = {
 const StyledImage = styled("img")({
   width: "100%",
   height: "100%",
-  objectFit: "cover",
   filter: "blur(.5px) brightness(90%)",
 });
 
@@ -36,7 +34,11 @@ const HeroSection = () => {
 
   return (
     <Box sx={{ ...styles.hero }}>
-      <StyledImage src={hero} alt="Hero Image" />
+      <StyledImage
+        src={hero}
+        alt="Hero Image"
+        sx={{ objectFit: isSmallScreen ? "cover" : "fill" }}
+      />
       <Box sx={styles.heroText}>
         <Typography fontWeight="bold" variant={isSmallScreen ? "h5" : "h2"}>
           Journey On,

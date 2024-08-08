@@ -35,6 +35,7 @@ const NavbarMenu = ({ leftNavLinks, rightNavLinks }: Props) => {
         aria-haspopup="true"
         aria-expanded={open ? "true" : undefined}
         onClick={handleClick}
+        color="inherit"
       >
         <MenuIcon />
       </Button>
