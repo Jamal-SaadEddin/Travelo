@@ -1,11 +1,12 @@
 import {
   Box,
+  Container,
   Typography,
   styled,
   useMediaQuery,
   useTheme,
 } from "@mui/material";
-import hero from "../../assets/hero.png";
+import hero from "../../assets/hero1.jpg";
 
 const styles = {
   hero: {
@@ -25,6 +26,7 @@ const styles = {
 const StyledImage = styled("img")({
   width: "100%",
   height: "100%",
+  objectFit: "cover",
   filter: "blur(.5px) brightness(90%)",
 });
 
@@ -34,19 +36,17 @@ const HeroSection = () => {
 
   return (
     <Box sx={{ ...styles.hero }}>
-      <StyledImage
-        src={hero}
-        alt="Hero Image"
-        sx={{ objectFit: isSmallScreen ? "cover" : "fill" }}
-      />
-      <Box sx={styles.heroText}>
-        <Typography fontWeight="bold" variant={isSmallScreen ? "h5" : "h2"}>
-          Journey On,
-        </Typography>
-        <Typography fontWeight="bold" variant={isSmallScreen ? "h5" : "h2"}>
-          Every trip, a new story.
-        </Typography>
-      </Box>
+      <StyledImage src={hero} alt="Hero Image" />
+      <Container maxWidth="xl">
+        <Box sx={styles.heroText}>
+          <Typography fontWeight="bold" variant={isSmallScreen ? "h5" : "h2"}>
+            Journey On!
+          </Typography>
+          <Typography fontWeight="bold" variant={isSmallScreen ? "h5" : "h2"}>
+            Every trip, a new story.
+          </Typography>
+        </Box>
+      </Container>
     </Box>
   );
 };
