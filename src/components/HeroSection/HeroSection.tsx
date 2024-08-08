@@ -12,7 +12,7 @@ const styles = {
   hero: {
     position: "relative",
     width: "100%",
-    height: "calc(100vh - 164px)",
+    height: "calc(100vh - 64px)",
     overflow: "hidden",
   },
   heroText: {
