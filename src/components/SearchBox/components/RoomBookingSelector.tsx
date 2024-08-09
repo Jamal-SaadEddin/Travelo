@@ -1,14 +1,12 @@
 import { Box, Button, Fade, Menu, Stack } from "@mui/material";
 import React from "react";
-import { RoomInfo } from "../entities/RoomInfo";
+import { RoomBookingSelectorProps } from "../entities/RoomBookingSelectorProps";
 import Controls from "./Controls";
 
-interface Props {
-  roomInfo: RoomInfo;
-  handleChange: (name: string, count: number) => void;
-}
-
-const RoomBookingSelector = ({ roomInfo, handleChange }: Props) => {
+const RoomBookingSelector = ({
+  roomInfo,
+  handleChange,
+}: RoomBookingSelectorProps) => {
   const { adults, children, rooms } = roomInfo;
 
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
