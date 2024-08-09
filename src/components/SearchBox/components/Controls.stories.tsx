@@ -1,23 +1,15 @@
 import { Meta, StoryFn } from "@storybook/react";
+import React from "react";
 import Controls from "./Controls";
 
 export default {
-  title: "SearchBox/Controls",
+  title: "Components/Controls",
   component: Controls,
-  argTypes: {
-    title: { control: "text" },
-    count: { control: "number" },
-    disabled: { control: "boolean" },
-    handleChange: { action: "handleChange" },
-  },
 } as Meta<typeof Controls>;
 
-const Template: StoryFn<{
-  title: string;
-  count: number;
-  disabled: boolean;
-  handleChange: (name: string, count: number) => void;
-}> = (args) => <Controls {...args} />;
+type ControlsProps = React.ComponentProps<typeof Controls>;
+
+const Template: StoryFn<ControlsProps> = (args) => <Controls {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {

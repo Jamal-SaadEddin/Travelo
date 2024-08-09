@@ -2,14 +2,19 @@ import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import { Button, Stack, Typography } from "@mui/material";
 
-interface Props {
+export interface ControlsProps {
   title: string;
   count: number;
   disabled?: boolean;
   handleChange: (name: string, count: number) => void;
 }
 
-const Controls = ({ title, count = 0, handleChange, disabled }: Props) => {
+const Controls = ({
+  title,
+  count = 0,
+  handleChange,
+  disabled,
+}: ControlsProps) => {
   return (
     <Stack direction="row" justifyContent="space-between" alignItems="center">
       <Typography flex={1}>{title}</Typography>

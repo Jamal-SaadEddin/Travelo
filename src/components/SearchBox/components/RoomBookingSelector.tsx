@@ -3,12 +3,15 @@ import React from "react";
 import { RoomInfo } from "../entities/RoomInfo";
 import Controls from "./Controls";
 
-interface Props {
+export interface RoomBookingSelectorProps {
   roomInfo: RoomInfo;
   handleChange: (name: string, count: number) => void;
 }
 
-const RoomBookingSelector = ({ roomInfo, handleChange }: Props) => {
+const RoomBookingSelector = ({
+  roomInfo,
+  handleChange,
+}: RoomBookingSelectorProps) => {
   const { adults, children, rooms } = roomInfo;
 
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
