@@ -5,9 +5,14 @@ import Fade from "@mui/material/Fade";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import * as React from "react";
-import { leftNavLinks, rightNavLinks } from "../constants/links";
+import NavLink from "../entities/NavLink";
 
-const NavbarMenu = () => {
+interface Props {
+  leftNavLinks: NavLink[];
+  rightNavLinks: NavLink[];
+}
+
+const NavbarMenu = ({ leftNavLinks, rightNavLinks }: Props) => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {

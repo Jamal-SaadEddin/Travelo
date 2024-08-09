@@ -23,7 +23,10 @@ const Navbar = () => {
           </Hidden>
           <Hidden lgUp>
             <NavbarLink {...leftNavLinks[0]} />
-            <NavbarMenu />
+            <NavbarMenu
+              leftNavLinks={leftNavLinks}
+              rightNavLinks={rightNavLinks}
+            />
           </Hidden>
         </MuiToolbar>
       </MuiAppBar>
