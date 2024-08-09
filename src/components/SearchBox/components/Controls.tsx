@@ -1,13 +1,7 @@
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import { Button, Stack, Typography } from "@mui/material";
-
-export interface ControlsProps {
-  title: string;
-  count: number;
-  disabled?: boolean;
-  handleChange: (name: string, count: number) => void;
-}
+import { ControlsProps } from "../entities/ControlsProps";
 
 const Controls = ({
   title,

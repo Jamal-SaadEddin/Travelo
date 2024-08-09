@@ -1,12 +1,7 @@
 import { Box, Button, Fade, Menu, Stack } from "@mui/material";
 import React from "react";
-import { RoomInfo } from "../entities/RoomInfo";
+import { RoomBookingSelectorProps } from "../entities/RoomBookingSelectorProps";
 import Controls from "./Controls";
-
-export interface RoomBookingSelectorProps {
-  roomInfo: RoomInfo;
-  handleChange: (name: string, count: number) => void;
-}
 
 const RoomBookingSelector = ({
   roomInfo,
