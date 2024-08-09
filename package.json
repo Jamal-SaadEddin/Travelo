@@ -19,6 +19,7 @@
     "@mui/icons-material": "^5.16.6",
     "@mui/material": "^5.16.6",
     "@mui/styled-engine-sc": "^6.0.0-alpha.18",
+    "@storybook/testing-library": "^0.2.2",
     "formik": "^2.4.6",
     "lint-staged": "^15.2.8",
     "react": "^18.3.1",

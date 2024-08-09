@@ -10,15 +10,17 @@ import {
 } from "@mui/material";
 import { Form, Formik } from "formik";
 import * as Yup from "yup";
-import FormikTextField from "../components/FormikTextField";
-import PromotionalSection from "../components/PromotionalSection";
+import FormikTextField from "../../components/FormikTextField";
+import PromotionalSection from "../../components/PromotionalSection";
 
-const LoginPage = () => {
-  const initialValues = {
-    username: "",
-    password: "",
+interface LoginPageProps {
+  initialValues?: {
+    username: string;
+    password: string;
   };
+}
 
+const LoginPage: React.FC<LoginPageProps> = ({ initialValues }) => {
   const validationSchema = Yup.object({
     username: Yup.string().required("Username is required"),
     password: Yup.string().required("Password is required"),
@@ -67,7 +69,7 @@ const LoginPage = () => {
             Login
           </Typography>
           <Formik
-            initialValues={initialValues}
+            initialValues={initialValues!}
             validationSchema={validationSchema}
             onSubmit={handleSubmit}
           >
@@ -102,3 +104,4 @@ const LoginPage = () => {
 };
 
 export default LoginPage;
+export type { LoginPageProps };
