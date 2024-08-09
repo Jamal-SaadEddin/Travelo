@@ -5,17 +5,25 @@ import { Button, Stack, Typography } from "@mui/material";
 interface Props {
   title: string;
   count: number;
+  disabled?: boolean;
+  handleChange: (name: string, count: number) => void;
 }
 
-const Controls = ({ title, count }: Props) => {
+const Controls = ({ title, count = 0, handleChange, disabled }: Props) => {
   return (
     <Stack direction="row" justifyContent="space-between" alignItems="center">
       <Typography flex={1}>{title}</Typography>
-      <Button>
+      <Button
+        disabled={disabled}
+        onClick={() => handleChange(title.toLowerCase(), count - 1)}
+      >
         <RemoveIcon />
       </Button>
       <Typography>{count}</Typography>
-      <Button sx={{ pr: 0 }}>
+      <Button
+        sx={{ pr: 0 }}
+        onClick={() => handleChange(title.toLowerCase(), count + 1)}
+      >
         <AddIcon />
       </Button>
     </Stack>

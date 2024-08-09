@@ -5,9 +5,10 @@ import Controls from "./Controls";
 
 interface Props {
   roomInfo: RoomInfo;
+  handleChange: (name: string, count: number) => void;
 }
 
-const RoomBookingSelector = ({ roomInfo }: Props) => {
+const RoomBookingSelector = ({ roomInfo, handleChange }: Props) => {
   const { adults, children, rooms } = roomInfo;
 
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -45,9 +46,24 @@ const RoomBookingSelector = ({ roomInfo }: Props) => {
         TransitionComponent={Fade}
       >
         <Stack gap={2} py={1} px={3}>
-          <Controls title="Adults" count={adults} />
-          <Controls title="Children" count={children} />
-          <Controls title="Rooms" count={rooms} />
+          <Controls
+            title="Adults"
+            count={adults}
+            disabled={adults === 1}
+            handleChange={handleChange}
+          />
+          <Controls
+            title="Children"
+            count={children}
+            disabled={children === 0}
+            handleChange={handleChange}
+          />
+          <Controls
+            title="Rooms"
+            count={rooms}
+            disabled={rooms === 1}
+            handleChange={handleChange}
+          />
           <Button fullWidth variant="contained" onClick={handleClose}>
             Done
           </Button>
