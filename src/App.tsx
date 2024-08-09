@@ -1,11 +1,9 @@
-import { Typography } from "@mui/material";
+import LoginPage from "./pages/LoginPage";
 
 const App = () => {
   return (
     <div>
-      <Typography variant="h1" color="primary.main">
-        Travelo App
-      </Typography>
+      <LoginPage />
     </div>
   );
 };
