@@ -1,10 +1,15 @@
+import { Container } from "@mui/material";
 import HeroSection from "../../components/HeroSection";
+import SearchBox from "../../components/SearchBox";
 
 const HomePage = () => {
   return (
-    <div>
+    <>
       <HeroSection />
-    </div>
+      <Container maxWidth="xl">
+        <SearchBox />
+      </Container>
+    </>
   );
 };
 

@@ -34,7 +34,7 @@ export const leftNavLinks: NavLink[] = [
 
 const rightLink = {
   fontSize: 16,
-  color: "primary.dark",
+  color: "error.main",
   display: "flex",
   alignItems: "center",
   gap: 1,
