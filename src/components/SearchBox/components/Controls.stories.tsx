@@ -3,7 +3,7 @@ import React from "react";
 import Controls from "./Controls";
 
 export default {
-  title: "Components/Controls",
+  title: "Components/Search Box/Controls",
   component: Controls,
 } as Meta<typeof Controls>;
 

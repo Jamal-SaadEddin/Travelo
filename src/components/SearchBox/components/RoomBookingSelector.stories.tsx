@@ -4,7 +4,7 @@ import { RoomInfo } from "../entities/RoomInfo";
 import RoomBookingSelector from "./RoomBookingSelector";
 
 export default {
-  title: "Components/RoomBookingSelector",
+  title: "Components/Search Box/RoomBookingSelector",
   component: RoomBookingSelector,
 } as Meta<typeof RoomBookingSelector>;
 
