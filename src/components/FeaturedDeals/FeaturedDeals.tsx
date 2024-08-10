@@ -1,20 +1,15 @@
-import { Box, Stack, Typography } from "@mui/material";
-import { hotels } from "./constants/hotels";
+import { Stack } from "@mui/material";
 import { cardsStackStyles } from "../../styles";
 import HotelCard from "../common/HotelCard";
+import { hotels } from "./constants/hotels";
 
 const FeaturedDeals = () => {
   return (
-    <Box pt={10}>
-      <Typography variant="h4" gutterBottom>
-        Featured Deals
-      </Typography>
-      <Stack direction="row" sx={cardsStackStyles}>
-        {hotels.map((hotel) => (
-          <HotelCard key={hotel.hotelId} hotel={hotel} />
-        ))}
-      </Stack>
-    </Box>
+    <Stack direction="row" sx={cardsStackStyles}>
+      {hotels.map((hotel) => (
+        <HotelCard key={hotel.hotelId} hotel={hotel} />
+      ))}
+    </Stack>
   );
 };
 
