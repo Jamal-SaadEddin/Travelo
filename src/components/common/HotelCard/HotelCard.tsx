@@ -10,9 +10,9 @@ import Typography from "@mui/material/Typography";
 import { SxProps } from "@mui/system";
 import { truncateText } from "../../../services/truncateText";
 import {
-  cardStyles,
-  featuredDealHotelCardWidth,
-  recentlyVisitedHotelCardWidth,
+  featuredDealStyles,
+  hotelCardsStyles,
+  recentlyVisitedHotelStyles,
 } from "../../../styles";
 import StarRating from "../StarRating";
 import { HotelCardProps } from "./entities/HotelCardProps";
@@ -23,10 +23,10 @@ import {
 
 const HotelCard = ({ hotel }: HotelCardProps) => {
   const dynamicCardStyles: SxProps = {
-    ...cardStyles,
+    ...hotelCardsStyles.cardStyles,
     width: isRecentlyVisitedHotel(hotel)
-      ? recentlyVisitedHotelCardWidth
-      : featuredDealHotelCardWidth,
+      ? recentlyVisitedHotelStyles.cardWidth
+      : featuredDealStyles.cardWidth,
   };
 
   return (
