@@ -3,7 +3,7 @@ import { HotelCardProps } from "../entities/HotelCardProps";
 import HotelCard from "./HotelCard";
 
 export default {
-  title: "Featured Deals/HotelCard",
+  title: "Components/Featured Deals/HotelCard",
   component: HotelCard,
 } as Meta<typeof HotelCard>;
 
