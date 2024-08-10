@@ -3,7 +3,7 @@ import StarRating from "./StarRating";
 import { StarRatingProps } from "./entities/StarRatingProps";
 
 export default {
-  title: "Components/Featured Deals/StarRating",
+  title: "Components/Common/Star Rating",
   component: StarRating,
 } as Meta<typeof StarRating>;
 
