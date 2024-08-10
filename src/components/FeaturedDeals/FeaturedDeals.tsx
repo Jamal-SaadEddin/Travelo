@@ -1,7 +1,7 @@
 import { Box, Stack, Typography } from "@mui/material";
-import HotelCard from "./components/HotelCard";
 import { hotels } from "./constants/hotels";
-import { cardsStackStyles } from "./styles";
+import { cardsStackStyles } from "../../styles";
+import HotelCard from "../common/HotelCard";
 
 const FeaturedDeals = () => {
   return (

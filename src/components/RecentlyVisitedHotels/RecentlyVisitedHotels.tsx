@@ -1,7 +1,7 @@
 import { Box, Typography, Stack } from "@mui/material";
-import HotelCard from "./components/HotelCard";
-import { cardsStackStyles } from "../FeaturedDeals/styles";
+import { cardsStackStyles } from "../../styles";
 import { hotels } from "./constants/hotels";
+import HotelCard from "../common/HotelCard";
 
 const RecentlyVisitedHotels = () => {
   return (
@@ -11,7 +11,7 @@ const RecentlyVisitedHotels = () => {
       </Typography>
       <Stack direction="row" sx={cardsStackStyles}>
         {hotels.map((hotel) => (
-          <HotelCard key={hotel.hotelId} />
+          <HotelCard key={hotel.hotelId} hotel={hotel} />
         ))}
       </Stack>
     </Box>

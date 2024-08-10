@@ -1,5 +1,5 @@
 import { Meta, StoryFn } from "@storybook/react";
-import { HotelCardProps } from "../entities/HotelCardProps";
+import { HotelCardProps } from "./entities/HotelCardProps";
 import HotelCard from "./HotelCard";
 
 export default {

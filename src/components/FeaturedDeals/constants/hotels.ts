@@ -1,4 +1,4 @@
-import { Hotel } from "../entities/Hotel";
+import { Hotel } from "../../common/HotelCard/entities/Hotel";
 
 export const hotels: Hotel[] = [
   {
