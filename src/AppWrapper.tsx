@@ -1,12 +1,12 @@
 import React from "react";
 import App from "./App";
-import CustomThemeProvider from "./CustomThemeProvider";
+import ThemeContextProvider from "./contexts/ThemeContext";
 
 const AppWrapper: React.FC = () => {
   return (
-    <CustomThemeProvider>
+    <ThemeContextProvider>
       <App />
-    </CustomThemeProvider>
+    </ThemeContextProvider>
   );
 };
 

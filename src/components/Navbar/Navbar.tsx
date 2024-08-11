@@ -4,6 +4,7 @@ import MuiToolbar from "@mui/material/Toolbar";
 import NavbarLink from "./components/NavbarLink";
 import NavbarList from "./components/NavbarList";
 import NavbarMenu from "./components/NavbarMenu";
+import ThemeMenu from "./components/ThemeMenu";
 import { leftNavLinks, rightNavLinks } from "./constants/links";
 
 const Navbar = () => {
@@ -16,10 +17,12 @@ const Navbar = () => {
           >
             <Hidden lgDown>
               <NavbarList justifyContent="flex-start" links={leftNavLinks} />
+              <ThemeMenu />
               <NavbarList justifyContent="flex-end" links={rightNavLinks} />
             </Hidden>
             <Hidden lgUp>
               <NavbarLink {...leftNavLinks[0]} />
+              <ThemeMenu lgDown />
               <NavbarMenu
                 leftNavLinks={leftNavLinks}
                 rightNavLinks={rightNavLinks}
