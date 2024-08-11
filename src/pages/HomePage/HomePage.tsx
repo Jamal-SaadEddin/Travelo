@@ -1,8 +1,9 @@
 import { Container } from "@mui/material";
 import FeaturedDeals from "../../components/FeaturedDeals";
+import Footer from "../../components/Footer";
 import HeroSection from "../../components/HeroSection";
-import SearchBox from "../../components/SearchBox";
 import RecentlyVisitedHotels from "../../components/RecentlyVisitedHotels";
+import SearchBox from "../../components/SearchBox";
 import TrendingDestinations from "../../components/TrendingDestinations";
 import HomeSection from "./components/HomeSection";
 
@@ -21,6 +22,7 @@ const HomePage = () => {
           title="Trending Destinations"
           children={<TrendingDestinations />}
         />
+        <Footer />
       </Container>
     </>
   );
