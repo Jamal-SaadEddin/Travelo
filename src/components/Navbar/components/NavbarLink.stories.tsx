@@ -2,7 +2,7 @@ import { Meta, StoryFn } from "@storybook/react";
 import NavbarLink from "../components/NavbarLink";
 
 export default {
-  title: "Navbar/NavbarLink",
+  title: "Components/Navbar/NavbarLink",
   component: NavbarLink,
   argTypes: {
     title: { control: "text" },

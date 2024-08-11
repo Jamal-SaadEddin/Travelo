@@ -4,7 +4,7 @@ import { leftNavLinks, rightNavLinks } from "../constants/links";
 import NavLink from "../entities/NavLink";
 
 export default {
-  title: "Navbar/NavbarMenu",
+  title: "Components/Navbar/NavbarMenu",
   component: NavbarMenu,
   argTypes: {
     leftNavLinks: { control: "object" },
