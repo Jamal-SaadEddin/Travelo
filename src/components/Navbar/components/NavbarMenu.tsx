@@ -1,6 +1,5 @@
 import MenuIcon from "@mui/icons-material/Menu";
-import { Divider } from "@mui/material";
-import Button from "@mui/material/Button";
+import { Divider, IconButton } from "@mui/material";
 import Fade from "@mui/material/Fade";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
@@ -29,7 +28,7 @@ const NavbarMenu = ({ leftNavLinks, rightNavLinks }: Props) => {
 
   return (
     <div>
-      <Button
+      <IconButton
         id="fade-button"
         aria-controls={open ? "fade-menu" : undefined}
         aria-haspopup="true"
@@ -38,7 +37,7 @@ const NavbarMenu = ({ leftNavLinks, rightNavLinks }: Props) => {
         color="inherit"
       >
         <MenuIcon />
-      </Button>
+      </IconButton>
       <Menu
         id="fade-menu"
         MenuListProps={{

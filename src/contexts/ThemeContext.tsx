@@ -1,14 +1,14 @@
+import { CssBaseline, PaletteMode } from "@mui/material";
+import { createTheme, ThemeOptions, ThemeProvider } from "@mui/material/styles";
+import useMediaQuery from "@mui/material/useMediaQuery";
+import Cookies from "js-cookie";
 import React, {
   createContext,
-  useState,
+  ReactNode,
   useEffect,
   useMemo,
-  ReactNode,
+  useState,
 } from "react";
-import Cookies from "js-cookie";
-import { ThemeProvider, createTheme, ThemeOptions } from "@mui/material/styles";
-import useMediaQuery from "@mui/material/useMediaQuery";
-import { PaletteMode } from "@mui/material";
 
 export interface ThemeContextType {
   themeMode: PaletteMode | "system";
@@ -62,7 +62,10 @@ const ThemeContextProvider: React.FC<{ children: ReactNode }> = ({
 
   return (
     <ThemeContext.Provider value={{ themeMode, setThemeMode }}>
-      <ThemeProvider theme={theme}>{children}</ThemeProvider>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        {children}
+      </ThemeProvider>
     </ThemeContext.Provider>
   );
 };
