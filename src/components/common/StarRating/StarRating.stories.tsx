@@ -1,6 +1,6 @@
 import { Meta, StoryFn } from "@storybook/react";
 import StarRating from "./StarRating";
-import { StarRatingProps } from "../entities/StarRatingProps";
+import { StarRatingProps } from "./entities/StarRatingProps";
 
 export default {
   title: "Components/Featured Deals/StarRating",

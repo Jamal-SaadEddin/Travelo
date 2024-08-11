@@ -1,13 +1,13 @@
-import { Box, Stack, Typography } from "@mui/material";
-import { hotels } from "./constants/hotels";
+import { Box, Typography, Stack } from "@mui/material";
 import { cardsStackStyles } from "../../styles";
+import { hotels } from "./constants/hotels";
 import HotelCard from "../common/HotelCard";
 
-const FeaturedDeals = () => {
+const RecentlyVisitedHotels = () => {
   return (
     <Box pt={10}>
       <Typography variant="h4" gutterBottom>
-        Featured Deals
+        Recently Visited Hotels
       </Typography>
       <Stack direction="row" sx={cardsStackStyles}>
         {hotels.map((hotel) => (
@@ -18,4 +18,4 @@ const FeaturedDeals = () => {
   );
 };
 
-export default FeaturedDeals;
+export default RecentlyVisitedHotels;

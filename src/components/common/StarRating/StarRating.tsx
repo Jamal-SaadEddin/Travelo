@@ -2,7 +2,7 @@ import StarIcon from "@mui/icons-material/Star";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
 import { Stack } from "@mui/material";
 import { Fragment } from "react/jsx-runtime";
-import { StarRatingProps } from "../entities/StarRatingProps";
+import { StarRatingProps } from "./entities/StarRatingProps";
 
 const StarRating = ({ value }: StarRatingProps) => {
   return (

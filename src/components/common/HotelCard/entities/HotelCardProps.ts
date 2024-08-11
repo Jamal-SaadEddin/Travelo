@@ -1,5 +1,5 @@
 import { Hotel } from "./Hotel";
 
-export interface HotelCardProps {
+export type HotelCardProps = {
   hotel: Hotel;
-}
+};
