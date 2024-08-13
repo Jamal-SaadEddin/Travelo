@@ -18,6 +18,8 @@ export const useStyles = () => {
       justifyContent: "space-between",
       flex: 1,
       flexBasis: "auto",
+      border:
+        theme.palette.mode === "dark" ? "7px solid #272727" : "7px solid #fff",
     },
   };
 
@@ -98,11 +100,16 @@ export const useStyles = () => {
     },
   };
 
+  const hotelListingsStyles = {
+    cardWidth: "100%",
+  };
+
   return {
     hotelCardsStyles,
     featuredDealStyles,
     recentlyVisitedHotelStyles,
     trendingDestinationStyles,
     filterComponentStyles,
+    hotelListingsStyles,
   };
 };

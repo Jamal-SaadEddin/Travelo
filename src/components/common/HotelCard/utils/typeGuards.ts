@@ -1,6 +1,7 @@
 import {
   FeaturedDealHotel,
   Hotel,
+  ListingHotel,
   RecentlyVisitedHotel,
 } from "../entities/Hotel";
 
@@ -12,4 +13,8 @@ export function isRecentlyVisitedHotel(
   hotel: Hotel,
 ): hotel is RecentlyVisitedHotel {
   return (hotel as RecentlyVisitedHotel).visitDate !== undefined;
+}
+
+export function isListingHotel(hotel: Hotel): hotel is ListingHotel {
+  return (hotel as ListingHotel).amenities !== undefined;
 }

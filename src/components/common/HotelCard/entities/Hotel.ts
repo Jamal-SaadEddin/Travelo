@@ -1,3 +1,5 @@
+import { Amenity } from "../../../FilterComponent/entities/Amenity";
+
 export interface FeaturedDealHotel {
   hotelId: number;
   originalRoomPrice: number;
@@ -22,4 +24,18 @@ export interface RecentlyVisitedHotel {
   priceUpperBound: number;
 }
 
-export type Hotel = FeaturedDealHotel | RecentlyVisitedHotel;
+export interface ListingHotel {
+  hotelId: number;
+  hotelName: string;
+  starRating: number;
+  latitude: number;
+  longitude: number;
+  roomPrice: number;
+  roomType: string;
+  cityName: string;
+  roomPhotoUrl: string;
+  discount: number;
+  amenities: Amenity[];
+}
+
+export type Hotel = FeaturedDealHotel | RecentlyVisitedHotel | ListingHotel;
