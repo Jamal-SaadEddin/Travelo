@@ -69,17 +69,22 @@ export const useStyles = () => {
       maxWidth: 400,
     },
     titleColor: theme.palette.mode === "dark" ? "grey.300" : "textSecondary",
-    sliderThumb: {
-      borderRadius: "50%",
-      width: 20,
-      height: 20,
-      border: `2px solid`,
-      borderColor: "primary.main",
-    },
-    sliderValueLabel: {
-      top: 45,
-      bgcolor: "transparent",
-      color: "inherit",
+    slider: {
+      mx: 1,
+      width: "95%",
+      "& .MuiSlider-valueLabel": {
+        top: 45,
+        bgcolor: "transparent",
+        color: "inherit",
+      },
+      "& .MuiSlider-thumb": {
+        borderRadius: "50%",
+        width: 20,
+        height: 20,
+        border: `2px solid`,
+        borderColor: "primary.main",
+        backgroundColor: theme.palette.mode === "dark" ? "grey.800" : "white",
+      },
     },
     toggleButton: {
       textTransform: "none",

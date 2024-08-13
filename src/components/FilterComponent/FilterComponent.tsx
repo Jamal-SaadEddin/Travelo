@@ -6,7 +6,6 @@ import {
   Stack,
   ToggleButton,
   Typography,
-  useTheme,
 } from "@mui/material";
 import { useState } from "react";
 import { useStyles } from "../../styles";
@@ -20,7 +19,6 @@ const FilterComponent = () => {
   const [rating, setRating] = useState<number[]>([1, 5]);
   const [selectedAmenities, setSelectedAmenities] = useState<string[]>([]);
   const [selectedRoomType, setSelectedRoomType] = useState<string[]>([]);
-  const theme = useTheme();
 
   const handlePriceChange = (_event: Event, newValue: number | number[]) => {
     setPrice(newValue as number[]);
@@ -69,16 +67,7 @@ const FilterComponent = () => {
           max={180}
           valueLabelFormat={(value) => `$${value}`}
           aria-labelledby="price-slider"
-          sx={{
-            mx: 1,
-            width: "95%",
-            "& .MuiSlider-valueLabel": filterComponentStyles.sliderValueLabel,
-            "& .MuiSlider-thumb": {
-              ...filterComponentStyles.sliderThumb,
-              backgroundColor:
-                theme.palette.mode === "dark" ? "grey.800" : "white",
-            },
-          }}
+          sx={filterComponentStyles.slider}
         />
       </Box>
       <Divider />
@@ -99,16 +88,7 @@ const FilterComponent = () => {
           max={5}
           valueLabelFormat={(value) => `${value} Star${value > 1 ? "s" : ""}`}
           aria-labelledby="star-rating-slider"
-          sx={{
-            mx: 1,
-            width: "95%",
-            "& .MuiSlider-valueLabel": filterComponentStyles.sliderValueLabel,
-            "& .MuiSlider-thumb": {
-              ...filterComponentStyles.sliderThumb,
-              backgroundColor:
-                theme.palette.mode === "dark" ? "grey.800" : "white",
-            },
-          }}
+          sx={filterComponentStyles.slider}
         />
       </Box>
       <Divider />
