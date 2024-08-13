@@ -1,12 +1,6 @@
 import { Box, Stack, ToggleButton, Typography } from "@mui/material";
+import { ToggleButtonsGroupProps } from "../entities/ToggleButtonsGroupProps";
 import { useStyles } from "./../../../styles/index";
-
-interface ToggleButtonsGroupProps {
-  title: string;
-  buttons: { name: string; icon?: JSX.Element }[];
-  selectedButtons: string[];
-  toggleButton: (buttonName: string) => void;
-}
 
 const ToggleButtonsGroup = ({
   title,

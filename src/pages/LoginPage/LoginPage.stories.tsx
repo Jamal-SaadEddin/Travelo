@@ -1,16 +1,17 @@
 import { Meta, StoryFn } from "@storybook/react";
 import { userEvent, within } from "@storybook/testing-library";
-import CustomThemeProvider from "../../CustomThemeProvider";
+
 import LoginPage, { LoginPageProps } from "./LoginPage";
+import ThemeContextProvider from "../../contexts/ThemeContext";
 
 export default {
   title: "Pages/LoginPage",
   component: LoginPage,
   decorators: [
     (Story) => (
-      <CustomThemeProvider>
+      <ThemeContextProvider>
         <Story />
-      </CustomThemeProvider>
+      </ThemeContextProvider>
     ),
   ],
 } as Meta;

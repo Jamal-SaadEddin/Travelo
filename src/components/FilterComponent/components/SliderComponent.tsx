@@ -1,16 +1,6 @@
 import { Box, Slider, Typography } from "@mui/material";
 import { useStyles } from "../../../styles";
-
-interface SliderProps {
-  title: string;
-  value: number[];
-  handleValueChange: (event: Event, newValue: number | number[]) => void;
-  steps: number;
-  minValue: number;
-  maxValue: number;
-  valueLabelFormat: (value: number) => string;
-  ariaLabelledBy: string;
-}
+import { SliderComponentProps } from "../entities/SliderComponentProps";
 
 const SliderComponent = ({
   title,
@@ -21,7 +11,7 @@ const SliderComponent = ({
   maxValue,
   valueLabelFormat,
   ariaLabelledBy,
-}: SliderProps) => {
+}: SliderComponentProps) => {
   const { filterComponentStyles } = useStyles();
 
   return (
