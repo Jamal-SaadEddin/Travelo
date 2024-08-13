@@ -5,7 +5,9 @@ import HotelListings from "../../components/HotelListings";
 const SearchResultsPage = () => {
   return (
     <Container maxWidth="lg">
-      <Toolbar />
+      <Toolbar
+        sx={{ minHeight: { xs: "20px !important", md: "56px !important" } }}
+      />
       <Grid container spacing={2}>
         <Grid item xs={12} md={5}>
           <FilterComponent />

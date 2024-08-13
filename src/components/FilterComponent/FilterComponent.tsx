@@ -1,4 +1,13 @@
-import { Divider, Paper, Typography } from "@mui/material";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
+  Divider,
+  Typography,
+  useMediaQuery,
+  useTheme,
+} from "@mui/material";
 import { useState } from "react";
 import { useStyles } from "../../styles";
 import SliderComponent from "./components/SliderComponent";
@@ -8,6 +17,8 @@ import { roomTypes } from "./constants/roomTypes";
 
 const FilterComponent = () => {
   const { filterComponentStyles } = useStyles();
+  const theme = useTheme();
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down("md"));
 
   const [price, setPrice] = useState<number[]>([100, 180]);
   const [rating, setRating] = useState<number[]>([1, 5]);
@@ -39,47 +50,57 @@ const FilterComponent = () => {
   };
 
   return (
-    <Paper elevation={3} sx={filterComponentStyles.paper}>
-      <Typography variant="h6" gutterBottom>
-        Filter by:
-      </Typography>
-      <Divider />
-      <SliderComponent
-        title="Price per night:"
-        value={price}
-        handleValueChange={handlePriceChange}
-        steps={10}
-        minValue={100}
-        maxValue={180}
-        valueLabelFormat={(value) => `$${value}`}
-        ariaLabelledBy="price-slider"
-      />
-      <Divider />
-      <SliderComponent
-        title="Star Rating:"
-        value={rating}
-        handleValueChange={handleRatingChange}
-        steps={1}
-        minValue={1}
-        maxValue={5}
-        valueLabelFormat={(value) => `${value} Star${value > 1 ? "s" : ""}`}
-        ariaLabelledBy="star-rating-slider"
-      />
-      <Divider />
-      <ToggleButtonsGroup
-        title="Amenities:"
-        buttons={amenities}
-        selectedButtons={selectedAmenities}
-        toggleButton={toggleAmenity}
-      />
-      <Divider />
-      <ToggleButtonsGroup
-        title="Room Type:"
-        buttons={roomTypes}
-        selectedButtons={selectedRoomType}
-        toggleButton={toggleRoomType}
-      />
-    </Paper>
+    <Accordion
+      elevation={3}
+      sx={filterComponentStyles.paper}
+      defaultExpanded={isSmallScreen ? false : true}
+    >
+      <AccordionSummary
+        expandIcon={<ExpandMoreIcon />}
+        aria-controls="panel1-content"
+        id="panel1-header"
+      >
+        <Typography variant="h6">Filter Results:</Typography>
+      </AccordionSummary>
+      <AccordionDetails>
+        <Divider />
+        <SliderComponent
+          title="Price per night:"
+          value={price}
+          handleValueChange={handlePriceChange}
+          steps={10}
+          minValue={100}
+          maxValue={180}
+          valueLabelFormat={(value) => `$${value}`}
+          ariaLabelledBy="price-slider"
+        />
+        <Divider />
+        <SliderComponent
+          title="Star Rating:"
+          value={rating}
+          handleValueChange={handleRatingChange}
+          steps={1}
+          minValue={1}
+          maxValue={5}
+          valueLabelFormat={(value) => `${value} Star${value > 1 ? "s" : ""}`}
+          ariaLabelledBy="star-rating-slider"
+        />
+        <Divider />
+        <ToggleButtonsGroup
+          title="Amenities:"
+          buttons={amenities}
+          selectedButtons={selectedAmenities}
+          toggleButton={toggleAmenity}
+        />
+        <Divider />
+        <ToggleButtonsGroup
+          title="Room Type:"
+          buttons={roomTypes}
+          selectedButtons={selectedRoomType}
+          toggleButton={toggleRoomType}
+        />
+      </AccordionDetails>
+    </Accordion>
   );
 };
 

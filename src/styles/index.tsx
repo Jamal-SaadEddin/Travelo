@@ -67,10 +67,12 @@ export const useStyles = () => {
 
   const filterComponentStyles = {
     paper: {
-      padding: 3,
+      padding: 1,
       minWidth: 300,
       maxWidth: 650,
-      mx: "auto",
+      mx: "auto !important",
+      position: "sticky !important",
+      top: "90px !important",
     },
     titleColor: theme.palette.mode === "dark" ? "grey.300" : "textSecondary",
     slider: {
