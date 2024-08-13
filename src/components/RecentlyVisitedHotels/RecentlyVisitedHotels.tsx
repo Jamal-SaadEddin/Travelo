@@ -1,9 +1,11 @@
 import { Stack } from "@mui/material";
-import { hotelCardsStyles } from "../../styles";
+import { useStyles } from "../../styles";
 import HotelCard from "../common/HotelCard";
 import { hotels } from "./constants/hotels";
 
 const RecentlyVisitedHotels = () => {
+  const { hotelCardsStyles } = useStyles();
+
   return (
     <Stack direction="row" sx={hotelCardsStyles.cardsStackStyles}>
       {hotels.map((hotel) => (
