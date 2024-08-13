@@ -59,7 +59,7 @@ const HotelCard = ({ hotel }: HotelCardProps) => {
         {isListingHotel(hotel) && (
           <Stack direction="row" gap={1}>
             {hotel.amenities.map((amenity) => (
-              <Typography key={amenity.id} variant="body1">
+              <Typography key={amenity.name} variant="body1">
                 {hotel.starRating > 3
                   ? "😍"
                   : hotel.starRating > 1

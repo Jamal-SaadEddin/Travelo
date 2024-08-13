@@ -7,10 +7,10 @@ const SearchResultsPage = () => {
     <Container maxWidth="lg">
       <Toolbar />
       <Grid container spacing={2}>
-        <Grid item xs={12} sm={5}>
+        <Grid item xs={12} md={5}>
           <FilterComponent />
         </Grid>
-        <Grid item xs={12} sm={7}>
+        <Grid item xs={12} md={7}>
           <HotelListings />
         </Grid>
       </Grid>

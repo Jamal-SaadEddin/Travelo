@@ -11,8 +11,9 @@ export const useStyles = () => {
       gap: 4,
     },
     cardStyles: {
-      maxWidth: 728,
+      maxWidth: 650,
       minWidth: 300,
+      mx: "auto",
       display: "flex",
       flexDirection: "column",
       justifyContent: "space-between",
@@ -68,7 +69,8 @@ export const useStyles = () => {
     paper: {
       padding: 3,
       minWidth: 300,
-      maxWidth: 400,
+      maxWidth: 650,
+      mx: "auto",
     },
     titleColor: theme.palette.mode === "dark" ? "grey.300" : "textSecondary",
     slider: {
