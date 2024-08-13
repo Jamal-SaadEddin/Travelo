@@ -1,14 +1,8 @@
-import {
-  Box,
-  Divider,
-  Paper,
-  Slider,
-  Stack,
-  ToggleButton,
-  Typography,
-} from "@mui/material";
+import { Divider, Paper, Typography } from "@mui/material";
 import { useState } from "react";
 import { useStyles } from "../../styles";
+import SliderComponent from "./components/SliderComponent";
+import ToggleButtonsGroup from "./components/ToggleButtonsGroup";
 import { amenities } from "./constants/amenities";
 import { roomTypes } from "./constants/roomTypes";
 
@@ -50,105 +44,41 @@ const FilterComponent = () => {
         Filter by:
       </Typography>
       <Divider />
-      <Box my={2}>
-        <Typography
-          variant="subtitle1"
-          color={filterComponentStyles.titleColor}
-        >
-          Price per night:
-        </Typography>
-        <Slider
-          value={price}
-          onChange={handlePriceChange}
-          valueLabelDisplay="on"
-          step={10}
-          marks
-          min={100}
-          max={180}
-          valueLabelFormat={(value) => `$${value}`}
-          aria-labelledby="price-slider"
-          sx={filterComponentStyles.slider}
-        />
-      </Box>
+      <SliderComponent
+        title="Price per night:"
+        value={price}
+        handleValueChange={handlePriceChange}
+        steps={10}
+        minValue={100}
+        maxValue={180}
+        valueLabelFormat={(value) => `$${value}`}
+        ariaLabelledBy="price-slider"
+      />
       <Divider />
-      <Box my={2}>
-        <Typography
-          variant="subtitle1"
-          color={filterComponentStyles.titleColor}
-        >
-          Star Rating:
-        </Typography>
-        <Slider
-          value={rating}
-          onChange={handleRatingChange}
-          valueLabelDisplay="on"
-          step={1}
-          marks
-          min={1}
-          max={5}
-          valueLabelFormat={(value) => `${value} Star${value > 1 ? "s" : ""}`}
-          aria-labelledby="star-rating-slider"
-          sx={filterComponentStyles.slider}
-        />
-      </Box>
+      <SliderComponent
+        title="Star Rating:"
+        value={rating}
+        handleValueChange={handleRatingChange}
+        steps={1}
+        minValue={1}
+        maxValue={5}
+        valueLabelFormat={(value) => `${value} Star${value > 1 ? "s" : ""}`}
+        ariaLabelledBy="star-rating-slider"
+      />
       <Divider />
-      <Box my={2}>
-        <Typography
-          variant="subtitle1"
-          color={filterComponentStyles.titleColor}
-        >
-          Amenities:
-        </Typography>
-        <Stack direction="row" gap={1} my={1} flexWrap="wrap">
-          {amenities.map((amenity) => (
-            <ToggleButton
-              key={amenity.id}
-              value={amenity.name}
-              size="large"
-              disableRipple
-              selected={selectedAmenities.includes(amenity.name)}
-              onChange={() => toggleAmenity(amenity.name)}
-              sx={{
-                ...filterComponentStyles.toggleButton,
-                backgroundColor: selectedAmenities.includes(amenity.name)
-                  ? "primary.main"
-                  : "",
-              }}
-            >
-              {amenity.icon} {amenity.name}
-            </ToggleButton>
-          ))}
-        </Stack>
-      </Box>
+      <ToggleButtonsGroup
+        title="Amenities:"
+        buttons={amenities}
+        selectedButtons={selectedAmenities}
+        toggleButton={toggleAmenity}
+      />
       <Divider />
-      <Box my={2}>
-        <Typography
-          variant="subtitle1"
-          color={filterComponentStyles.titleColor}
-        >
-          Room Type:
-        </Typography>
-        <Stack direction="row" gap={1} my={1} flexWrap="wrap">
-          {roomTypes.map((roomType) => (
-            <ToggleButton
-              key={roomType}
-              value={roomType}
-              size="large"
-              disableRipple
-              selected={selectedRoomType.includes(roomType)}
-              onChange={() => toggleRoomType(roomType)}
-              sx={{
-                ...filterComponentStyles.toggleButton,
-                backgroundColor: selectedRoomType.includes(roomType)
-                  ? "primary.main"
-                  : "",
-              }}
-            >
-              {roomType}
-            </ToggleButton>
-          ))}
-        </Stack>
-      </Box>
+      <ToggleButtonsGroup
+        title="Room Type:"
+        buttons={roomTypes}
+        selectedButtons={selectedRoomType}
+        toggleButton={toggleRoomType}
+      />
     </Paper>
   );
 };

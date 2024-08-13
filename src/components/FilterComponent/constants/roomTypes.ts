@@ -1,7 +1,17 @@
 export const roomTypes = [
-  "Double",
-  "King Suite",
-  "Standard",
-  "Cabin",
-  "Ocean View",
+  {
+    name: "Double",
+  },
+  {
+    name: "King Suite",
+  },
+  {
+    name: "Standard",
+  },
+  {
+    name: "Cabin",
+  },
+  {
+    name: "Ocean View",
+  },
 ];
