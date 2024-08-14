@@ -3,7 +3,7 @@ import FastfoodIcon from "@mui/icons-material/Fastfood";
 import HikingIcon from "@mui/icons-material/Hiking";
 import LocalBarIcon from "@mui/icons-material/LocalBar";
 import RoomServiceIcon from "@mui/icons-material/RoomService";
-import SelfImprovementIcon from "@mui/icons-material/SelfImprovement";
+import Spa from "@mui/icons-material/Spa";
 import WifiIcon from "@mui/icons-material/Wifi";
 import { Amenity } from "../entities/Amenity";
 
@@ -45,7 +45,7 @@ export const amenities: Amenity[] = [
     id: 6,
     name: "Spa Services",
     description: "Relax with in-room spa services.",
-    icon: <SelfImprovementIcon sx={{ marginRight: 1 }} />,
+    icon: <Spa sx={{ marginRight: 1 }} />,
   },
   {
     id: 7,
