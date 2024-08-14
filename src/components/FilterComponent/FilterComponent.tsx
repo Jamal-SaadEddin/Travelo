@@ -8,22 +8,42 @@ import {
   useMediaQuery,
   useTheme,
 } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useStyles } from "../../styles";
+import { hotels } from "../HotelListings/constants/hotels";
+import { ListingHotel } from "../common/HotelCard/entities/Hotel";
 import SliderComponent from "./components/SliderComponent";
 import ToggleButtonsGroup from "./components/ToggleButtonsGroup";
 import { amenities } from "./constants/amenities";
 import { roomTypes } from "./constants/roomTypes";
+import useFilteredHotelsStore from "./store/filteredHotelsStore";
+import { filterHotels } from "./utils/filterHotels";
 
 const FilterComponent = () => {
   const { filterComponentStyles } = useStyles();
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("md"));
 
+  const { setFilteredHotels } = useFilteredHotelsStore();
+
   const [price, setPrice] = useState<number[]>([100, 180]);
   const [rating, setRating] = useState<number[]>([1, 5]);
   const [selectedAmenities, setSelectedAmenities] = useState<string[]>([]);
   const [selectedRoomType, setSelectedRoomType] = useState<string[]>([]);
+
+  const applyFilters = () =>
+    filterHotels(hotels as ListingHotel[], {
+      price,
+      rating,
+      selectedAmenities,
+      selectedRoomType,
+    });
+
+  // Apply filters whenever any of the filter states change
+  useEffect(() => {
+    setFilteredHotels(applyFilters());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [price, rating, selectedAmenities, selectedRoomType]);
 
   const handlePriceChange = (_event: Event, newValue: number | number[]) => {
     setPrice(newValue as number[]);
