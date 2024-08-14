@@ -10,7 +10,7 @@ import { leftNavLinks, rightNavLinks } from "./constants/links";
 const Navbar = () => {
   return (
     <>
-      <MuiAppBar position="fixed">
+      <MuiAppBar position="fixed" sx={{ zIndex: 1000 }}>
         <Container maxWidth="xl">
           <MuiToolbar
             sx={{ justifyContent: "space-between", px: "0 !important" }}

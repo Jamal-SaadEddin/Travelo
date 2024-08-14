@@ -1,4 +1,5 @@
 import { Container, Divider, Toolbar } from "@mui/material";
+import HotelGallery from "../../components/HotelGallery";
 import HotelPageHeader from "../../components/HotelPageHeader";
 
 const HotelPage = () => {
@@ -9,6 +10,7 @@ const HotelPage = () => {
       />
       <HotelPageHeader />
       <Divider sx={{ my: 2 }} />
+      <HotelGallery />
     </Container>
   );
 };
