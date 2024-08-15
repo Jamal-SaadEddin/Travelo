@@ -5,20 +5,25 @@ import { ReviewItemProps } from "../entities/ReviewItemProps";
 import { stringAvatar } from "../utils/stringAvatar";
 
 const ReviewItem = ({ review }: ReviewItemProps) => {
+  const { children, bgcolor } = stringAvatar(review.customerName);
+
   return (
-    <Stack p={2} gap={2} justifyContent="space-between" height="156px">
+    <Stack p={2} gap={2} justifyContent="space-between" height="128px">
       <Typography variant="body1">
         “{truncateText(review.description, 100)}”
       </Typography>
       <Stack direction="row" justifyContent="space-between" alignItems="center">
-        <Typography variant="h6" align="center">
+        <Typography>
           <Stack
             direction="row"
             justifyContent="space-between"
             alignItems="center"
             gap={1}
           >
-            <Avatar {...stringAvatar(review.customerName)} />
+            <Avatar
+              sx={{ width: 32, height: 32, fontSize: "1rem", bgcolor: bgcolor }}
+              children={children}
+            />
             {review.customerName}
           </Stack>
         </Typography>

@@ -29,13 +29,8 @@ const Header = () => {
   };
 
   return (
-    <Stack
-      direction="row"
-      justifyContent="space-between"
-      alignItems="center"
-      mb={1}
-    >
-      <Typography variant="h4">Reviews</Typography>
+    <Stack direction="row" justifyContent="space-between" alignItems="center">
+      <Typography variant="h5">Reviews</Typography>
       <Button sx={styles} onClick={toggleDrawer(true)}>
         View all
       </Button>
@@ -47,7 +42,7 @@ const Header = () => {
             alignItems="center"
             mb={2}
           >
-            <Typography variant="h4">All Reviews</Typography>
+            <Typography variant="h5">All Reviews</Typography>
             <IconButton onClick={toggleDrawer(false)}>
               <CloseIcon />
             </IconButton>
