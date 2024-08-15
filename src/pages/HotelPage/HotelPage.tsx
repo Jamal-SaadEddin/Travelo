@@ -1,4 +1,5 @@
 import { Container, Divider, Grid, Toolbar } from "@mui/material";
+import AmenitiesStack from "../../components/AmenitiesStack";
 import HotelGallery from "../../components/HotelGallery";
 import HotelPageHeader from "../../components/HotelPageHeader";
 import ReviewsSlider from "../../components/ReviewsSlider";
@@ -16,12 +17,12 @@ const HotelPage = () => {
           <HotelGallery />
         </Grid>
         <Grid item xs={12} md={5.5} lg={4}>
-          <Grid container spacing={2} alignItems="center">
+          <Grid container alignItems="center" spacing={3}>
             <Grid item xs={12}>
               <ReviewsSlider />
             </Grid>
             <Grid item xs={12}>
-              {/* <ReviewsSlider /> */}
+              <AmenitiesStack />
             </Grid>
           </Grid>
         </Grid>
