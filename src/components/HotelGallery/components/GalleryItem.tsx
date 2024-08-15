@@ -6,10 +6,11 @@ const StyledChip = styled(Chip)(() => ({
   bottom: 10,
   right: 10,
   borderColor: "white",
-  backgroundColor: "#fff",
+  backgroundColor: "#ffc604",
+  color: "black",
+  fontWeight: 600,
   fontSize: "1.2rem",
   padding: "20px 5px",
-  fontWeight: "normal",
 }));
 
 const StyledImage = styled("img")({
