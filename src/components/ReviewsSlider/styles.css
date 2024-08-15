@@ -1,0 +1,12 @@
+.slick-arrow::before {
+  color: #ffc604;
+}
+
+.slider-container {
+  width: 90%;
+  margin: auto;
+}
+
+/* .slick-slide {
+  height: 100%;
+} */
