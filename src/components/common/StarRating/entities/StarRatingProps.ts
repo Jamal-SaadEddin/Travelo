@@ -1,4 +1,4 @@
 export interface StarRatingProps {
-  value: number;
+  rating: number;
   large?: boolean;
 }

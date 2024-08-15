@@ -22,7 +22,7 @@ const HotelPageHeader = () => {
           <Typography variant="subtitle1">Ramallah, Palestine</Typography>
         </Stack>
       </Stack>
-      <StarRating value={4} large={!isXSmallScreen} />
+      <StarRating rating={4} large={!isXSmallScreen} />
     </Stack>
   );
 };
