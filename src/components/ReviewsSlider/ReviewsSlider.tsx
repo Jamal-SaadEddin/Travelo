@@ -9,7 +9,7 @@ import "./styles.css";
 
 const ReviewsSlider = ({ reviews }: ReviewsSliderProps) => {
   return (
-    <Paper sx={{ p: 2 }}>
+    <Paper elevation={3} sx={{ p: 2 }}>
       <Header />
       <Slider infinite={false} className="slider-container">
         {reviews.slice(0, 5).map((review) => (

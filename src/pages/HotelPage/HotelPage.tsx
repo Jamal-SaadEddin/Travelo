@@ -1,14 +1,15 @@
 import { Container, Divider, Grid, Toolbar } from "@mui/material";
 import AmenitiesStack from "../../components/AmenitiesStack";
 import HotelGallery from "../../components/HotelGallery";
+import { gallery } from "../../components/HotelGallery/constants/gallery";
+import HotelOverview from "../../components/HotelOverview";
 import HotelPageHeader from "../../components/HotelPageHeader";
 import ReviewsSlider from "../../components/ReviewsSlider";
-import { HotelPageProps } from "./entities/HotelPageProps";
-import { gallery } from "../../components/HotelGallery/constants/gallery";
 import { reviews } from "../../components/ReviewsSlider/constants/reviews";
+import { HotelPageProps } from "./entities/HotelPageProps";
 
 const HotelPage = ({ hotel }: HotelPageProps) => {
-  const { hotelName, location, starRating, amenities } = hotel;
+  const { hotelName, location, starRating, amenities, description } = hotel;
 
   return (
     <Container maxWidth="xl">
@@ -21,19 +22,31 @@ const HotelPage = ({ hotel }: HotelPageProps) => {
         starRating={starRating}
       />
       <Divider sx={{ my: 2 }} />
-      <Grid container spacing={2} alignItems="center" direction="row-reverse">
-        <Grid item xs={12} md={6.5} lg={8}>
-          <HotelGallery gallery={gallery} />
-          <Divider sx={{ my: 2 }} />
+      <Grid container spacing={2} alignItems="center">
+        <Grid
+          item
+          container
+          spacing={2}
+          alignItems="center"
+          direction="row-reverse"
+        >
+          <Grid item xs={12} md={6.5} lg={8}>
+            <HotelGallery gallery={gallery} />
+          </Grid>
+          <Grid item xs={12} md={5.5} lg={4}>
+            <Grid container alignItems="center" spacing={3}>
+              <Grid item xs={12}>
+                <HotelOverview description={description} />
+              </Grid>
+              <Grid item xs={12}>
+                <ReviewsSlider reviews={reviews} />
+              </Grid>
+            </Grid>
+          </Grid>
         </Grid>
-        <Grid item xs={12} md={5.5} lg={4}>
-          <Grid container alignItems="center" spacing={3}>
-            <Grid item xs={12}>
-              <ReviewsSlider reviews={reviews} />
-            </Grid>
-            <Grid item xs={12}>
-              <AmenitiesStack amenities={amenities} />
-            </Grid>
+        <Grid item container spacing={2} alignItems="center">
+          <Grid item xs={12} md={5.5} lg={4}>
+            <AmenitiesStack amenities={amenities} />
           </Grid>
         </Grid>
       </Grid>
