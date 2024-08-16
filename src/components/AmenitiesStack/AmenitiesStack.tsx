@@ -1,11 +1,11 @@
 import { Stack } from "@mui/material";
 import Amenity from "./components/Amenity";
-import { hotelAmenities } from "./constants/hotelAmenities";
+import { AmenitiesStackProps } from "./entities/AmenitiesStackProps";
 
-const AmenitiesStack = () => {
+const AmenitiesStack = ({ amenities }: AmenitiesStackProps) => {
   return (
     <Stack gap={1} flexDirection="row" flexWrap="wrap">
-      {hotelAmenities.map((amenity) => (
+      {amenities.map((amenity) => (
         <Amenity key={amenity.name} {...amenity} />
       ))}
     </Stack>

@@ -49,8 +49,8 @@ const Header = () => {
           </Stack>
           <Stack spacing={2}>
             {reviews.map((review) => (
-              <Paper sx={{ maxWidth: "408px" }}>
-                <ReviewItem key={review.reviewId} review={review} />
+              <Paper key={review.reviewId} sx={{ maxWidth: "408px" }}>
+                <ReviewItem review={review} />
               </Paper>
             ))}
           </Stack>

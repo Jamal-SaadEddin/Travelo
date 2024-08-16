@@ -4,10 +4,10 @@ import "slick-carousel/slick/slick-theme.css";
 import "slick-carousel/slick/slick.css";
 import Header from "./components/Header";
 import ReviewItem from "./components/ReviewItem";
-import { reviews } from "./constants/reviews";
+import { ReviewsSliderProps } from "./entities/ReviewsSliderProps";
 import "./styles.css";
 
-const ReviewsSlider = () => {
+const ReviewsSlider = ({ reviews }: ReviewsSliderProps) => {
   return (
     <Paper sx={{ p: 2 }}>
       <Header />
