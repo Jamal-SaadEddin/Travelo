@@ -4,7 +4,7 @@ import { AmenitiesStackProps } from "./entities/AmenitiesStackProps";
 
 const AmenitiesStack = ({ amenities }: AmenitiesStackProps) => {
   return (
-    <Stack gap={1} flexDirection="row" flexWrap="wrap">
+    <Stack gap={1} justifyContent="center" flexDirection="row" flexWrap="wrap">
       {amenities.map((amenity) => (
         <Amenity key={amenity.name} {...amenity} />
       ))}
