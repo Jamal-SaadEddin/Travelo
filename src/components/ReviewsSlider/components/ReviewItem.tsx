@@ -8,7 +8,13 @@ const ReviewItem = ({ review }: ReviewItemProps) => {
   const { children, bgcolor } = stringAvatar(review.customerName);
 
   return (
-    <Stack p={2} gap={2} justifyContent="space-between" height="128px">
+    <Stack
+      p={2}
+      gap={2}
+      justifyContent="space-between"
+      height="fit-content"
+      maxHeight="160px"
+    >
       <Typography variant="body1">
         “{truncateText(review.description, 100)}”
       </Typography>
