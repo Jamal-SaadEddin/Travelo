@@ -4,7 +4,7 @@ import HotelListings from "../../components/HotelListings";
 
 const SearchResultsPage = () => {
   return (
-    <Container maxWidth="lg">
+    <Container maxWidth="xl">
       <Toolbar
         sx={{ minHeight: { xs: "20px !important", md: "56px !important" } }}
       />

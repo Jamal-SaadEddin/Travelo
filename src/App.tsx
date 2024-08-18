@@ -1,12 +1,15 @@
 import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
+import HomePage from "./pages/HomePage";
+import HotelPage from "./pages/HotelPage";
 import SearchResultsPage from "./pages/SearchResultsPage";
 
 const App = () => {
   return (
     <>
       <Navbar />
-      <SearchResultsPage />
+      <HotelPage />
+      {/* <SearchResultsPage /> */}
       {/* <HomePage /> */}
       <Footer />
     </>

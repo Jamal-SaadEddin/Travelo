@@ -4,15 +4,17 @@ import { Stack } from "@mui/material";
 import { Fragment } from "react/jsx-runtime";
 import { StarRatingProps } from "./entities/StarRatingProps";
 
-const StarRating = ({ value }: StarRatingProps) => {
+const StarRating = ({ value, large }: StarRatingProps) => {
+  const fontSize = large ? "large" : "medium";
+
   return (
     <Stack direction="row">
       {Array.from({ length: 5 }).map((_, index) => (
         <Fragment key={index}>
           {index < value ? (
-            <StarIcon color="primary" />
+            <StarIcon fontSize={fontSize} color="primary" />
           ) : (
-            <StarBorderIcon color="primary" />
+            <StarBorderIcon fontSize={fontSize} color="primary" />
           )}
         </Fragment>
       ))}
