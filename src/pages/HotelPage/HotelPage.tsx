@@ -1,5 +1,6 @@
 import { Container, Divider, Grid, Toolbar } from "@mui/material";
 import AmenitiesStack from "../../components/AmenitiesStack";
+import AvailableRooms from "../../components/AvailableRooms";
 import HotelGallery from "../../components/HotelGallery";
 import { gallery } from "../../components/HotelGallery/constants/gallery";
 import HotelOverview from "../../components/HotelOverview";
@@ -31,15 +32,8 @@ const HotelPage = ({ hotel }: HotelPageProps) => {
         starRating={starRating}
       />
       <Divider sx={{ my: 2 }} />
-      <Grid container spacing={2} alignItems="center">
-        <Grid
-          item
-          xs={12}
-          container
-          spacing={2}
-          alignItems="center"
-          direction="row-reverse"
-        >
+      <Grid container spacing={2}>
+        <Grid item xs={12} container spacing={2} direction="row-reverse">
           <Grid item container spacing={2} xs={12} md={6.5} lg={8}>
             <Grid item xs={12}>
               <HotelGallery gallery={gallery} />
@@ -47,9 +41,15 @@ const HotelPage = ({ hotel }: HotelPageProps) => {
             <Grid item xs={12}>
               <AmenitiesStack amenities={amenities} />
             </Grid>
+            <Grid item xs={12}>
+              <HotelOverview description={description} />
+            </Grid>
+            <Grid item xs={12}>
+              <AvailableRooms />
+            </Grid>
           </Grid>
           <Grid item xs={12} md={5.5} lg={4}>
-            <Grid container alignItems="center" spacing={3}>
+            <Grid container spacing={3}>
               <Grid item xs={12}>
                 <ReviewsSlider reviews={reviews} />
               </Grid>
@@ -57,11 +57,6 @@ const HotelPage = ({ hotel }: HotelPageProps) => {
                 <Map latitude={latitude} longitude={longitude} />
               </Grid>
             </Grid>
-          </Grid>
-        </Grid>
-        <Grid item xs={12} container spacing={2} alignItems="center">
-          <Grid item xs={12} md={5.5} lg={4}>
-            <HotelOverview description={description} />
           </Grid>
         </Grid>
       </Grid>
