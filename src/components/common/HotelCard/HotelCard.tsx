@@ -9,11 +9,7 @@ import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { SxProps } from "@mui/system";
 import { truncateText } from "../../../services/truncateText";
-import {
-  featuredDealStyles,
-  hotelCardsStyles,
-  recentlyVisitedHotelStyles,
-} from "../../../styles";
+import { useStyles } from "../../../styles";
 import StarRating from "../StarRating";
 import { HotelCardProps } from "./entities/HotelCardProps";
 import {
@@ -22,6 +18,9 @@ import {
 } from "./utils/typeGuards";
 
 const HotelCard = ({ hotel }: HotelCardProps) => {
+  const { hotelCardsStyles, featuredDealStyles, recentlyVisitedHotelStyles } =
+    useStyles();
+
   const dynamicCardStyles: SxProps = {
     ...hotelCardsStyles.cardStyles,
     width: isRecentlyVisitedHotel(hotel)
