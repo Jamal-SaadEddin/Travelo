@@ -33,7 +33,7 @@ const HotelPage = ({ hotel }: HotelPageProps) => {
       />
       <Divider sx={{ my: 2 }} />
       <Grid container spacing={2}>
-        <Grid item xs={12} container spacing={2} direction="row-reverse">
+        <Grid item xs={12} container spacing={2}>
           <Grid item container spacing={2} xs={12} md={6.5} lg={8}>
             <Grid item xs={12}>
               <HotelGallery gallery={gallery} />

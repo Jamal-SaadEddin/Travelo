@@ -10,7 +10,7 @@ const AvailableRooms = () => {
       </Typography>
       <Grid container spacing={2}>
         {availableRooms.map((room) => (
-          <Grid item key={room.roomId} xs={12} md={6}>
+          <Grid item key={room.roomId} xs={12} lg={6}>
             <RoomCard room={room} />
           </Grid>
         ))}
