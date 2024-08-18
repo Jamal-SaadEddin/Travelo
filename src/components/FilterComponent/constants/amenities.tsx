@@ -1,24 +1,25 @@
-import { Amenity } from "../entities/Amenity";
-import AcUnitIcon from "@mui/icons-material/AcUnit";
 import BalconyIcon from "@mui/icons-material/Balcony";
+import FastfoodIcon from "@mui/icons-material/Fastfood";
+import HikingIcon from "@mui/icons-material/Hiking";
 import LocalBarIcon from "@mui/icons-material/LocalBar";
-import TvIcon from "@mui/icons-material/Tv";
+import RoomServiceIcon from "@mui/icons-material/RoomService";
+import SelfImprovementIcon from "@mui/icons-material/SelfImprovement";
 import WifiIcon from "@mui/icons-material/Wifi";
+import { Amenity } from "../entities/Amenity";
 
 export const amenities: Amenity[] = [
   {
     id: 1,
-    name: "Free Wi-Fi",
+    name: "wifi",
     description:
       "Stay connected with complimentary high-speed Wi-Fi available in all rooms.",
     icon: <WifiIcon sx={{ marginRight: 1 }} />,
   },
   {
     id: 2,
-    name: "Air Conditioning",
-    description:
-      "Enjoy a comfortable stay with individually controlled air conditioning in every room.",
-    icon: <AcUnitIcon sx={{ marginRight: 1 }} />,
+    name: "Free Breakfast",
+    description: "Complimentary breakfast included.",
+    icon: <FastfoodIcon sx={{ marginRight: 1 }} />,
   },
   {
     id: 3,
@@ -29,10 +30,9 @@ export const amenities: Amenity[] = [
   },
   {
     id: 4,
-    name: "Flat-screen TV",
-    description:
-      "Relax and enjoy your favorite shows or movies on a modern flat-screen TV.",
-    icon: <TvIcon sx={{ marginRight: 1 }} />,
+    name: "Room Service",
+    description: "Very Fast room service available.",
+    icon: <RoomServiceIcon sx={{ marginRight: 1 }} />,
   },
   {
     id: 5,
@@ -40,5 +40,17 @@ export const amenities: Amenity[] = [
     description:
       "Take in breathtaking views from your private balcony, available in select rooms.",
     icon: <BalconyIcon sx={{ marginRight: 1 }} />,
+  },
+  {
+    id: 6,
+    name: "Spa Services",
+    description: "Relax with in-room spa services.",
+    icon: <SelfImprovementIcon sx={{ marginRight: 1 }} />,
+  },
+  {
+    id: 7,
+    name: "Hiking Trails",
+    description: "Access to scenic hiking trails.",
+    icon: <HikingIcon sx={{ marginRight: 1 }} />,
   },
 ];

@@ -1,6 +1,6 @@
 import HotelIcon from "@mui/icons-material/Hotel";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
-import { Stack } from "@mui/material";
+import { Chip, Stack } from "@mui/material";
 import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
@@ -14,28 +14,37 @@ import StarRating from "../StarRating";
 import { HotelCardProps } from "./entities/HotelCardProps";
 import {
   isFeaturedDealHotel,
+  isListingHotel,
   isRecentlyVisitedHotel,
 } from "./utils/typeGuards";
 
 const HotelCard = ({ hotel }: HotelCardProps) => {
-  const { hotelCardsStyles, featuredDealStyles, recentlyVisitedHotelStyles } =
-    useStyles();
+  const {
+    hotelCardsStyles,
+    featuredDealStyles,
+    recentlyVisitedHotelStyles,
+    hotelListingsStyles,
+  } = useStyles();
 
   const dynamicCardStyles: SxProps = {
     ...hotelCardsStyles.cardStyles,
     width: isRecentlyVisitedHotel(hotel)
       ? recentlyVisitedHotelStyles.cardWidth
-      : featuredDealStyles.cardWidth,
+      : isFeaturedDealHotel(hotel)
+        ? featuredDealStyles.cardWidth
+        : hotelListingsStyles.cardWidth,
   };
 
   return (
-    <Card sx={dynamicCardStyles}>
+    <Card elevation={3} sx={dynamicCardStyles}>
       <CardMedia
         component="img"
         alt={`${hotel.hotelName} image`}
-        height="220"
+        height={isListingHotel(hotel) ? "320" : "220"}
         image={
-          isFeaturedDealHotel(hotel) ? hotel.roomPhotoUrl : hotel.thumbnailUrl
+          isFeaturedDealHotel(hotel) || isListingHotel(hotel)
+            ? hotel.roomPhotoUrl
+            : hotel.thumbnailUrl
         }
       />
       <CardContent sx={{ flexGrow: 1 }}>
@@ -46,6 +55,20 @@ const HotelCard = ({ hotel }: HotelCardProps) => {
           <Typography variant="body2">
             {truncateText(hotel.description, 150)}
           </Typography>
+        )}
+        {isListingHotel(hotel) && (
+          <Stack direction="row" gap={1}>
+            {hotel.amenities.map((amenity) => (
+              <Typography key={amenity.name} variant="body1">
+                {hotel.starRating > 3
+                  ? "😍"
+                  : hotel.starRating > 1
+                    ? "✨"
+                    : "🙂"}{" "}
+                {amenity.name}
+              </Typography>
+            ))}
+          </Stack>
         )}
         <Stack direction="column" gap={1} pt={1}>
           <Stack direction="row" justifyContent="space-between">
@@ -68,7 +91,7 @@ const HotelCard = ({ hotel }: HotelCardProps) => {
                 <Typography variant="body1">{hotel.hotelName}</Typography>
               </Stack>
             )}
-            <Stack direction="row" alignItems="center" gap={1}>
+            <Stack direction="row" alignItems="center">
               {isFeaturedDealHotel(hotel) ? (
                 <>
                   <Typography
@@ -79,23 +102,35 @@ const HotelCard = ({ hotel }: HotelCardProps) => {
                     ${hotel.originalRoomPrice}
                   </Typography>
                   <Typography variant="subtitle1" color="success.main">
-                    ${hotel.finalPrice}
+                    &nbsp; ${hotel.finalPrice}
                   </Typography>
                 </>
-              ) : (
+              ) : isRecentlyVisitedHotel(hotel) ? (
                 <>
                   <Typography variant="subtitle1" color="success.main">
                     ${hotel.priceLowerBound}
                   </Typography>
                   <Typography variant="subtitle1" color="text.primary">
-                    -
+                    &nbsp;-&nbsp;
                   </Typography>
                   <Typography variant="subtitle1" color="error.main">
                     ${hotel.priceUpperBound}
                   </Typography>
                 </>
+              ) : (
+                <>
+                  <Typography variant="subtitle1" color="success.main">
+                    ${hotel.roomPrice}
+                  </Typography>
+                  <Typography variant="subtitle1" color="text.secondary">
+                    &nbsp;/ night
+                  </Typography>
+                </>
               )}
             </Stack>
+            {isListingHotel(hotel) && (
+              <Chip label={`${hotel.roomType} Room`} color="info" />
+            )}
           </Stack>
           {isRecentlyVisitedHotel(hotel) && (
             <Typography variant="body2" color="text.secondary">
@@ -104,7 +139,7 @@ const HotelCard = ({ hotel }: HotelCardProps) => {
           )}
         </Stack>
       </CardContent>
-      {isFeaturedDealHotel(hotel) && (
+      {(isFeaturedDealHotel(hotel) || isListingHotel(hotel)) && (
         <CardActions sx={{ justifyContent: "center", mt: "auto", pb: 3 }}>
           <Button variant="contained">Show more details</Button>
         </CardActions>

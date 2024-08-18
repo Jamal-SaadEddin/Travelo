@@ -1,4 +1,11 @@
-import { Box, Stack, ToggleButton, Typography } from "@mui/material";
+import {
+  Box,
+  Fade,
+  Stack,
+  ToggleButton,
+  Tooltip,
+  Typography,
+} from "@mui/material";
 import { ToggleButtonsGroupProps } from "../entities/ToggleButtonsGroupProps";
 import { useStyles } from "./../../../styles/index";
 
@@ -17,22 +24,29 @@ const ToggleButtonsGroup = ({
       </Typography>
       <Stack direction="row" gap={1} my={1} flexWrap="wrap">
         {buttons.map((button) => (
-          <ToggleButton
-            key={button.name}
-            value={button.name}
-            size="large"
-            disableRipple
-            selected={selectedButtons.includes(button.name)}
-            onChange={() => toggleButton(button.name)}
-            sx={{
-              ...filterComponentStyles.toggleButton,
-              backgroundColor: selectedButtons.includes(button.name)
-                ? "primary.main"
-                : "",
-            }}
+          <Tooltip
+            title={button.description}
+            arrow
+            placement="top"
+            TransitionComponent={Fade}
           >
-            {button.icon} {button.name}
-          </ToggleButton>
+            <ToggleButton
+              key={button.name}
+              value={button.name}
+              size="large"
+              disableRipple
+              selected={selectedButtons.includes(button.name)}
+              onChange={() => toggleButton(button.name)}
+              sx={{
+                ...filterComponentStyles.toggleButton,
+                backgroundColor: selectedButtons.includes(button.name)
+                  ? "primary.main"
+                  : "",
+              }}
+            >
+              {button.icon} {button.name}
+            </ToggleButton>
+          </Tooltip>
         ))}
       </Stack>
     </Box>

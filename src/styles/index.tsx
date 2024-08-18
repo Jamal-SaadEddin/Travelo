@@ -11,13 +11,16 @@ export const useStyles = () => {
       gap: 4,
     },
     cardStyles: {
-      maxWidth: 728,
+      maxWidth: 650,
       minWidth: 300,
+      mx: "auto",
       display: "flex",
       flexDirection: "column",
       justifyContent: "space-between",
       flex: 1,
       flexBasis: "auto",
+      border:
+        theme.palette.mode === "dark" ? "7px solid #272727" : "7px solid #fff",
     },
   };
 
@@ -64,9 +67,12 @@ export const useStyles = () => {
 
   const filterComponentStyles = {
     paper: {
-      padding: 3,
+      padding: 1,
       minWidth: 300,
-      maxWidth: 400,
+      maxWidth: 650,
+      mx: "auto !important",
+      position: "sticky !important",
+      top: "90px !important",
     },
     titleColor: theme.palette.mode === "dark" ? "grey.300" : "textSecondary",
     slider: {
@@ -98,11 +104,16 @@ export const useStyles = () => {
     },
   };
 
+  const hotelListingsStyles = {
+    cardWidth: "100%",
+  };
+
   return {
     hotelCardsStyles,
     featuredDealStyles,
     recentlyVisitedHotelStyles,
     trendingDestinationStyles,
     filterComponentStyles,
+    hotelListingsStyles,
   };
 };
