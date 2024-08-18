@@ -11,15 +11,15 @@ const Template: StoryFn<StarRatingProps> = (args) => <StarRating {...args} />;
 
 export const ZeroStars = Template.bind({});
 ZeroStars.args = {
-  value: 0,
+  rating: 0,
 };
 
 export const ThreeStars = Template.bind({});
 ThreeStars.args = {
-  value: 3,
+  rating: 3,
 };
 
 export const FiveStars = Template.bind({});
 FiveStars.args = {
-  value: 5,
+  rating: 5,
 };

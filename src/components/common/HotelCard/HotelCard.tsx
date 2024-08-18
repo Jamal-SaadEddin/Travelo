@@ -77,7 +77,7 @@ const HotelCard = ({ hotel }: HotelCardProps) => {
               <Typography variant="body1">{hotel.cityName}</Typography>
             </Stack>
             <StarRating
-              value={
+              rating={
                 isFeaturedDealHotel(hotel)
                   ? hotel.hotelStarRating
                   : hotel.starRating

@@ -6,10 +6,10 @@ import lgAutoPlay from "lightgallery/plugins/autoplay";
 import lgThumbnail from "lightgallery/plugins/thumbnail";
 import LightGallery from "lightgallery/react";
 import GalleryItem from "./components/GalleryItem";
-import { gallery } from "./constants/gallery";
+import { HotelGalleryProps } from "./entities/HotelGalleryProps";
 import "./styles.css";
 
-const HotelGallery = () => {
+const HotelGallery = ({ gallery }: HotelGalleryProps) => {
   const theme = useTheme();
   const isXSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
 
