@@ -24,6 +24,7 @@
     "dayjs": "^1.11.12",
     "formik": "^2.4.6",
     "js-cookie": "^3.0.5",
+    "lightgallery": "^2.7.2",
     "lint-staged": "^15.2.8",
     "query-string": "^9.1.0",
     "react": "^18.3.1",
