@@ -1,4 +1,5 @@
 import ChildCareRoundedIcon from "@mui/icons-material/ChildCareRounded";
+import CloseIcon from "@mui/icons-material/Close";
 import PersonOutlineRoundedIcon from "@mui/icons-material/PersonOutlineRounded";
 import {
   Badge,
@@ -8,38 +9,89 @@ import {
   CardContent,
   CardMedia,
   Divider,
+  IconButton,
   Stack,
+  Tooltip,
   Typography,
   useTheme,
 } from "@mui/material";
 import AmenitiesStack from "../../AmenitiesStack";
 import { RoomCardProps } from "../enitties/RoomCardProps";
+import useCartStore from "./../../../store/cartStore";
 
-const RoomCard = ({ room }: RoomCardProps) => {
+const RoomCard = ({ room, size = "medium" }: RoomCardProps) => {
+  const bookedRooms = useCartStore((s) => s.bookedRooms);
+  const setBookedRooms = useCartStore((s) => s.setBookedRooms);
+
   const theme = useTheme();
 
-  const cardStyles = {
-    border: theme.palette.mode === "dark" ? "5px solid #202019" : "none",
+  const styles = {
+    card: {
+      border: theme.palette.mode === "dark" ? "5px solid #202019" : "none",
+      height: "100%",
+    },
+    removeFromCartButton: {
+      position: "absolute",
+      top: 5,
+      right: -10,
+      zIndex: 1000,
+      color: "white",
+      bgcolor: "error.main",
+      p: 0.5,
+      "&:hover": {
+        bgcolor: "error.dark",
+      },
+    },
+  };
+
+  const handleBookRoom = () => {
+    const newBookedRooms = [room, ...bookedRooms];
+    setBookedRooms(newBookedRooms);
+
+    // alert("Room booked!");
+  };
+
+  const handleCancelBooking = () => {
+    const newBookedRooms = bookedRooms.filter(
+      (bookedRoom) => bookedRoom !== room,
+    );
+    setBookedRooms(newBookedRooms);
+
+    // alert("Booking canceled!");
   };
 
   return (
-    <Card sx={cardStyles}>
+    <Card sx={styles.card}>
+      {bookedRooms.includes(room) && size === "small" && (
+        <IconButton
+          sx={styles.removeFromCartButton}
+          disableRipple
+          onClick={handleCancelBooking}
+        >
+          <Tooltip title="Remove from Cart" arrow placement="top">
+            <CloseIcon fontSize="small" />
+          </Tooltip>
+        </IconButton>
+      )}
       <CardMedia
         component="img"
         alt="Room image"
-        height="320"
+        height={size === "small" ? 140 : 320}
         image={room.roomPhotoUrl}
       />
-
       <CardContent
         sx={{ display: "flex", flexDirection: "column", flexGrow: 1, gap: 2 }}
       >
         <Stack direction="row" justifyContent="space-between">
-          <Typography variant="h5" gutterBottom sx={{ fontWeight: 600 }}>
+          <Typography
+            variant={size === "small" ? "h6" : "h5"}
+            gutterBottom
+            sx={{ fontWeight: size !== "small" ? 600 : 400 }}
+          >
             {room.roomType} Room
           </Typography>
           <Typography
-            variant="h6"
+            variant={size === "small" ? "subtitle1" : "h6"}
             gutterBottom
             fontWeight="600"
             color="success.main"
@@ -73,18 +125,24 @@ const RoomCard = ({ room }: RoomCardProps) => {
             Children
           </Typography>
         </Stack>
-        <AmenitiesStack amenities={room.roomAmenities} />
+        <AmenitiesStack amenities={room.roomAmenities} amenitySize={size} />
       </CardContent>
-      <CardActions sx={{ justifyContent: "center", mt: "auto", pb: 3 }}>
-        <Button
-          variant="contained"
-          size="large"
-          fullWidth
-          sx={{ fontWeight: 600 }}
-        >
-          Reserve Room
-        </Button>
-      </CardActions>
+      {size !== "small" && (
+        <CardActions sx={{ justifyContent: "center", mt: "auto", pb: 3 }}>
+          <Button
+            variant={bookedRooms.includes(room) ? "outlined" : "contained"}
+            color={bookedRooms.includes(room) ? "error" : "primary"}
+            size="large"
+            fullWidth
+            sx={{ fontWeight: 600 }}
+            onClick={
+              bookedRooms.includes(room) ? handleCancelBooking : handleBookRoom
+            }
+          >
+            {bookedRooms.includes(room) ? "Cancel Booking" : "Book Room"}
+          </Button>
+        </CardActions>
+      )}
     </Card>
   );
 };

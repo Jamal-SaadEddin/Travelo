@@ -6,6 +6,7 @@ import {
   Toolbar,
   Typography,
 } from "@mui/material";
+import BookedRooms from "./components/BookedRooms";
 import PaymentForm from "./components/PaymentForm";
 import TripDetails from "./components/TripDetails";
 
@@ -14,7 +15,7 @@ const styles = {
     position: "absolute",
     right: -25,
     top: 0,
-    display: { xs: "none", lg: "block" },
+    display: { xs: "none", md: "block" },
   },
 };
 
@@ -33,15 +34,13 @@ const CheckoutPage = () => {
             container
             item
             xs={12}
-            spacing={{ xs: 2, lg: 5 }}
+            spacing={{ xs: 2, md: 5 }}
             direction="row-reverse"
           >
-            <Grid item xs={12} lg={6}>
-              <Typography variant="h6" sx={{ pb: 2 }}>
-                Your cart
-              </Typography>
+            <Grid item xs={12} md={6}>
+              <BookedRooms />
             </Grid>
-            <Grid item xs={12} lg={6} position="relative">
+            <Grid item xs={12} md={6} position="relative">
               <Typography variant="h6" sx={{ pb: 2 }}>
                 Your trip details
               </Typography>
