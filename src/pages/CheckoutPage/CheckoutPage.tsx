@@ -6,6 +6,7 @@ import {
   Toolbar,
   Typography,
 } from "@mui/material";
+import PaymentForm from "./components/PaymentForm";
 import TripDetails from "./components/TripDetails";
 
 const CheckoutPage = () => {
@@ -25,6 +26,8 @@ const CheckoutPage = () => {
             </Typography>
             <TripDetails />
             <Divider sx={{ my: 2 }} />
+            <Typography variant="h6">Payment</Typography>
+            <PaymentForm />
           </Grid>
           <Grid item xs={12} lg={6}>
             Cards

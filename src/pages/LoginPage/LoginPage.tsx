@@ -13,14 +13,12 @@ import * as Yup from "yup";
 import FormikTextField from "../../components/FormikTextField";
 import PromotionalSection from "../../components/PromotionalSection";
 
-interface LoginPageProps {
-  initialValues?: {
-    username: string;
-    password: string;
-  };
-}
+const initialValues = {
+  username: "",
+  password: "",
+};
 
-const LoginPage: React.FC<LoginPageProps> = ({ initialValues }) => {
+const LoginPage = () => {
   const validationSchema = Yup.object({
     username: Yup.string().required("Username is required"),
     password: Yup.string().required("Password is required"),
@@ -104,4 +102,3 @@ const LoginPage: React.FC<LoginPageProps> = ({ initialValues }) => {
 };
 
 export default LoginPage;
-export type { LoginPageProps };

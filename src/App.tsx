@@ -4,6 +4,7 @@ import CheckoutPage from "./pages/CheckoutPage";
 import HomePage from "./pages/HomePage";
 import HotelPage from "./pages/HotelPage";
 import { hotel } from "./pages/HotelPage/constants/hotel";
+import LoginPage from "./pages/LoginPage";
 import SearchResultsPage from "./pages/SearchResultsPage";
 
 const App = () => {
@@ -15,6 +16,7 @@ const App = () => {
       {/* <SearchResultsPage /> */}
       {/* <HomePage /> */}
       <Footer />
+      {/* <LoginPage /> */}
     </>
   );
 };
