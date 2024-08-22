@@ -6,7 +6,7 @@ const SearchBar = () => {
   const [searchText, setSearchText] = useState("");
 
   return (
-    <Container maxWidth="lg" sx={{ mt: 5 }}>
+    <Container maxWidth="lg" sx={{ my: 5 }}>
       <TextField
         id="cityName" // changable
         placeholder="Search for cities..." // changable
