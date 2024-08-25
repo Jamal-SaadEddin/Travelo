@@ -2,7 +2,7 @@ import { Box, Link } from "@mui/material";
 
 const Footer = () => {
   return (
-    <Box pt={10} pb={5} textAlign="center">
+    <Box py={5} textAlign="center">
       Made with ❤️ by{" "}
       <Link href="https://jamalsaadeddin.netlify.app/" target="_blank">
         Jamal SaadEddin

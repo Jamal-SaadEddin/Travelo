@@ -15,6 +15,10 @@ export const renderPaginationButtons = ({
   totalPages,
   handleClick,
 }: PaginationButtonsProps) => {
+  if (totalPages === 1) {
+    return null;
+  }
+
   const maxButtons = 4;
   const buttons: JSX.Element[] = [];
 
