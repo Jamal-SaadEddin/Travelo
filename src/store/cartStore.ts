@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { AvailableRoom as BookedRoom } from "../components/AvailableRooms/enitties/AvailableRoom";
+import { Room as BookedRoom } from "../entities";
 
 interface CartStore {
   bookedRooms: BookedRoom[];

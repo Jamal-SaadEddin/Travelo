@@ -1,6 +1,6 @@
-import { AvailableRoom } from "../enitties/AvailableRoom";
+import { Room } from "../../../entities";
 
-export const availableRooms: AvailableRoom[] = [
+export const availableRooms: Room[] = [
   {
     roomId: 1,
     roomNumber: 101,
