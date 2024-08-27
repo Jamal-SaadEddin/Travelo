@@ -1,3 +1,4 @@
+import EditIcon from "@mui/icons-material/Edit";
 import {
   Button,
   Dialog,
@@ -13,38 +14,47 @@ import { City } from "../entities";
 
 const baseApiUrl = import.meta.env.VITE_BASE_API_URL;
 
-interface AddCityDialogProps {
-  onAdd: (city: City) => void;
+interface UpdateCityDialogProps {
+  city: City;
+  onUpdate: (city: City) => void;
 }
 
-const AddCityDialog: React.FC<AddCityDialogProps> = ({ onAdd }) => {
+const UpdateCityDialog: React.FC<UpdateCityDialogProps> = ({
+  city,
+  onUpdate,
+}) => {
   const [open, setOpen] = useState(false);
-  const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
+  const [name, setName] = useState(city.name);
+  const [description, setDescription] = useState(city.description);
 
   const handleSubmit = () => {
+    const newCity = { ...city, name, description };
     axios
-      .post(`${baseApiUrl}/cities`, { name, description })
-      .then((response) => {
-        onAdd(response.data);
+      .put(`${baseApiUrl}/cities/${city.id}`, { name, description })
+      .then(() => {
+        onUpdate(newCity);
       })
       .catch((error) => {
-        console.error("Error adding city:", error);
+        console.error("Error updating city:", error);
+        onUpdate(newCity);
       })
       .finally(() => {
-        setName("");
-        setDescription("");
         setOpen(false);
       });
   };
 
   return (
     <>
-      <Button variant="contained" onClick={() => setOpen(true)}>
-        Add City
+      <Button
+        variant="contained"
+        onClick={() => setOpen(true)}
+        endIcon={<EditIcon />}
+        color="info"
+      >
+        Edit
       </Button>
       <Dialog open={open} onClose={() => setOpen(false)}>
-        <DialogTitle>Add New City</DialogTitle>
+        <DialogTitle>Update City</DialogTitle>
         <DialogContent>
           <Grid container spacing={2} mt={0.5}>
             <Grid item xs={12}>
@@ -68,9 +78,11 @@ const AddCityDialog: React.FC<AddCityDialogProps> = ({ onAdd }) => {
           </Grid>
         </DialogContent>
         <DialogActions sx={{ p: 3 }}>
-          <Button onClick={() => setOpen(false)}>Cancel</Button>
-          <Button onClick={handleSubmit} variant="contained">
-            Add
+          <Button onClick={() => setOpen(false)} color="info">
+            Cancel
+          </Button>
+          <Button onClick={handleSubmit} variant="contained" color="info">
+            Update
           </Button>
         </DialogActions>
       </Dialog>
@@ -78,4 +90,4 @@ const AddCityDialog: React.FC<AddCityDialogProps> = ({ onAdd }) => {
   );
 };
 
-export default AddCityDialog;
+export default UpdateCityDialog;
