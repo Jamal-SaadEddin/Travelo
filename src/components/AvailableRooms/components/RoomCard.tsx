@@ -15,11 +15,19 @@ import {
   Typography,
   useTheme,
 } from "@mui/material";
+import { useState } from "react";
+import { Room } from "../../../entities";
+import UpdateRoomDialog from "../../../pages/AdminPage/components/UpdateRoomDialog";
 import AmenitiesStack from "../../AmenitiesStack";
 import { RoomCardProps } from "../enitties/RoomCardProps";
 import useCartStore from "./../../../store/cartStore";
 
-const RoomCard = ({ room, size = "medium" }: RoomCardProps) => {
+const RoomCard = ({
+  room,
+  size = "medium",
+  editable = false,
+}: RoomCardProps) => {
+  const [currentRoom, setCurrentRoom] = useState<Room>(room);
   const bookedRooms = useCartStore((s) => s.bookedRooms);
   const setBookedRooms = useCartStore((s) => s.setBookedRooms);
 
@@ -45,7 +53,7 @@ const RoomCard = ({ room, size = "medium" }: RoomCardProps) => {
   };
 
   const handleBookRoom = () => {
-    const newBookedRooms = [room, ...bookedRooms];
+    const newBookedRooms = [currentRoom, ...bookedRooms];
     setBookedRooms(newBookedRooms);
 
     // alert("Room booked!");
@@ -53,16 +61,20 @@ const RoomCard = ({ room, size = "medium" }: RoomCardProps) => {
 
   const handleCancelBooking = () => {
     const newBookedRooms = bookedRooms.filter(
-      (bookedRoom) => bookedRoom !== room,
+      (bookedRoom) => bookedRoom !== currentRoom,
     );
     setBookedRooms(newBookedRooms);
 
     // alert("Booking canceled!");
   };
 
+  const handleUpdate = (updatedRoom: Room) => {
+    setCurrentRoom(updatedRoom);
+  };
+
   return (
     <Card sx={styles.card}>
-      {bookedRooms.includes(room) && size === "small" && (
+      {bookedRooms.includes(currentRoom) && size === "small" && (
         <IconButton
           sx={styles.removeFromCartButton}
           disableRipple
@@ -77,7 +89,7 @@ const RoomCard = ({ room, size = "medium" }: RoomCardProps) => {
         component="img"
         alt="Room image"
         height={size === "small" ? 140 : 320}
-        image={room.roomPhotoUrl}
+        image={currentRoom.roomPhotoUrl}
       />
       <CardContent
         sx={{ display: "flex", flexDirection: "column", flexGrow: 1, gap: 2 }}
@@ -88,7 +100,7 @@ const RoomCard = ({ room, size = "medium" }: RoomCardProps) => {
             gutterBottom
             sx={{ fontWeight: size !== "small" ? 600 : 400 }}
           >
-            {room.roomType} Room
+            {currentRoom.roomType} Room
           </Typography>
           <Typography
             variant={size === "small" ? "subtitle1" : "h6"}
@@ -96,7 +108,7 @@ const RoomCard = ({ room, size = "medium" }: RoomCardProps) => {
             fontWeight="600"
             color="success.main"
           >
-            ${room.price}
+            ${currentRoom.price}
             <Typography variant="body2" component="span" color="GrayText">
               /night
             </Typography>
@@ -105,7 +117,7 @@ const RoomCard = ({ room, size = "medium" }: RoomCardProps) => {
         <Stack direction="row" alignItems="center" color="text.primary">
           <Badge
             sx={{ mr: 2 }}
-            badgeContent={room.capacityOfAdults}
+            badgeContent={currentRoom.capacityOfAdults}
             color="info"
           >
             <PersonOutlineRoundedIcon />
@@ -116,7 +128,7 @@ const RoomCard = ({ room, size = "medium" }: RoomCardProps) => {
           <Divider sx={{ marginInline: 1 }} orientation="vertical" flexItem />
           <Badge
             sx={{ mr: 2 }}
-            badgeContent={room.capacityOfChildren}
+            badgeContent={currentRoom.capacityOfChildren}
             color="info"
           >
             <ChildCareRoundedIcon />
@@ -125,21 +137,33 @@ const RoomCard = ({ room, size = "medium" }: RoomCardProps) => {
             Children
           </Typography>
         </Stack>
-        <AmenitiesStack amenities={room.roomAmenities} amenitySize={size} />
+        <AmenitiesStack
+          amenities={currentRoom.roomAmenities}
+          amenitySize={size}
+        />
+        {editable && (
+          <Stack direction="row" spacing={2} justifyContent="right">
+            <UpdateRoomDialog room={currentRoom} onUpdate={handleUpdate} />
+          </Stack>
+        )}
       </CardContent>
       {size !== "small" && (
         <CardActions sx={{ justifyContent: "center", mt: "auto", pb: 3 }}>
           <Button
-            variant={bookedRooms.includes(room) ? "outlined" : "contained"}
-            color={bookedRooms.includes(room) ? "error" : "primary"}
+            variant={
+              bookedRooms.includes(currentRoom) ? "outlined" : "contained"
+            }
+            color={bookedRooms.includes(currentRoom) ? "error" : "primary"}
             size="large"
             fullWidth
             sx={{ fontWeight: 600 }}
             onClick={
-              bookedRooms.includes(room) ? handleCancelBooking : handleBookRoom
+              bookedRooms.includes(currentRoom)
+                ? handleCancelBooking
+                : handleBookRoom
             }
           >
-            {bookedRooms.includes(room) ? "Cancel Booking" : "Book Room"}
+            {bookedRooms.includes(currentRoom) ? "Cancel Booking" : "Book Room"}
           </Button>
         </CardActions>
       )}

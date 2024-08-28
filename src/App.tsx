@@ -6,7 +6,7 @@ const App = () => {
   return (
     <>
       <Navbar />
-      <AdminPage cardType="city" />
+      <AdminPage cardType="room" />
       <Footer />
     </>
   );

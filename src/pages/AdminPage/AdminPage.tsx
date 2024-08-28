@@ -155,7 +155,7 @@ const AdminPage = ({ cardType }: { cardType: "hotel" | "city" | "room" }) => {
             }
           >
             {cardType === "room" ? (
-              <RoomCard room={item as Room} size="small" />
+              <RoomCard room={item as Room} size="small" editable />
             ) : (
               <GenericCard item={item as City | Hotel} type={cardType} />
             )}
