@@ -13,8 +13,8 @@ import { useEffect, useState } from "react";
 import RoomCard from "../../components/AvailableRooms/components/RoomCard";
 import SearchBar from "../../components/SearchBar";
 import { Room } from "../../entities";
-import AddCityDialog from "./components/AddCityDialog";
 import AddRoomDialog from "./components/AddRoomDialog";
+import CityDialog from "./components/CityDialog";
 import GenericCard from "./components/GenericCard";
 import HotelDialog from "./components/HotelDialog";
 import { renderPaginationButtons } from "./components/PaginationButtons";
@@ -97,7 +97,9 @@ const AdminPage = ({ cardType }: { cardType: "hotel" | "city" | "room" }) => {
     <Container maxWidth="lg">
       <SearchBar />
       <Stack direction="row" justifyContent="right" my={3} spacing={2}>
-        {cardType === "city" && <AddCityDialog onAdd={handleAddCity} />}
+        {cardType === "city" && (
+          <CityDialog type="add" onSubmit={handleAddCity} />
+        )}
         {cardType === "hotel" && (
           <HotelDialog type="add" onSubmit={handleAddHotel} />
         )}

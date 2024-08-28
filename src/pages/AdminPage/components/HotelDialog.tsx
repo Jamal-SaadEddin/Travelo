@@ -39,7 +39,7 @@ const validationSchema = Yup.object({
   latitude: Yup.number().required("Latitude is required").max(180).min(-180),
   longitude: Yup.number().required("Longitude is required").max(180).min(-180),
   starRating: Yup.number().required("Rating is required").max(5).min(0),
-  description: Yup.string().required("Description is required").max(180),
+  description: Yup.string().required("Description is required").max(1200),
 });
 
 const HotelDialog: React.FC<HotelDialogProps> = ({ type, hotel, onSubmit }) => {
@@ -166,7 +166,7 @@ const HotelDialog: React.FC<HotelDialogProps> = ({ type, hotel, onSubmit }) => {
               <FormikTextField
                 name="description"
                 label="Description"
-                inputProps={{ maxLength: 180 }}
+                maxLength={1200}
                 multiline
                 rows={4}
                 fullWidth
