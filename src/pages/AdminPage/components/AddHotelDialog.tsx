@@ -6,13 +6,13 @@ import {
   DialogTitle,
   FormControl,
   Grid,
-  InputLabel,
   MenuItem,
-  Select,
-  TextField,
 } from "@mui/material";
 import axios from "axios";
+import { Form, Formik } from "formik";
 import React, { useEffect, useState } from "react";
+import * as Yup from "yup";
+import FormikTextField from "../../../components/FormikTextField";
 import { City, Hotel } from "../entities";
 
 const baseApiUrl = import.meta.env.VITE_BASE_API_URL;
@@ -21,14 +21,28 @@ interface AddHotelDialogProps {
   onAdd: (hotel: Hotel) => void;
 }
 
+const initialValues: Hotel = {
+  name: "",
+  cityId: null,
+  hotelType: null,
+  latitude: null,
+  longitude: null,
+  starRating: null,
+  description: "",
+};
+
+const validationSchema = Yup.object({
+  name: Yup.string().required("Hotel name is required"),
+  cityId: Yup.number().required("City is required"),
+  hotelType: Yup.number().required("Hotel type is required").max(10).min(1),
+  latitude: Yup.number().required("Latitude is required").max(180).min(-180),
+  longitude: Yup.number().required("Longitude is required").max(180).min(-180),
+  starRating: Yup.number().required("Rating is required").max(5).min(0),
+  description: Yup.string().required("Description is required").max(180),
+});
+
 const AddHotelDialog: React.FC<AddHotelDialogProps> = ({ onAdd }) => {
   const [open, setOpen] = useState(false);
-  const [name, setName] = useState("");
-  const [cityId, setCityId] = useState<number | null>(null);
-  const [hotelType, setHotelType] = useState("");
-  const [latitude, setLatitude] = useState("");
-  const [longitude, setLongitude] = useState("");
-  const [rating, setRating] = useState("");
   const [cities, setCities] = useState<City[]>([]);
 
   useEffect(() => {
@@ -51,15 +65,9 @@ const AddHotelDialog: React.FC<AddHotelDialogProps> = ({ onAdd }) => {
       });
   }, []);
 
-  const handleSubmit = () => {
+  const handleSubmit = (values: Hotel) => {
     axios
-      .post(`${baseApiUrl}/cities/${cityId}/hotels`, {
-        name,
-        hotelType,
-        latitude,
-        longitude,
-        rating,
-      })
+      .post(`${baseApiUrl}/cities/${values.cityId}/hotels`, values)
       .then((response) => {
         onAdd(response.data);
         setOpen(false);
@@ -74,72 +82,88 @@ const AddHotelDialog: React.FC<AddHotelDialogProps> = ({ onAdd }) => {
       <Dialog open={open} onClose={() => setOpen(false)}>
         <DialogTitle>Add New Hotel</DialogTitle>
         <DialogContent>
-          <Grid container spacing={2} mt={0.5}>
-            <Grid item xs={12}>
-              <TextField
-                label="Hotel name"
-                fullWidth
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <FormControl fullWidth>
-                <InputLabel>City</InputLabel>
-                <Select
-                  label="City"
-                  fullWidth
-                  value={cityId?.toString() || ""}
-                  onChange={(e) => setCityId(parseInt(e.target.value, 10))}
-                >
-                  {cities.map((city) => (
-                    <MenuItem key={city.id} value={city.id}>
-                      {city.name}
-                    </MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                label="Hotel Type"
-                fullWidth
-                value={hotelType}
-                onChange={(e) => setHotelType(e.target.value)}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                label="Latitude"
-                fullWidth
-                value={latitude}
-                onChange={(e) => setLatitude(e.target.value)}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                label="Longitude"
-                fullWidth
-                value={longitude}
-                onChange={(e) => setLongitude(e.target.value)}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                label="Rating"
-                fullWidth
-                value={rating}
-                onChange={(e) => setRating(e.target.value)}
-              />
-            </Grid>
-          </Grid>
+          <Formik
+            initialValues={initialValues}
+            validationSchema={validationSchema}
+            onSubmit={handleSubmit}
+          >
+            <Form>
+              <Grid container spacing={2} mt={0.5}>
+                <Grid item xs={12}>
+                  <FormikTextField name="name" label="Hotel name" fullWidth />
+                </Grid>
+                <Grid item xs={12}>
+                  <FormControl fullWidth>
+                    <FormikTextField
+                      name="cityId"
+                      label="City"
+                      fullWidth
+                      select
+                    >
+                      {cities.map((city) => (
+                        <MenuItem key={city.id} value={city.id}>
+                          {city.name}
+                        </MenuItem>
+                      ))}
+                    </FormikTextField>
+                  </FormControl>
+                </Grid>
+                <Grid item xs={12}>
+                  <FormikTextField
+                    name="hotelType"
+                    label="Hotel Type"
+                    placeholder="1 to 10"
+                    maxLength={2}
+                    fullWidth
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <FormikTextField
+                    name="latitude"
+                    label="Latitude"
+                    maxLength={4}
+                    placeholder="-180 to 180"
+                    fullWidth
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <FormikTextField
+                    name="longitude"
+                    label="Longitude"
+                    maxLength={4}
+                    placeholder="-180 to 180"
+                    fullWidth
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <FormikTextField
+                    name="starRating"
+                    label="Rating"
+                    maxLength={1}
+                    placeholder="0 to 5"
+                    fullWidth
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <FormikTextField
+                    name="description"
+                    label="Description"
+                    inputProps={{ maxLength: 180 }}
+                    multiline
+                    rows={4}
+                    fullWidth
+                  />
+                </Grid>
+              </Grid>
+              <DialogActions sx={{ py: 1, px: 0 }}>
+                <Button onClick={() => setOpen(false)}>Cancel</Button>
+                <Button type="submit" variant="contained">
+                  Add
+                </Button>
+              </DialogActions>
+            </Form>
+          </Formik>
         </DialogContent>
-        <DialogActions sx={{ p: 3 }}>
-          <Button onClick={() => setOpen(false)}>Cancel</Button>
-          <Button onClick={handleSubmit} variant="contained">
-            Add
-          </Button>
-        </DialogActions>
       </Dialog>
     </>
   );
