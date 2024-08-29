@@ -49,7 +49,7 @@ const HotelCard = ({ hotel }: HotelCardProps) => {
               <DeleteDialog
                 type="hotel"
                 id={currentHotel.id!} // ID of the hotel to delete
-                cityId={currentHotel.cityId!} // ID of the city that contains the hotel
+                cityId={1} // ID of the city that contains the hotel
                 name={currentHotel.name} // Name of the hotel
                 onDelete={handleDelete}
               />
