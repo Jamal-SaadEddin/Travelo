@@ -1,6 +1,6 @@
-import { AvailableRoom } from "./AvailableRoom";
+import { Room } from "../../../entities";
 
 export interface RoomCardProps {
-  room: AvailableRoom;
+  room: Room;
   size?: "small" | "medium";
 }

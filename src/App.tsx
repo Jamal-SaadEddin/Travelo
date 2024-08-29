@@ -1,12 +1,12 @@
 import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
-import SearchBar from "./components/SearchBar";
+import AdminPage from "./pages/AdminPage";
 
 const App = () => {
   return (
     <>
       <Navbar />
-      <SearchBar />
+      <AdminPage cardType="room" />
       <Footer />
     </>
   );

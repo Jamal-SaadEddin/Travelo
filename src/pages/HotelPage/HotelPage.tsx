@@ -5,7 +5,7 @@ import HotelGallery from "../../components/HotelGallery";
 import { gallery } from "../../components/HotelGallery/constants/gallery";
 import HotelOverview from "../../components/HotelOverview";
 import HotelPageHeader from "../../components/HotelPageHeader";
-import Map from "../../components/Map";
+import MapComponent from "../../components/MapComponent";
 import ReviewsSlider from "../../components/ReviewsSlider";
 import { reviews } from "../../components/ReviewsSlider/constants/reviews";
 import { HotelPageProps } from "./entities/HotelPageProps";
@@ -54,7 +54,7 @@ const HotelPage = ({ hotel }: HotelPageProps) => {
                 <ReviewsSlider reviews={reviews} />
               </Grid>
               <Grid item xs={12}>
-                <Map latitude={latitude} longitude={longitude} />
+                <MapComponent latitude={latitude} longitude={longitude} />
               </Grid>
             </Grid>
           </Grid>

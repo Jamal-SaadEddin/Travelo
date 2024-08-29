@@ -1,4 +1,4 @@
-const Map = ({
+const MapComponent = ({
   latitude,
   longitude,
 }: {
@@ -21,4 +21,4 @@ const Map = ({
   );
 };
 
-export default Map;
+export default MapComponent;
