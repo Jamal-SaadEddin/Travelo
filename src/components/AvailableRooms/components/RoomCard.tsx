@@ -17,6 +17,7 @@ import {
 } from "@mui/material";
 import { useState } from "react";
 import { Room } from "../../../entities";
+import DeleteDialog from "../../../pages/AdminPage/components/DeleteDialog";
 import RoomDialog from "../../../pages/AdminPage/components/RoomDialog";
 import AmenitiesStack from "../../AmenitiesStack";
 import { RoomCardProps } from "../enitties/RoomCardProps";
@@ -70,6 +71,10 @@ const RoomCard = ({
 
   const handleUpdate = (updatedRoom: Room) => {
     setCurrentRoom(updatedRoom);
+  };
+
+  const handleDelete = () => {
+    alert("Room deleted!");
   };
 
   return (
@@ -142,11 +147,18 @@ const RoomCard = ({
           amenitySize={size}
         />
         {editable && (
-          <Stack direction="row" spacing={2} justifyContent="right">
+          <Stack direction="row" spacing={2} justifyContent="center">
             <RoomDialog
               type="update"
               room={currentRoom}
               onSubmit={handleUpdate}
+            />
+            <DeleteDialog
+              type="room"
+              id={currentRoom.roomId} // ID of the room to delete
+              hotelId={1} // ID of the hotel that contains the room
+              name={currentRoom.roomType} // Name of the room
+              onDelete={handleDelete}
             />
           </Stack>
         )}

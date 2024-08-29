@@ -4,6 +4,7 @@ import StarRating from "../../../components/common/StarRating";
 import MapComponent from "../../../components/MapComponent";
 import { truncateText } from "../../../services/truncateText";
 import { Hotel } from "../entities";
+import DeleteDialog from "./DeleteDialog";
 import HotelDialog from "./HotelDialog";
 
 interface HotelCardProps {
@@ -15,6 +16,10 @@ const HotelCard = ({ hotel }: HotelCardProps) => {
 
   const handleUpdate = (updatedHotel: Hotel) => {
     setCurrentHotel(updatedHotel);
+  };
+
+  const handleDelete = () => {
+    alert("Hotel deleted!");
   };
 
   return (
@@ -35,11 +40,18 @@ const HotelCard = ({ hotel }: HotelCardProps) => {
             />
           </Grid>
           <Grid item xs={12}>
-            <Stack direction="row" spacing={2} justifyContent="right">
+            <Stack direction="row" spacing={2} justifyContent="center">
               <HotelDialog
                 type="update"
                 hotel={currentHotel}
                 onSubmit={handleUpdate}
+              />
+              <DeleteDialog
+                type="hotel"
+                id={currentHotel.id!} // ID of the hotel to delete
+                cityId={currentHotel.cityId!} // ID of the city that contains the hotel
+                name={currentHotel.name} // Name of the hotel
+                onDelete={handleDelete}
               />
             </Stack>
           </Grid>
