@@ -5,7 +5,7 @@ import NavbarLink from "./components/NavbarLink";
 import NavbarList from "./components/NavbarList";
 import NavbarMenu from "./components/NavbarMenu";
 import ThemeMenu from "./components/ThemeMenu";
-import { leftNavLinks, rightNavLinks } from "./constants/links";
+import { adminLeftNavLinks, adminRightNavLinks } from "./constants/links";
 
 const Navbar = () => {
   return (
@@ -16,16 +16,22 @@ const Navbar = () => {
             sx={{ justifyContent: "space-between", px: "0 !important" }}
           >
             <Hidden lgDown>
-              <NavbarList justifyContent="flex-start" links={leftNavLinks} />
+              <NavbarList
+                justifyContent="flex-start"
+                links={adminLeftNavLinks}
+              />
               <ThemeMenu />
-              <NavbarList justifyContent="flex-end" links={rightNavLinks} />
+              <NavbarList
+                justifyContent="flex-end"
+                links={adminRightNavLinks}
+              />
             </Hidden>
             <Hidden lgUp>
-              <NavbarLink {...leftNavLinks[0]} />
+              <NavbarLink {...adminLeftNavLinks[0]} />
               <ThemeMenu lgDown />
               <NavbarMenu
-                leftNavLinks={leftNavLinks}
-                rightNavLinks={rightNavLinks}
+                leftNavLinks={adminLeftNavLinks}
+                rightNavLinks={adminRightNavLinks}
               />
             </Hidden>
           </MuiToolbar>
