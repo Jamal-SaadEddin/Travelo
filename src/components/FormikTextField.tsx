@@ -5,6 +5,7 @@ import React from "react";
 interface FormikTextFieldProps {
   name: string;
   label: string;
+  maxLength?: number;
 }
 
 const FormikTextField: React.FC<FormikTextFieldProps & TextFieldProps> = (
@@ -22,6 +23,7 @@ const FormikTextField: React.FC<FormikTextFieldProps & TextFieldProps> = (
           helperText={meta.touched && meta.error}
           fullWidth
           margin="normal"
+          inputProps={{ maxLength: props.maxLength }}
         />
       )}
     </Field>
