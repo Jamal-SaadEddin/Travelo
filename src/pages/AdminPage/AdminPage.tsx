@@ -13,9 +13,14 @@ import { useEffect, useState } from "react";
 import RoomCard from "../../components/AvailableRooms/components/RoomCard";
 import SearchBar from "../../components/SearchBar";
 import { Room } from "../../entities";
+import AddCityDialog from "./components/AddCityDialog";
+import AddHotelDialog from "./components/AddHotelDialog";
+import AddRoomDialog from "./components/AddRoomDialog";
 import GenericCard from "./components/GenericCard";
 import { renderPaginationButtons } from "./components/PaginationButtons";
 import { City, Hotel } from "./entities";
+
+const baseApiUrl = import.meta.env.VITE_BASE_API_URL;
 
 const AdminPage = ({ cardType }: { cardType: "hotel" | "city" | "room" }) => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -28,9 +33,7 @@ const AdminPage = ({ cardType }: { cardType: "hotel" | "city" | "room" }) => {
 
   useEffect(() => {
     const fetchHotels = async () => {
-      const response = await axios.get(
-        `https://app-hotel-reservation-webapi-uae-dev-001.azurewebsites.net/api/hotels`,
-      );
+      const response = await axios.get(`${baseApiUrl}/hotels`);
       setHotels(response.data);
       if (response.data.length > 0) {
         setSelectedHotel(response.data[0].id); // Set default to the first hotel
@@ -47,18 +50,18 @@ const AdminPage = ({ cardType }: { cardType: "hotel" | "city" | "room" }) => {
       let apiUrl: string;
 
       if (cardType === "hotel") {
-        apiUrl = `https://app-hotel-reservation-webapi-uae-dev-001.azurewebsites.net/api/hotels?pageSize=${cardsPerPage}&pageNumber=${currentPage}`;
+        apiUrl = `${baseApiUrl}/hotels?pageSize=${cardsPerPage}&pageNumber=${currentPage}`;
         const response = await axios.get(apiUrl);
         setItems(response.data);
         const pagination = JSON.parse(response.headers["x-pagination"]);
         setTotalPages(pagination.TotalPageCount);
       } else if (cardType === "city") {
-        apiUrl = `https://app-hotel-reservation-webapi-uae-dev-001.azurewebsites.net/api/cities`;
+        apiUrl = `${baseApiUrl}/cities`;
         const response = await axios.get(apiUrl);
         setItems(response.data);
         setTotalPages(1); // No pagination for cities
       } else if (cardType === "room" && selectedHotel) {
-        apiUrl = `https://app-hotel-reservation-webapi-uae-dev-001.azurewebsites.net/api/hotels/${selectedHotel}/rooms?checkInDate=${todayDate}&checkOutDate=${todayDate}`;
+        apiUrl = `${baseApiUrl}/hotels/${selectedHotel}/rooms?checkInDate=${todayDate}&checkOutDate=${todayDate}`;
         const response = await axios.get(apiUrl);
         setItems(response.data);
         setTotalPages(1); // Assuming no pagination needed for rooms
@@ -82,10 +85,27 @@ const AdminPage = ({ cardType }: { cardType: "hotel" | "city" | "room" }) => {
     setSelectedHotel(parseInt(event.target.value, 10));
   };
 
+  const handleAddCity = (newCity: City) =>
+    setItems((prev) => [...prev, newCity]);
+  const handleAddHotel = (newHotel: Hotel) =>
+    setItems((prev) => [...prev, newHotel]);
+  const handleAddRoom = (newRoom: Room) => {
+    setItems([newRoom, ...items]);
+  };
+
   return (
     <Container maxWidth="lg">
       <SearchBar />
-      <Stack direction="row" justifyContent="right" my={3}>
+      <Stack direction="row" justifyContent="right" my={3} spacing={2}>
+        {cardType === "city" && <AddCityDialog onAdd={handleAddCity} />}
+        {cardType === "hotel" && <AddHotelDialog onAdd={handleAddHotel} />}
+        {cardType === "room" && (
+          <AddRoomDialog
+            onAdd={handleAddRoom}
+            selectedHotel={selectedHotel}
+            hotels={hotels}
+          />
+        )}
         {cardType === "hotel" && totalPages > 1 && (
           <FormControl>
             <InputLabel>Items per page</InputLabel>
