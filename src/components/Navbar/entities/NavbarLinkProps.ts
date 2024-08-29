@@ -1,4 +1,5 @@
-export default interface NavLink {
+export default interface NavbarLinkProps {
+  scrollTo?: string;
   href: string;
   sx?: object;
   title?: string;

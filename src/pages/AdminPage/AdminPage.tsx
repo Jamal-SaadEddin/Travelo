@@ -34,13 +34,13 @@ const AdminPage = ({ dataType }: { dataType: "hotel" | "city" | "room" }) => {
   const todayDate = new Date().toISOString().split("T")[0]; // Format today's date
 
   useEffect(() => {
-    const fetchHotels = async () => {
+    async function fetchHotels() {
       const response = await axios.get(`${baseApiUrl}/hotels`);
       setHotels(response.data);
       if (response.data.length > 0) {
         setSelectedHotel(response.data[0].id); // Set default to the first hotel
       }
-    };
+    }
 
     if (dataType === "room") {
       fetchHotels();

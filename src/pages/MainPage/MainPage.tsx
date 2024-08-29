@@ -18,12 +18,18 @@ const MainPage = () => {
       <HeroSection />
       <Container maxWidth="xl">
         <SearchBox />
-        <HomeSection title="Featured Deals" children={<FeaturedDeals />} />
         <HomeSection
+          id="featured-deals"
+          title="Featured Deals"
+          children={<FeaturedDeals />}
+        />
+        <HomeSection
+          id="recently-visited-hotels"
           title="Recently Visited Hotels"
           children={<RecentlyVisitedHotels />}
         />
         <HomeSection
+          id="trending-destinations"
           title="Trending Destinations"
           children={<TrendingDestinations />}
         />

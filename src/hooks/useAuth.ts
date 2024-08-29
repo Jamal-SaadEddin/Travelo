@@ -1,5 +1,5 @@
 export const user = {
-  //   type: "user",
+  // type: "user",
   type: "admin",
 };
 

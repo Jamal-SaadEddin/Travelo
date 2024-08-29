@@ -1,10 +1,11 @@
 import LogoutIcon from "@mui/icons-material/Logout";
 import ShoppingCartCheckoutIcon from "@mui/icons-material/ShoppingCartCheckout";
 import Logo from "../../../assets/travelo-logo-dark.png";
-import NavLink from "../entities/NavLink";
+import NavbarLinkProps from "../entities/NavbarLinkProps";
 
-export const userLeftNavLinks: NavLink[] = [
+export const userLeftNavLinks: NavbarLinkProps[] = [
   {
+    scrollTo: "root",
     href: "/",
     title: "Travelo",
     sx: {
@@ -16,25 +17,29 @@ export const userLeftNavLinks: NavLink[] = [
     child_1: <img src={Logo} alt="travelo-logo" width={25} />,
   },
   {
-    href: "/Featured-Deals",
+    scrollTo: "featured-deals",
+    href: "/",
     sx: { fontSize: 16 },
     title: "Featured Deals",
   },
   {
-    href: "/Recently-Visited-Hotels",
+    scrollTo: "recently-visited-hotels",
+    href: "/",
     sx: { fontSize: 16 },
     title: "Recently Visited Hotels",
   },
   {
-    href: "/Trending-Destination",
+    scrollTo: "trending-destinations",
+    href: "/",
     sx: { fontSize: 16 },
-    title: "Trending Destination",
+    title: "Trending Destinations",
   },
 ];
 
-export const adminLeftNavLinks: NavLink[] = [
+export const adminLeftNavLinks: NavbarLinkProps[] = [
   {
-    href: "/",
+    scrollTo: "root",
+    href: "/cities",
     title: "Travelo",
     sx: {
       fontSize: 24,
@@ -69,7 +74,7 @@ const rightLinkStyles = {
   gap: 1,
 };
 
-export const userRightNavLinks: NavLink[] = [
+export const userRightNavLinks: NavbarLinkProps[] = [
   {
     href: "/checkout",
     sx: rightLinkStyles,
@@ -84,7 +89,7 @@ export const userRightNavLinks: NavLink[] = [
   },
 ];
 
-export const adminRightNavLinks: NavLink[] = [
+export const adminRightNavLinks: NavbarLinkProps[] = [
   {
     href: "/login",
     sx: rightLinkStyles,
