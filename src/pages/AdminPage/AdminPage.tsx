@@ -13,11 +13,11 @@ import { useEffect, useState } from "react";
 import RoomCard from "../../components/AvailableRooms/components/RoomCard";
 import SearchBar from "../../components/SearchBar";
 import { Room } from "../../entities";
-import AddCityDialog from "./components/AddCityDialog";
-import AddHotelDialog from "./components/AddHotelDialog";
-import AddRoomDialog from "./components/AddRoomDialog";
+import CityDialog from "./components/CityDialog";
 import GenericCard from "./components/GenericCard";
+import HotelDialog from "./components/HotelDialog";
 import { renderPaginationButtons } from "./components/PaginationButtons";
+import RoomDialog from "./components/RoomDialog";
 import { City, Hotel } from "./entities";
 
 const baseApiUrl = import.meta.env.VITE_BASE_API_URL;
@@ -97,11 +97,16 @@ const AdminPage = ({ cardType }: { cardType: "hotel" | "city" | "room" }) => {
     <Container maxWidth="lg">
       <SearchBar />
       <Stack direction="row" justifyContent="right" my={3} spacing={2}>
-        {cardType === "city" && <AddCityDialog onAdd={handleAddCity} />}
-        {cardType === "hotel" && <AddHotelDialog onAdd={handleAddHotel} />}
+        {cardType === "city" && (
+          <CityDialog type="add" onSubmit={handleAddCity} />
+        )}
+        {cardType === "hotel" && (
+          <HotelDialog type="add" onSubmit={handleAddHotel} />
+        )}
         {cardType === "room" && (
-          <AddRoomDialog
-            onAdd={handleAddRoom}
+          <RoomDialog
+            type="add"
+            onSubmit={handleAddRoom}
             selectedHotel={selectedHotel}
             hotels={hotels}
           />
@@ -151,7 +156,7 @@ const AdminPage = ({ cardType }: { cardType: "hotel" | "city" | "room" }) => {
             }
           >
             {cardType === "room" ? (
-              <RoomCard room={item as Room} size="small" />
+              <RoomCard room={item as Room} size="small" editable />
             ) : (
               <GenericCard item={item as City | Hotel} type={cardType} />
             )}

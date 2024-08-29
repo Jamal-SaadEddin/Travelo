@@ -1,15 +1,16 @@
 export interface City {
-  id: number;
+  id?: number;
   name: string;
   description: string;
 }
 
 export interface Hotel {
-  id: number;
+  id?: number;
   name: string;
   description: string;
-  hotelType: number;
-  starRating: number;
-  latitude: number;
-  longitude: number;
+  hotelType: number | null;
+  starRating: number | null;
+  latitude: number | null;
+  longitude: number | null;
+  cityId?: number | null;
 }
