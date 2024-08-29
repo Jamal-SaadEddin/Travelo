@@ -17,7 +17,7 @@ import {
 } from "@mui/material";
 import { useState } from "react";
 import { Room } from "../../../entities";
-import UpdateRoomDialog from "../../../pages/AdminPage/components/UpdateRoomDialog";
+import RoomDialog from "../../../pages/AdminPage/components/RoomDialog";
 import AmenitiesStack from "../../AmenitiesStack";
 import { RoomCardProps } from "../enitties/RoomCardProps";
 import useCartStore from "./../../../store/cartStore";
@@ -143,7 +143,11 @@ const RoomCard = ({
         />
         {editable && (
           <Stack direction="row" spacing={2} justifyContent="right">
-            <UpdateRoomDialog room={currentRoom} onUpdate={handleUpdate} />
+            <RoomDialog
+              type="update"
+              room={currentRoom}
+              onSubmit={handleUpdate}
+            />
           </Stack>
         )}
       </CardContent>

@@ -13,11 +13,11 @@ import { useEffect, useState } from "react";
 import RoomCard from "../../components/AvailableRooms/components/RoomCard";
 import SearchBar from "../../components/SearchBar";
 import { Room } from "../../entities";
-import AddRoomDialog from "./components/AddRoomDialog";
 import CityDialog from "./components/CityDialog";
 import GenericCard from "./components/GenericCard";
 import HotelDialog from "./components/HotelDialog";
 import { renderPaginationButtons } from "./components/PaginationButtons";
+import RoomDialog from "./components/RoomDialog";
 import { City, Hotel } from "./entities";
 
 const baseApiUrl = import.meta.env.VITE_BASE_API_URL;
@@ -104,8 +104,9 @@ const AdminPage = ({ cardType }: { cardType: "hotel" | "city" | "room" }) => {
           <HotelDialog type="add" onSubmit={handleAddHotel} />
         )}
         {cardType === "room" && (
-          <AddRoomDialog
-            onAdd={handleAddRoom}
+          <RoomDialog
+            type="add"
+            onSubmit={handleAddRoom}
             selectedHotel={selectedHotel}
             hotels={hotels}
           />
