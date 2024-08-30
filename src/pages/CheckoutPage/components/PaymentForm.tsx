@@ -1,5 +1,6 @@
 import { Button, Grid } from "@mui/material";
 import { Form, Formik } from "formik";
+import { useNavigate } from "react-router-dom";
 import FormikTextField from "../../../components/FormikTextField";
 import { validationSchema } from "../utils/validationSchema";
 
@@ -14,6 +15,8 @@ const initialValues = {
 };
 
 const PaymentForm = () => {
+  const navigate = useNavigate();
+
   const handleSubmit = (values: {
     firstName: string;
     lastName: string;
@@ -24,6 +27,7 @@ const PaymentForm = () => {
     zip: string;
   }) => {
     console.log("onSubmit", values);
+    navigate("/confirmation");
   };
 
   return (

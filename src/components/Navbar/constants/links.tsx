@@ -1,6 +1,6 @@
 import LogoutIcon from "@mui/icons-material/Logout";
-import ShoppingCartCheckoutIcon from "@mui/icons-material/ShoppingCartCheckout";
 import Logo from "../../../assets/travelo-logo-dark.png";
+import CheckoutBadge from "../components/CheckoutBadge";
 import NavbarLinkProps from "../entities/NavbarLinkProps";
 
 export const userLeftNavLinks: NavbarLinkProps[] = [
@@ -68,7 +68,6 @@ export const adminLeftNavLinks: NavbarLinkProps[] = [
 
 const rightLinkStyles = {
   fontSize: 16,
-  color: "error.main",
   display: "flex",
   alignItems: "center",
   gap: 1,
@@ -79,7 +78,7 @@ export const userRightNavLinks: NavbarLinkProps[] = [
     href: "/checkout",
     sx: rightLinkStyles,
     title: "Checkout",
-    child_2: <ShoppingCartCheckoutIcon />,
+    child_2: <CheckoutBadge />,
   },
   {
     href: "/login",

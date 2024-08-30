@@ -17,9 +17,10 @@ const styles = {
   },
   heroText: {
     position: "absolute",
-    top: "5%",
+    top: "35%",
     textAlign: "start",
     textWrap: "nowrap",
+    color: "white",
   },
 };
 
@@ -39,11 +40,27 @@ const HeroSection = () => {
       <StyledImage src={hero} alt="Hero Image" />
       <Container maxWidth="xl">
         <Box sx={styles.heroText}>
-          <Typography fontWeight="bold" variant={isSmallScreen ? "h5" : "h2"}>
-            Journey On!
+          <Typography fontWeight="bold" variant={isSmallScreen ? "h4" : "h2"}>
+            Journey{" "}
+            <Typography
+              component="span"
+              fontWeight="bold"
+              variant={isSmallScreen ? "h4" : "h2"}
+              color={theme.palette.primary.main}
+            >
+              On!
+            </Typography>
           </Typography>
-          <Typography fontWeight="bold" variant={isSmallScreen ? "h5" : "h2"}>
-            Every trip, a new story.
+          <Typography fontWeight="bold" variant={isSmallScreen ? "h4" : "h2"}>
+            Every trip,{" "}
+            <Typography
+              component="span"
+              fontWeight="bold"
+              variant={isSmallScreen ? "h4" : "h2"}
+              color={theme.palette.primary.main}
+            >
+              a new story.
+            </Typography>
           </Typography>
         </Box>
       </Container>

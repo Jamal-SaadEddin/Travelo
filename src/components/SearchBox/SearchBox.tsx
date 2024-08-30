@@ -12,7 +12,9 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import dayjs from "dayjs";
 import { useFormik } from "formik";
 import queryString from "query-string";
+import { useNavigate } from "react-router-dom";
 import * as yup from "yup";
+import useSearchBoxStore from "../../store/searchBoxStore";
 import RoomBookingSelector from "./components/RoomBookingSelector";
 
 const styles = {
@@ -39,16 +41,11 @@ const validationSchema = yup.object({
 
 const SearchBox = () => {
   const theme = useTheme();
+  const navigate = useNavigate();
+  const { searchQueries, setSearchQueries } = useSearchBoxStore();
 
   const formik = useFormik({
-    initialValues: {
-      cityName: "",
-      checkIn: dayjs(),
-      checkOut: dayjs().add(1, "day"),
-      adults: 2,
-      children: 0,
-      rooms: 1,
-    },
+    initialValues: searchQueries,
     validationSchema: validationSchema,
     onSubmit: (values) => {
       const { cityName, checkIn, checkOut, adults, children, rooms } = values;
@@ -63,18 +60,34 @@ const SearchBox = () => {
         children,
         numberOfRooms: rooms,
       });
-      console.log(queryParams);
 
-      // navigate(`/user/search?${queryParams}`);
+      navigate(`/search?${queryParams}`);
     },
   });
 
+  const handleCityChange =
+    (name: string) => (event: React.ChangeEvent<HTMLInputElement>) => {
+      formik.setFieldValue(name, event.target.value);
+      setSearchQueries({
+        ...searchQueries,
+        [name]: event.target.value,
+      });
+    };
+
   const handleDateChange = (name: string) => (date: unknown) => {
     formik.setFieldValue(name, date);
+    setSearchQueries({
+      ...searchQueries,
+      [name]: date,
+    });
   };
 
   const hanldeCountChange = (name: string, count: number) => {
     formik.setFieldValue(name, count);
+    setSearchQueries({
+      ...searchQueries,
+      [name]: count,
+    });
   };
 
   return (
@@ -100,7 +113,7 @@ const SearchBox = () => {
                   ),
                 }}
                 value={formik.values.cityName}
-                onChange={formik.handleChange}
+                onChange={handleCityChange("cityName")}
               />
             </Box>
             <Box width={{ xs: "100%", md: "35%" }} display="flex" gap={1}>

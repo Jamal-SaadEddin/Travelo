@@ -7,6 +7,7 @@ import {
   Toolbar,
   Typography,
 } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 import { bookingDetails } from "./constants";
 
 const RowStack = ({
@@ -23,6 +24,8 @@ const RowStack = ({
 );
 
 const ConfirmationPage = () => {
+  const navigate = useNavigate();
+
   return (
     <Container maxWidth="xl">
       <Toolbar
@@ -80,7 +83,7 @@ const ConfirmationPage = () => {
             </Stack>
           </Paper>
         </Container>
-        <Button variant="contained" href="/">
+        <Button variant="contained" onClick={() => navigate("/")}>
           Return to Home Page
         </Button>
       </Paper>
