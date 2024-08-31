@@ -2,6 +2,7 @@ import { Link } from "@mui/material";
 import { NavLink } from "react-router-dom";
 import { Link as ScrollLink } from "react-scroll";
 import NavbarLinkProps from "../entities/NavbarLinkProps";
+import useAuthStore from "../../../store/auth.store";
 
 const NavbarLink = ({
   scrollTo = "",
@@ -11,6 +12,14 @@ const NavbarLink = ({
   child_1,
   child_2,
 }: NavbarLinkProps) => {
+  const signout = useAuthStore((state) => state.signout);
+
+  const handleClick = () => {
+    if (title === "Logout") {
+      signout();
+    }
+  };
+
   return (
     <ScrollLink
       to={scrollTo}
@@ -19,7 +28,13 @@ const NavbarLink = ({
       style={{ textDecoration: "none", color: "inherit", cursor: "pointer" }}
     >
       <NavLink to={href} style={{ textDecoration: "none", color: "inherit" }}>
-        <Link variant="h6" underline="none" color="inherit" sx={sx}>
+        <Link
+          variant="h6"
+          underline="none"
+          color="inherit"
+          sx={sx}
+          onClick={handleClick}
+        >
           {child_1}
           {title}
           {child_2}

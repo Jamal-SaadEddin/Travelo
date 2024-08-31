@@ -12,6 +12,10 @@ import { Form, Formik } from "formik";
 import * as Yup from "yup";
 import FormikTextField from "../../components/FormikTextField";
 import PromotionalSection from "../../components/PromotionalSection";
+import useAuthStore from "../../store/auth.store";
+import { useNavigate } from "react-router-dom";
+import useAuth from "../../hooks/useAuth";
+import { useEffect } from "react";
 
 const initialValues = {
   username: "",
@@ -19,14 +23,25 @@ const initialValues = {
 };
 
 const LoginPage = () => {
+  const user = useAuthStore((state) => state.user);
+  const navigate = useNavigate();
+  const auth = useAuth();
+
   const validationSchema = Yup.object({
     username: Yup.string().required("Username is required"),
     password: Yup.string().required("Password is required"),
   });
 
   const handleSubmit = (values: { username: string; password: string }) => {
-    console.log("onSubmit", values);
+    const { username, password } = values;
+    auth.mutate({ username, password });
   };
+
+  useEffect(() => {
+    user?.userType === "Admin"
+      ? navigate("/admin")
+      : user?.userType === "User" && navigate("/user");
+  }, [user?.userType, navigate]);
 
   return (
     <Grid
@@ -84,13 +99,18 @@ const LoginPage = () => {
                   type="password"
                   autoComplete="current-password"
                 />
+                <Typography variant="body2" color="error" align="left">
+                  {auth.error &&
+                    "The username or password provided were incorrect!"}
+                </Typography>
                 <Button
                   type="submit"
                   fullWidth
                   variant="contained"
+                  disabled={auth.isPending}
                   sx={{ mt: 3, mb: 2 }}
                 >
-                  Sign In
+                  {auth.isPending ? "Loading..." : "Sign In"}
                 </Button>
               </Form>
             )}

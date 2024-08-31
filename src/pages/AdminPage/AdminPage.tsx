@@ -13,8 +13,8 @@ import { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
 import RoomCard from "../../components/AvailableRooms/components/RoomCard";
 import SearchBar from "../../components/SearchBar";
-import { Room } from "../../entities";
-import { user } from "../../hooks/useAuth";
+import { Room } from "../../entities/Room";
+// import { user } from "../../hooks/useAuth";
 import CityDialog from "./components/CityDialog";
 import GenericCard from "./components/GenericCard";
 import HotelDialog from "./components/HotelDialog";
@@ -23,6 +23,7 @@ import RoomDialog from "./components/RoomDialog";
 import { City, Hotel } from "./entities";
 
 const baseApiUrl = import.meta.env.VITE_BASE_API_URL;
+const user = { type: "user" };
 
 const AdminPage = ({ dataType }: { dataType: "hotel" | "city" | "room" }) => {
   const [currentPage, setCurrentPage] = useState(1);

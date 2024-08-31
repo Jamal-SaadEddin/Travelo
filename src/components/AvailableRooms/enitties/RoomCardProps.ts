@@ -1,4 +1,4 @@
-import { Room } from "../../../entities";
+import { Room } from "../../../entities/Room";
 
 export interface RoomCardProps {
   room: Room;

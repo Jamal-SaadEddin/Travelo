@@ -1,7 +1,7 @@
 import { Container, Hidden } from "@mui/material";
 import MuiAppBar from "@mui/material/AppBar";
 import MuiToolbar from "@mui/material/Toolbar";
-import { user } from "../../hooks/useAuth";
+// import { user } from "../../hooks/useAuth";
 import NavbarLink from "./components/NavbarLink";
 import NavbarList from "./components/NavbarList";
 import NavbarMenu from "./components/NavbarMenu";
@@ -16,6 +16,7 @@ import {
 const Navbar = () => {
   let leftNavLinks;
   let rightNavLinks;
+  const user = { type: "user" };
   switch (user.type) {
     case "admin":
       leftNavLinks = adminLeftNavLinks;

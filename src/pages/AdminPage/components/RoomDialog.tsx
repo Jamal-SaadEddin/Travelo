@@ -11,7 +11,7 @@ import { Form, Formik } from "formik";
 import React, { useEffect, useState } from "react";
 import * as Yup from "yup";
 import FormikTextField from "../../../components/FormikTextField";
-import { Room } from "../../../entities";
+import { Room } from "../../../entities/Room";
 import { Hotel } from "../entities";
 
 const baseApiUrl = import.meta.env.VITE_BASE_API_URL;
