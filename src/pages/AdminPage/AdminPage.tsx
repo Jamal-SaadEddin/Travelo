@@ -10,11 +10,10 @@ import {
 } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Navigate } from "react-router-dom";
 import RoomCard from "../../components/AvailableRooms/components/RoomCard";
 import SearchBar from "../../components/SearchBar";
 import { Room } from "../../entities/Room";
-// import { user } from "../../hooks/useAuth";
+import useCurrentPageStore from "../../store/currentPage.store";
 import CityDialog from "./components/CityDialog";
 import GenericCard from "./components/GenericCard";
 import HotelDialog from "./components/HotelDialog";
@@ -23,9 +22,10 @@ import RoomDialog from "./components/RoomDialog";
 import { City, Hotel } from "./entities";
 
 const baseApiUrl = import.meta.env.VITE_BASE_API_URL;
-const user = { type: "user" };
 
-const AdminPage = ({ dataType }: { dataType: "hotel" | "city" | "room" }) => {
+const AdminPage = () => {
+  const pageData = useCurrentPageStore((state) => state.currentPage);
+
   const [currentPage, setCurrentPage] = useState(1);
   const [cardsPerPage, setCardsPerPage] = useState(9);
   const [totalPages, setTotalPages] = useState(1);
@@ -36,43 +36,45 @@ const AdminPage = ({ dataType }: { dataType: "hotel" | "city" | "room" }) => {
 
   useEffect(() => {
     async function fetchHotels() {
-      const response = await axios.get(`${baseApiUrl}/hotels`);
+      const response = await axios.get(`${baseApiUrl}/hotels`, {
+        withCredentials: false,
+      });
       setHotels(response.data);
       if (response.data.length > 0) {
         setSelectedHotel(response.data[0].id); // Set default to the first hotel
       }
     }
 
-    if (dataType === "room") {
+    if (pageData === "rooms") {
       fetchHotels();
     }
-  }, [dataType]);
+  }, [pageData]);
 
   useEffect(() => {
     const fetchData = async () => {
       let apiUrl: string;
 
-      if (dataType === "hotel") {
+      if (pageData === "hotels") {
         apiUrl = `${baseApiUrl}/hotels?pageSize=${cardsPerPage}&pageNumber=${currentPage}`;
-        const response = await axios.get(apiUrl);
+        const response = await axios.get(apiUrl, { withCredentials: false });
         setItems(response.data);
         const pagination = JSON.parse(response.headers["x-pagination"]);
         setTotalPages(pagination.TotalPageCount);
-      } else if (dataType === "city") {
+      } else if (pageData === "cities") {
         apiUrl = `${baseApiUrl}/cities`;
-        const response = await axios.get(apiUrl);
+        const response = await axios.get(apiUrl, { withCredentials: false });
         setItems(response.data);
         setTotalPages(1); // No pagination for cities
-      } else if (dataType === "room" && selectedHotel) {
+      } else if (pageData === "rooms" && selectedHotel) {
         apiUrl = `${baseApiUrl}/hotels/${selectedHotel}/rooms?checkInDate=${todayDate}&checkOutDate=${todayDate}`;
-        const response = await axios.get(apiUrl);
+        const response = await axios.get(apiUrl, { withCredentials: false });
         setItems(response.data);
         setTotalPages(1); // Assuming no pagination needed for rooms
       }
     };
 
     fetchData();
-  }, [dataType, currentPage, cardsPerPage, selectedHotel, todayDate]);
+  }, [pageData, currentPage, cardsPerPage, selectedHotel, todayDate]);
 
   const handleClick = (pageNumber: number) => {
     setCurrentPage(pageNumber);
@@ -96,21 +98,17 @@ const AdminPage = ({ dataType }: { dataType: "hotel" | "city" | "room" }) => {
     setItems([newRoom, ...items]);
   };
 
-  if (user.type !== "admin") {
-    return <Navigate to="/not-found" />;
-  }
-
   return (
     <Container maxWidth="lg">
       <SearchBar />
       <Stack direction="row" justifyContent="right" my={3} spacing={2}>
-        {dataType === "city" && (
+        {pageData === "cities" && (
           <CityDialog type="add" onSubmit={handleAddCity} />
         )}
-        {dataType === "hotel" && (
+        {pageData === "hotels" && (
           <HotelDialog type="add" onSubmit={handleAddHotel} />
         )}
-        {dataType === "room" && (
+        {pageData === "rooms" && (
           <RoomDialog
             type="add"
             onSubmit={handleAddRoom}
@@ -118,7 +116,7 @@ const AdminPage = ({ dataType }: { dataType: "hotel" | "city" | "room" }) => {
             hotels={hotels}
           />
         )}
-        {dataType === "hotel" && totalPages > 1 && (
+        {pageData === "hotels" && totalPages > 1 && (
           <FormControl>
             <InputLabel>Items per page</InputLabel>
             <Select
@@ -132,7 +130,7 @@ const AdminPage = ({ dataType }: { dataType: "hotel" | "city" | "room" }) => {
           </FormControl>
         )}
 
-        {dataType === "room" && hotels.length > 0 && (
+        {pageData === "rooms" && hotels.length > 0 && (
           <FormControl>
             <InputLabel>Hotel</InputLabel>
             <Select
@@ -157,20 +155,22 @@ const AdminPage = ({ dataType }: { dataType: "hotel" | "city" | "room" }) => {
             md={6}
             lg={4}
             key={
-              dataType === "room"
+              pageData === "rooms"
                 ? (item as Room).roomId
                 : (item as City | Hotel).id
             }
           >
-            {dataType === "room" ? (
+            {pageData === "rooms" ? (
               <RoomCard room={item as Room} size="small" editable />
+            ) : pageData === "hotels" ? (
+              <GenericCard item={item as City | Hotel} type="hotel" />
             ) : (
-              <GenericCard item={item as City | Hotel} type={dataType} />
+              <GenericCard item={item as City | Hotel} type="city" />
             )}
           </Grid>
         ))}
       </Grid>
-      {dataType === "hotel" && (
+      {pageData === "hotels" && (
         <Stack direction="row" justifyContent="center" mt={3}>
           {renderPaginationButtons({ currentPage, totalPages, handleClick })}
         </Stack>

@@ -6,23 +6,27 @@ import NavbarLink from "./components/NavbarLink";
 import NavbarList from "./components/NavbarList";
 import NavbarMenu from "./components/NavbarMenu";
 import ThemeMenu from "./components/ThemeMenu";
-import {
-  adminLeftNavLinks,
-  adminRightNavLinks,
-  userLeftNavLinks,
-  userRightNavLinks,
-} from "./constants/links";
+import useAuthStore from "../../store/auth.store";
+import { Links } from "./constants/Links";
 
 const Navbar = () => {
+  const { user } = useAuthStore();
+  const {
+    userLeftNavLinks,
+    userRightNavLinks,
+    adminLeftNavLinks,
+    adminRightNavLinks,
+  } = Links();
+
   let leftNavLinks;
   let rightNavLinks;
-  const user = { type: "user" };
-  switch (user.type) {
-    case "admin":
+
+  switch (user?.userType) {
+    case "Admin":
       leftNavLinks = adminLeftNavLinks;
       rightNavLinks = adminRightNavLinks;
       break;
-    case "user":
+    case "User":
       leftNavLinks = userLeftNavLinks;
       rightNavLinks = userRightNavLinks;
       break;

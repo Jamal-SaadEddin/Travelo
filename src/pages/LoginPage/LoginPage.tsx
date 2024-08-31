@@ -38,9 +38,9 @@ const LoginPage = () => {
   };
 
   useEffect(() => {
-    user?.userType === "Admin"
-      ? navigate("/admin")
-      : user?.userType === "User" && navigate("/user");
+    if (user?.userType) {
+      navigate("/");
+    }
   }, [user?.userType, navigate]);
 
   return (

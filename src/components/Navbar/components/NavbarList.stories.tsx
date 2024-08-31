@@ -1,7 +1,9 @@
 import { Meta, StoryFn } from "@storybook/react";
 import NavbarList from "../components/NavbarList";
-import { userLeftNavLinks as links } from "../constants/links";
 import NavbarLinkProps from "../entities/NavbarLinkProps";
+import { Links } from "../constants/Links";
+
+const { userLeftNavLinks: links } = Links();
 
 export default {
   title: "Components/Navbar/NavbarList",
