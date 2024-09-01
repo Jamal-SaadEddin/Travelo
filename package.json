@@ -65,6 +65,7 @@
     "husky": "^9.1.4",
     "prettier": "3.3.3",
     "storybook": "^8.2.7",
+    "swagger-typescript-api": "^13.0.22",
     "typescript": "^5.2.2",
     "vite": "^5.3.4"
   },
