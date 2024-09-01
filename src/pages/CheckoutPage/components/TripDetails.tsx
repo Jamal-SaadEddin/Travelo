@@ -1,6 +1,9 @@
 import { Stack, TextField } from "@mui/material";
+import useSearchBoxStore from "../../../store/searchBoxStore";
 
 const TripDetails = () => {
+  const searchQueries = useSearchBoxStore((state) => state.searchQueries);
+
   return (
     <Stack direction="row" flexWrap="wrap" alignItems="center" spacing={2}>
       <TextField
@@ -10,11 +13,11 @@ const TripDetails = () => {
           readOnly: true,
           disableUnderline: true,
         }}
-        value="📅 2024-08-19 ➡ 2024-08-20"
+        value={`📅 ${searchQueries.checkIn.format("YYYY-MM-DD")} ➡ ${searchQueries.checkOut.format("YYYY-MM-DD")}`}
         sx={{
           pointerEvents: "none",
           "& .MuiInputBase-input": {
-            width: `${"📅 2024-08-19 ➡ 2024-08-20".length}ch`,
+            width: `${`📅 ${searchQueries.checkIn.format("YYYY-MM-DD")} ➡ ${searchQueries.checkOut.format("YYYY-MM-DD")}`.length}ch`,
             pt: 1,
           },
           "& .MuiInputLabel-root": {
@@ -30,11 +33,11 @@ const TripDetails = () => {
           readOnly: true,
           disableUnderline: true,
         }}
-        value="🧑🏻👩🏻‍🦰 2 adults, 👶🏻 2 childs"
+        value={`🧑🏻👩🏻‍🦰 ${searchQueries.adults} adults, 👶🏻 ${searchQueries.children} childs`}
         sx={{
           pointerEvents: "none",
           "& .MuiInputBase-input": {
-            width: `${"🧑🏻 2 adults,  1 child".length}ch`,
+            width: `${`🧑🏻 ${searchQueries.adults} adults,  ${searchQueries.children} child`.length}ch`,
             pt: 1,
           },
           "& .MuiInputLabel-root": {

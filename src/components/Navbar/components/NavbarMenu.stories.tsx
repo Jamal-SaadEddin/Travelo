@@ -1,7 +1,7 @@
 import { Meta, StoryFn } from "@storybook/react";
 import NavbarMenu from "../components/NavbarMenu";
 import { userLeftNavLinks, userRightNavLinks } from "../constants/links";
-import NavLink from "../entities/NavLink";
+import NavbarLinkProps from "../entities/NavbarLinkProps";
 
 export default {
   title: "Components/Navbar/NavbarMenu",
@@ -13,8 +13,8 @@ export default {
 } as Meta;
 
 const Template: StoryFn<{
-  leftNavLinks: NavLink[];
-  rightNavLinks: NavLink[];
+  leftNavLinks: NavbarLinkProps[];
+  rightNavLinks: NavbarLinkProps[];
 }> = (args) => <NavbarMenu {...args} />;
 
 export const Default = Template.bind({});

@@ -52,7 +52,6 @@ const ThemeMenu = ({ lgDown }: ThemeMenuProps) => {
         aria-controls="theme-menu"
         aria-haspopup="true"
         onClick={handleMenuClick}
-        sx={{ color: lgDown ? "inherit" : "error.main" }}
       >
         {getIconForTheme()}
       </IconButton>

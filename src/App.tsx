@@ -1,15 +1,7 @@
-import Footer from "./components/Footer";
-import Navbar from "./components/Navbar";
-import AdminPage from "./pages/AdminPage";
+import AppRoutes from "./Routes";
 
 const App = () => {
-  return (
-    <>
-      <Navbar />
-      <AdminPage cardType="city" />
-      <Footer />
-    </>
-  );
+  return <AppRoutes />;
 };
 
 export default App;

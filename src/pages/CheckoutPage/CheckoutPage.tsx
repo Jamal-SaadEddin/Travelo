@@ -1,6 +1,7 @@
 import SentimentVeryDissatisfiedIcon from "@mui/icons-material/SentimentVeryDissatisfied";
 import ShoppingCartCheckoutIcon from "@mui/icons-material/ShoppingCartCheckout";
 import {
+  Button,
   Container,
   Divider,
   Grid,
@@ -8,6 +9,7 @@ import {
   Toolbar,
   Typography,
 } from "@mui/material";
+import { Link as RouterLink } from "react-router-dom";
 import useCartStore from "../../store/cartStore";
 import BookedRooms from "./components/BookedRooms";
 import PaymentForm from "./components/PaymentForm";
@@ -38,14 +40,23 @@ const CheckoutPage = () => {
             </Typography>
           </Grid>
           {bookedRooms.length === 0 && (
-            <Grid item xs={12}>
-              <Typography variant="h6" textAlign="center">
+            <Grid item xs={12} textAlign="center">
+              <Typography variant="h6">
                 Your cart is empty. Please book a room first.
                 <br />
                 <SentimentVeryDissatisfiedIcon
                   sx={{ fontSize: "48px", mt: 1 }}
                 />
               </Typography>
+              <Button
+                variant="contained"
+                color="primary"
+                component={RouterLink}
+                to="/"
+                sx={{ marginTop: 2 }}
+              >
+                Go Back Home
+              </Button>
             </Grid>
           )}
           {bookedRooms.length > 0 && (

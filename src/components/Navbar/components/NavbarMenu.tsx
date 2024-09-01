@@ -4,11 +4,12 @@ import Fade from "@mui/material/Fade";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import * as React from "react";
-import NavLink from "../entities/NavLink";
+import NavbarLinkProps from "../entities/NavbarLinkProps";
+import NavbarLink from "./NavbarLink";
 
 interface Props {
-  leftNavLinks: NavLink[];
-  rightNavLinks: NavLink[];
+  leftNavLinks: NavbarLinkProps[];
+  rightNavLinks: NavbarLinkProps[];
 }
 
 const NavbarMenu = ({ leftNavLinks, rightNavLinks }: Props) => {
@@ -19,11 +20,6 @@ const NavbarMenu = ({ leftNavLinks, rightNavLinks }: Props) => {
   };
   const handleClose = () => {
     setAnchorEl(null);
-  };
-
-  const handleLink = (href: string) => {
-    handleClose();
-    window.location.href = href;
   };
 
   return (
@@ -49,14 +45,14 @@ const NavbarMenu = ({ leftNavLinks, rightNavLinks }: Props) => {
         TransitionComponent={Fade}
       >
         {leftNavLinks.slice(1).map((link, index) => (
-          <MenuItem key={index} onClick={() => handleLink(link.href)}>
-            {link.title}
+          <MenuItem key={index} onClick={handleClose}>
+            <NavbarLink {...link} />
           </MenuItem>
         ))}
         <Divider />
         {rightNavLinks.map((link, index) => (
-          <MenuItem key={index} onClick={() => handleLink(link.href)}>
-            {link.title}
+          <MenuItem key={index} onClick={handleClose}>
+            <NavbarLink {...link} />
           </MenuItem>
         ))}
       </Menu>

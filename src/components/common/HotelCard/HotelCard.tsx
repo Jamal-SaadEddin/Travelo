@@ -8,7 +8,10 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { SxProps } from "@mui/system";
+import queryString from "query-string";
+import { useNavigate } from "react-router-dom";
 import { truncateText } from "../../../services/truncateText";
+import useSearchBoxStore from "../../../store/searchBoxStore";
 import { useStyles } from "../../../styles";
 import StarRating from "../StarRating";
 import { HotelCardProps } from "./entities/HotelCardProps";
@@ -33,6 +36,25 @@ const HotelCard = ({ hotel }: HotelCardProps) => {
       : isFeaturedDealHotel(hotel)
         ? featuredDealStyles.cardWidth
         : hotelListingsStyles.cardWidth,
+  };
+
+  const navigate = useNavigate();
+  const searchQueries = useSearchBoxStore((state) => state.searchQueries);
+
+  const handleClick = () => {
+    const { cityName, checkIn, checkOut, adults, children, rooms } =
+      searchQueries;
+
+    const queryParams = queryString.stringify({
+      city: cityName,
+      checkInDate: checkIn.format("YYYY-MM-DD"),
+      checkOutDate: checkOut.format("YYYY-MM-DD"),
+      adults,
+      children,
+      numberOfRooms: rooms,
+    });
+
+    navigate(`/hotel/${hotel.hotelId}?${queryParams}`);
   };
 
   return (
@@ -141,7 +163,9 @@ const HotelCard = ({ hotel }: HotelCardProps) => {
       </CardContent>
       {(isFeaturedDealHotel(hotel) || isListingHotel(hotel)) && (
         <CardActions sx={{ justifyContent: "center", mt: "auto", pb: 3 }}>
-          <Button variant="contained">Show more details</Button>
+          <Button variant="contained" onClick={handleClick}>
+            Show more details
+          </Button>
         </CardActions>
       )}
     </Card>

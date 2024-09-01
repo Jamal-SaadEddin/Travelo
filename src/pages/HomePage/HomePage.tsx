@@ -1,27 +1,18 @@
-import { Container } from "@mui/material";
-import FeaturedDeals from "../../components/FeaturedDeals";
-import HeroSection from "../../components/HeroSection";
-import RecentlyVisitedHotels from "../../components/RecentlyVisitedHotels";
-import SearchBox from "../../components/SearchBox";
-import TrendingDestinations from "../../components/TrendingDestinations";
-import HomeSection from "./components/HomeSection";
+import { Navigate, Outlet } from "react-router-dom";
+import Footer from "../../components/Footer";
+import Navbar from "../../components/Navbar";
+import { user } from "../../hooks/useAuth";
 
 const HomePage = () => {
+  if (user === null) {
+    return <Navigate to="/login" />;
+  }
+
   return (
     <>
-      <HeroSection />
-      <Container maxWidth="xl">
-        <SearchBox />
-        <HomeSection title="Featured Deals" children={<FeaturedDeals />} />
-        <HomeSection
-          title="Recently Visited Hotels"
-          children={<RecentlyVisitedHotels />}
-        />
-        <HomeSection
-          title="Trending Destinations"
-          children={<TrendingDestinations />}
-        />
-      </Container>
+      <Navbar />
+      <Outlet />
+      <Footer />
     </>
   );
 };

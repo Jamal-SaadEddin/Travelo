@@ -1,7 +1,7 @@
 import { Meta, StoryFn } from "@storybook/react";
 import NavbarList from "../components/NavbarList";
 import { userLeftNavLinks as links } from "../constants/links";
-import NavLink from "../entities/NavLink";
+import NavbarLinkProps from "../entities/NavbarLinkProps";
 
 export default {
   title: "Components/Navbar/NavbarList",
@@ -12,9 +12,10 @@ export default {
   },
 } as Meta;
 
-const Template: StoryFn<{ links: NavLink[]; justifyContent: string }> = (
-  args,
-) => <NavbarList {...args} />;
+const Template: StoryFn<{
+  links: NavbarLinkProps[];
+  justifyContent: string;
+}> = (args) => <NavbarList {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
