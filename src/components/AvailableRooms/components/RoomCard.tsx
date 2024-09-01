@@ -16,7 +16,7 @@ import {
   useTheme,
 } from "@mui/material";
 import { useState } from "react";
-import { Room } from "../../../entities";
+import { Room } from "../../../entities/Room";
 import DeleteDialog from "../../../pages/AdminPage/components/DeleteDialog";
 import RoomDialog from "../../../pages/AdminPage/components/RoomDialog";
 import AmenitiesStack from "../../AmenitiesStack";

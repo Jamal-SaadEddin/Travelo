@@ -5,8 +5,10 @@ import HeroSection from "../../components/HeroSection";
 import RecentlyVisitedHotels from "../../components/RecentlyVisitedHotels";
 import SearchBox from "../../components/SearchBox";
 import TrendingDestinations from "../../components/TrendingDestinations";
-import { user } from "../../hooks/useAuth";
+// import { user } from "../../hooks/useAuth";
 import HomeSection from "./components/HomeSection";
+
+const user = { type: "user" };
 
 const MainPage = () => {
   if (user.type === "admin") {

@@ -5,11 +5,12 @@ import NavbarLinkProps from "../entities/NavbarLinkProps";
 
 const NavbarLink = ({
   scrollTo = "",
-  href,
+  href = "/",
   sx,
   title,
   child_1,
   child_2,
+  onClick,
 }: NavbarLinkProps) => {
   return (
     <ScrollLink
@@ -19,7 +20,14 @@ const NavbarLink = ({
       style={{ textDecoration: "none", color: "inherit", cursor: "pointer" }}
     >
       <NavLink to={href} style={{ textDecoration: "none", color: "inherit" }}>
-        <Link variant="h6" underline="none" color="inherit" sx={sx}>
+        <Link
+          variant="h6"
+          underline="none"
+          color="inherit"
+          sx={sx}
+          onClick={onClick}
+          href={href}
+        >
           {child_1}
           {title}
           {child_2}
