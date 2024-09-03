@@ -6,14 +6,12 @@ import {
   DialogContent,
   DialogTitle,
 } from "@mui/material";
-import axios from "axios";
 import { Form, Formik } from "formik";
 import React, { useState } from "react";
 import * as Yup from "yup";
 import FormikTextField from "../../../components/FormikTextField";
+import { useCity } from "../../../hooks/useCity";
 import { City } from "../entities";
-
-const baseApiUrl = import.meta.env.VITE_BASE_API_URL;
 
 interface CityDialogProps {
   type: "add" | "update";
@@ -33,6 +31,9 @@ const validationSchema = Yup.object({
 
 const CityDialog: React.FC<CityDialogProps> = ({ type, city, onSubmit }) => {
   const [open, setOpen] = useState(false);
+  const { useAddCity, useUpdateCity } = useCity();
+  const addCity = useAddCity();
+  const updateCity = useUpdateCity();
 
   const initialUpdateValues: City = {
     name: city?.name as string,
@@ -44,27 +45,15 @@ const CityDialog: React.FC<CityDialogProps> = ({ type, city, onSubmit }) => {
 
   const handleSubmit = (values: City) => {
     if (isUpdateMode) {
-      axios
-        .put(`${baseApiUrl}/cities/${city?.id}`, values)
-        .then(() => {
-          onSubmit(values);
-          setOpen(false);
-        })
-        .catch((error) => {
-          console.error("Error updating city:", error);
-        });
+      updateCity.mutate({ id: city!.id!, ...values });
+      onSubmit(values);
+      setOpen(false);
     } else {
-      axios
-        .post(`${baseApiUrl}/cities`, values)
-        .then((response) => {
-          onSubmit(response.data);
-          values.name = "";
-          values.description = "";
-          setOpen(false);
-        })
-        .catch((error) => {
-          console.error("Error adding city:", error);
-        });
+      const response = addCity.mutate(values);
+      console.log(response);
+
+      // onSubmit(response as unknown as City);
+      setOpen(false);
     }
   };
 
