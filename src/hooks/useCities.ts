@@ -1,8 +1,8 @@
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { City } from "../pages/AdminPage/entities";
-import ApiClient from "../services/apiClient";
+import { createApiClient } from "../services/createApiClient";
 
-const apiClient = ApiClient();
+const apiClient = createApiClient();
 
 export const useCities = () =>
   useQuery<City[], Error>({

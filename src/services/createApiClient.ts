@@ -1,10 +1,8 @@
 import { Api } from "../api/Api";
 
-const ApiClient = () => {
+export const createApiClient = () => {
   const apiClient = new Api();
   apiClient.baseUrl = import.meta.env.VITE_BASE_API_URL;
 
   return apiClient;
 };
-
-export default ApiClient;

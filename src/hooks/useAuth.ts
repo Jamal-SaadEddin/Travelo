@@ -1,10 +1,10 @@
 import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import { AuthRequest, AuthResponse } from "../entities/Auth";
-import ApiClient from "../services/apiClient";
+import { createApiClient } from "../services/createApiClient";
 import useAuthStore from "../store/auth.store";
 
-const apiClient = ApiClient();
+const apiClient = createApiClient();
 
 const useAuth = () => {
   const { signin, signout } = useAuthStore();

@@ -1,8 +1,8 @@
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { Room } from "../entities/Room";
-import ApiClient from "../services/apiClient";
+import { createApiClient } from "../services/createApiClient";
 
-const apiClient = ApiClient();
+const apiClient = createApiClient();
 
 export const useRooms = (selectedHotel: number | null, todayDate: string) => {
   return useQuery<Room[], Error>({
