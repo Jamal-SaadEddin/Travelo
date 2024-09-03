@@ -9,10 +9,11 @@ import {
 } from "@mui/material";
 import axios from "axios";
 import { Form, Formik } from "formik";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import * as Yup from "yup";
 import FormikTextField from "../../../components/FormikTextField";
-import { City, Hotel } from "../entities";
+import { useCities } from "../../../hooks/useCities";
+import { Hotel } from "../entities";
 
 const baseApiUrl = import.meta.env.VITE_BASE_API_URL;
 
@@ -44,27 +45,7 @@ const validationSchema = Yup.object({
 
 const HotelDialog: React.FC<HotelDialogProps> = ({ type, hotel, onSubmit }) => {
   const [open, setOpen] = useState(false);
-  const [cities, setCities] = useState<City[]>([]);
-
-  useEffect(() => {
-    axios
-      .get(`${baseApiUrl}/cities`)
-      .then((response) => {
-        if (Array.isArray(response.data)) {
-          setCities(response.data);
-        } else {
-          console.error(
-            "Unexpected API response, expected an array:",
-            response.data,
-          );
-          setCities([]);
-        }
-      })
-      .catch((error) => {
-        console.error("Error fetching cities:", error);
-        setCities([]); // Set to empty array in case of error to avoid further issues
-      });
-  }, []);
+  const { data: cities } = useCities();
 
   const initialUpdateValues: Hotel = {
     id: hotel?.id,
@@ -128,7 +109,7 @@ const HotelDialog: React.FC<HotelDialogProps> = ({ type, hotel, onSubmit }) => {
               <FormikTextField name="name" label="Hotel name" fullWidth />
               {!isUpdateMode && (
                 <FormikTextField name="cityId" label="City" fullWidth select>
-                  {cities.map((city) => (
+                  {cities?.map((city) => (
                     <MenuItem key={city.id} value={city.id}>
                       {city.name}
                     </MenuItem>

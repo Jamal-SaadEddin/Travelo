@@ -8,11 +8,13 @@ import {
   SelectChangeEvent,
   Stack,
 } from "@mui/material";
-import axios from "axios";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import RoomCard from "../../components/AvailableRooms/components/RoomCard";
 import SearchBar from "../../components/SearchBar";
 import { Room } from "../../entities/Room";
+import { useCities } from "../../hooks/useCities";
+import { useHotels } from "../../hooks/useHotels";
+import { useRooms } from "../../hooks/useRooms";
 import useCurrentPageStore from "../../store/currentPage.store";
 import CityDialog from "./components/CityDialog";
 import GenericCard from "./components/GenericCard";
@@ -21,60 +23,34 @@ import { renderPaginationButtons } from "./components/PaginationButtons";
 import RoomDialog from "./components/RoomDialog";
 import { City, Hotel } from "./entities";
 
-const baseApiUrl = import.meta.env.VITE_BASE_API_URL;
-
 const AdminPage = () => {
   const pageData = useCurrentPageStore((state) => state.currentPage);
-
   const [currentPage, setCurrentPage] = useState(1);
   const [cardsPerPage, setCardsPerPage] = useState(9);
-  const [totalPages, setTotalPages] = useState(1);
-  const [items, setItems] = useState<(City | Hotel | Room)[]>([]);
-  const [hotels, setHotels] = useState<Hotel[]>([]);
-  const [selectedHotel, setSelectedHotel] = useState<number | null>(null);
+  const [selectedHotel, setSelectedHotel] = useState<number | null>(139);
   const todayDate = new Date().toISOString().split("T")[0]; // Format today's date
 
-  useEffect(() => {
-    async function fetchHotels() {
-      const response = await axios.get(`${baseApiUrl}/hotels`, {
-        withCredentials: false,
-      });
-      setHotels(response.data);
-      if (response.data.length > 0) {
-        setSelectedHotel(response.data[0].id); // Set default to the first hotel
-      }
-    }
+  // Fetching data using custom hooks
+  const { data: cities } = useCities();
+  const { data: hotelsData } = useHotels(currentPage, cardsPerPage);
+  const hotels = hotelsData?.data;
+  const totalPages = hotelsData?.totalPages || 1;
+  const { data: rooms } = useRooms(selectedHotel, todayDate);
 
-    if (pageData === "rooms") {
-      fetchHotels();
-    }
-  }, [pageData]);
+  // Set the selected hotel by default to the first one if it's available
+  if (pageData === "rooms" && hotels?.length && selectedHotel === null) {
+    setSelectedHotel(hotels[0].id!);
+  }
 
-  useEffect(() => {
-    const fetchData = async () => {
-      let apiUrl: string;
-
-      if (pageData === "hotels") {
-        apiUrl = `${baseApiUrl}/hotels?pageSize=${cardsPerPage}&pageNumber=${currentPage}`;
-        const response = await axios.get(apiUrl, { withCredentials: false });
-        setItems(response.data);
-        const pagination = JSON.parse(response.headers["x-pagination"]);
-        setTotalPages(pagination.TotalPageCount);
-      } else if (pageData === "cities") {
-        apiUrl = `${baseApiUrl}/cities`;
-        const response = await axios.get(apiUrl, { withCredentials: false });
-        setItems(response.data);
-        setTotalPages(1); // No pagination for cities
-      } else if (pageData === "rooms" && selectedHotel) {
-        apiUrl = `${baseApiUrl}/hotels/${selectedHotel}/rooms?checkInDate=${todayDate}&checkOutDate=${todayDate}`;
-        const response = await axios.get(apiUrl, { withCredentials: false });
-        setItems(response.data);
-        setTotalPages(1); // Assuming no pagination needed for rooms
-      }
-    };
-
-    fetchData();
-  }, [pageData, currentPage, cardsPerPage, selectedHotel, todayDate]);
+  // Determine the items to display based on pageData
+  const items =
+    pageData === "cities"
+      ? cities
+      : pageData === "hotels"
+        ? hotels
+        : pageData === "rooms"
+          ? rooms
+          : [];
 
   const handleClick = (pageNumber: number) => {
     setCurrentPage(pageNumber);
@@ -95,8 +71,10 @@ const AdminPage = () => {
   const handleAddHotel = (newHotel: Hotel) =>
     setItems((prev) => [...prev, newHotel]);
   const handleAddRoom = (newRoom: Room) => {
-    setItems([newRoom, ...items]);
+    setItems((prev) => [...prev, newRoom]);
   };
+
+  const setItems = useState<(City | Room)[]>([])[1];
 
   return (
     <Container maxWidth="lg">
@@ -113,7 +91,7 @@ const AdminPage = () => {
             type="add"
             onSubmit={handleAddRoom}
             selectedHotel={selectedHotel}
-            hotels={hotels}
+            hotels={hotels || []}
           />
         )}
         {pageData === "hotels" && totalPages > 1 && (
@@ -130,7 +108,7 @@ const AdminPage = () => {
           </FormControl>
         )}
 
-        {pageData === "rooms" && hotels.length > 0 && (
+        {pageData === "rooms" && (hotels?.length as number) > 0 && (
           <FormControl>
             <InputLabel>Hotel</InputLabel>
             <Select
@@ -138,7 +116,7 @@ const AdminPage = () => {
               value={selectedHotel?.toString() || ""}
               onChange={handleHotelChange}
             >
-              {hotels.map((hotel) => (
+              {hotels?.map((hotel) => (
                 <MenuItem key={hotel.id} value={hotel.id}>
                   {hotel.name}
                 </MenuItem>
@@ -148,27 +126,28 @@ const AdminPage = () => {
         )}
       </Stack>
       <Grid container spacing={3}>
-        {items.map((item) => (
-          <Grid
-            item
-            xs={12}
-            md={6}
-            lg={4}
-            key={
-              pageData === "rooms"
-                ? (item as Room).roomId
-                : (item as City | Hotel).id
-            }
-          >
-            {pageData === "rooms" ? (
-              <RoomCard room={item as Room} size="small" editable />
-            ) : pageData === "hotels" ? (
-              <GenericCard item={item as City | Hotel} type="hotel" />
-            ) : (
-              <GenericCard item={item as City | Hotel} type="city" />
-            )}
-          </Grid>
-        ))}
+        {items &&
+          items.map((item) => (
+            <Grid
+              item
+              xs={12}
+              md={6}
+              lg={4}
+              key={
+                pageData === "rooms"
+                  ? (item as Room).roomId
+                  : (item as City | Hotel).id
+              }
+            >
+              {pageData === "rooms" ? (
+                <RoomCard room={item as Room} size="small" editable />
+              ) : pageData === "hotels" ? (
+                <GenericCard item={item as City | Hotel} type="hotel" />
+              ) : (
+                <GenericCard item={item as City | Hotel} type="city" />
+              )}
+            </Grid>
+          ))}
       </Grid>
       {pageData === "hotels" && (
         <Stack direction="row" justifyContent="center" mt={3}>
