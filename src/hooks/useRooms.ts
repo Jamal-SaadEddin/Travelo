@@ -1,4 +1,4 @@
-import { useQuery } from "@tanstack/react-query";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { Room } from "../entities/Room";
 import ApiClient from "../services/apiClient";
 
@@ -18,5 +18,6 @@ export const useRooms = (selectedHotel: number | null, todayDate: string) => {
       return response.data as Room[];
     },
     staleTime: 1000 * 60 * 5, // 5 minutes
+    placeholderData: keepPreviousData,
   });
 };

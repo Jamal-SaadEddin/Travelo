@@ -109,7 +109,7 @@ const AdminPage = () => {
         )}
 
         {pageData === "rooms" && (hotels?.length as number) > 0 && (
-          <FormControl>
+          <FormControl sx={{ minWidth: "100px" }}>
             <InputLabel>Hotel</InputLabel>
             <Select
               label="Hotel"
