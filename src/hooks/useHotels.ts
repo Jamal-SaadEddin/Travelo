@@ -8,7 +8,7 @@ export const useHotels = (currentPage: number, cardsPerPage: number) => {
   return useQuery<{ data: Hotel[]; totalPages: number }, Error>({
     queryKey: ["hotels", currentPage, cardsPerPage],
     queryFn: async () => {
-      const response = await apiClient!.api.hotelsList({
+      const response = await apiClient.api.hotelsList({
         pageSize: cardsPerPage,
         pageNumber: currentPage,
       });

@@ -5,6 +5,7 @@ import { createApiClient } from "../services/createApiClient";
 import useAuthStore from "../store/auth.store";
 
 const apiClient = createApiClient();
+console.log(apiClient);
 
 const useAuth = () => {
   const { signin, signout } = useAuthStore();
@@ -12,7 +13,7 @@ const useAuth = () => {
 
   return useMutation<AuthResponse, Error, AuthRequest>({
     mutationFn: (data: AuthRequest) =>
-      apiClient!.api
+      apiClient.api
         .authAuthenticateCreate(data)
         .then((response) => response.data as unknown as AuthResponse),
     onSuccess: (data: AuthResponse) => {

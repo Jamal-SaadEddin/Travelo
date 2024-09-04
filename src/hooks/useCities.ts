@@ -8,7 +8,7 @@ export const useCities = () =>
   useQuery<City[], Error>({
     queryKey: ["cities"],
     queryFn: async (): Promise<City[]> => {
-      const response = await apiClient!.api.citiesList();
+      const response = await apiClient.api.citiesList();
       return response.data.map((city) => ({
         ...city,
         name: city.name ?? "",

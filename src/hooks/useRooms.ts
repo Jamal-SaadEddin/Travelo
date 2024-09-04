@@ -8,7 +8,7 @@ export const useRooms = (selectedHotel: number | null, todayDate: string) => {
   return useQuery<Room[], Error>({
     queryKey: ["rooms", selectedHotel, todayDate],
     queryFn: async () => {
-      const response = await apiClient!.api.hotelsRoomsDetail(
+      const response = await apiClient.api.hotelsRoomsDetail(
         selectedHotel as number,
         {
           checkInDate: todayDate,

@@ -9,7 +9,7 @@ export const useCity = () => {
 
   const useAddCity = () =>
     useMutation({
-      mutationFn: (newCity: City) => apiClient!.api.citiesCreate(newCity),
+      mutationFn: (newCity: City) => apiClient.api.citiesCreate(newCity),
       onSuccess: (savedCity) => {
         queryClient
           .getQueryCache()
@@ -25,7 +25,7 @@ export const useCity = () => {
   const useUpdateCity = () =>
     useMutation({
       mutationFn: (updatedCity: City) =>
-        apiClient!.api.citiesUpdate(updatedCity.id!, {
+        apiClient.api.citiesUpdate(updatedCity.id!, {
           name: updatedCity.name,
           description: updatedCity.description,
         }),
@@ -49,7 +49,7 @@ export const useCity = () => {
   const useDeleteCity = () =>
     useMutation({
       mutationFn: (deletedCity: City) =>
-        apiClient!.api.citiesDelete(deletedCity.id!),
+        apiClient.api.citiesDelete(deletedCity.id!),
       onSuccess: (_, deletedCity: City) => {
         queryClient
           .getQueryCache()
