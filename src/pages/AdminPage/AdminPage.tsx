@@ -36,20 +36,19 @@ const AdminPage = () => {
   const hotels = hotelsData?.data;
   const totalPages = hotelsData?.totalPages || 1;
   const { data: rooms } = useRooms(selectedHotel, todayDate);
-
   // Set the selected hotel by default to the first one if it's available
   if (pageData === "rooms" && hotels?.length && selectedHotel === null) {
     setSelectedHotel(hotels[0].id!);
   }
 
   // Determine the items to display based on pageData
-  const items =
+  let items: (City | Hotel | Room)[] =
     pageData === "cities"
-      ? cities
+      ? cities!
       : pageData === "hotels"
-        ? hotels
+        ? hotels!
         : pageData === "rooms"
-          ? rooms
+          ? rooms!
           : [];
 
   const handleClick = (pageNumber: number) => {
@@ -66,15 +65,9 @@ const AdminPage = () => {
     setSelectedHotel(parseInt(event.target.value, 10));
   };
 
-  const handleAddCity = (newCity: City) =>
-    setItems((prev) => [...prev, newCity]);
-  const handleAddHotel = (newHotel: Hotel) =>
-    setItems((prev) => [...prev, newHotel]);
-  const handleAddRoom = (newRoom: Room) => {
-    setItems((prev) => [...prev, newRoom]);
-  };
-
-  const setItems = useState<(City | Room)[]>([])[1];
+  const handleAddCity = (newCity: City) => (items = [...items, newCity]);
+  const handleAddHotel = (newHotel: Hotel) => (items = [...items, newHotel]);
+  const handleAddRoom = (newRoom: Room) => (items = [...items, newRoom]);
 
   return (
     <Container maxWidth="lg">

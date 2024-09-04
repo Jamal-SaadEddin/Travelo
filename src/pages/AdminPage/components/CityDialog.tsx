@@ -44,17 +44,14 @@ const CityDialog: React.FC<CityDialogProps> = ({ type, city, onSubmit }) => {
   const initialValues = isUpdateMode ? initialUpdateValues : initialAddValues;
 
   const handleSubmit = (values: City) => {
-    if (isUpdateMode) {
-      updateCity.mutate({ id: city!.id!, ...values });
-      onSubmit(values);
-      setOpen(false);
-    } else {
-      const response = addCity.mutate(values);
-      console.log(response);
+    if (isUpdateMode) updateCity.mutate({ id: city!.id!, ...values });
+    else addCity.mutate(values);
 
-      // onSubmit(response as unknown as City);
-      setOpen(false);
-    }
+    onSubmit({
+      id: Math.floor(Math.random() * 1000),
+      ...values,
+    });
+    setOpen(false);
   };
 
   return (

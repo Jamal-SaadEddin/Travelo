@@ -16,7 +16,7 @@ export const useCity = () => {
           .findAll({ queryKey: ["cities"] })
           .forEach((query) => {
             queryClient.setQueryData(query.queryKey, (oldCities: City[]) => {
-              return [...oldCities, savedCity];
+              return [...oldCities, savedCity.data];
             });
           });
       },
