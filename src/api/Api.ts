@@ -609,8 +609,23 @@ export class HttpClient<SecurityDataType = unknown> {
  * @version 1.0
  */
 export class Api<
-  SecurityDataType extends unknown,
+  SecurityDataType extends { token?: string },
 > extends HttpClient<SecurityDataType> {
+  constructor(config: ApiConfig<SecurityDataType> = {}) {
+    super({
+      ...config,
+      securityWorker: async (securityData: SecurityDataType | null) => {
+        if (securityData && securityData.token) {
+          return {
+            headers: {
+              Authorization: `Bearer ${securityData.token}`,
+            },
+          };
+        }
+        return {};
+      },
+    });
+  }
   api = {
     /**
      * No description

@@ -12,7 +12,7 @@ const useAuth = () => {
 
   return useMutation<AuthResponse, Error, AuthRequest>({
     mutationFn: (data: AuthRequest) =>
-      apiClient.api
+      apiClient!.api
         .authAuthenticateCreate(data)
         .then((response) => response.data as unknown as AuthResponse),
     onSuccess: (data: AuthResponse) => {
