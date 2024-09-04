@@ -7,15 +7,13 @@ import {
   DialogTitle,
   MenuItem,
 } from "@mui/material";
-import axios from "axios";
 import { Form, Formik } from "formik";
 import React, { useState } from "react";
 import * as Yup from "yup";
 import FormikTextField from "../../../components/FormikTextField";
 import { useCities } from "../../../hooks/useCities";
+import { useHotel } from "../../../hooks/useHotel";
 import { Hotel } from "../entities";
-
-const baseApiUrl = import.meta.env.VITE_BASE_API_URL;
 
 interface HotelDialogProps {
   type: "add" | "update";
@@ -46,6 +44,9 @@ const validationSchema = Yup.object({
 const HotelDialog: React.FC<HotelDialogProps> = ({ type, hotel, onSubmit }) => {
   const [open, setOpen] = useState(false);
   const { data: cities } = useCities();
+  const { useAddHotel, useUpdateHotel } = useHotel();
+  const addHotel = useAddHotel();
+  const updateHotel = useUpdateHotel();
 
   const initialUpdateValues: Hotel = {
     id: hotel?.id,
@@ -62,27 +63,11 @@ const HotelDialog: React.FC<HotelDialogProps> = ({ type, hotel, onSubmit }) => {
   const initialValues = isUpdateMode ? initialUpdateValues : initialAddValues;
 
   const handleSubmit = (values: Hotel) => {
-    if (isUpdateMode) {
-      axios
-        .put(`${baseApiUrl}/hotels/${hotel?.id}`, values)
-        .then(() => {
-          onSubmit(values);
-          setOpen(false);
-        })
-        .catch((error) => {
-          console.error("Error updating hotel:", error);
-        });
-    } else {
-      axios
-        .post(`${baseApiUrl}/cities/${values.cityId}/hotels`, values)
-        .then((response) => {
-          onSubmit(response.data);
-          setOpen(false);
-        })
-        .catch((error) => {
-          console.error("Error adding hotel:", error);
-        });
-    }
+    if (isUpdateMode) updateHotel.mutate(values);
+    else addHotel.mutate(values);
+
+    onSubmit(values);
+    setOpen(false);
   };
 
   return (
