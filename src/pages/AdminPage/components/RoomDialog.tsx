@@ -6,15 +6,13 @@ import {
   DialogContent,
   DialogTitle,
 } from "@mui/material";
-import axios from "axios";
 import { Form, Formik } from "formik";
 import React, { useEffect, useState } from "react";
 import * as Yup from "yup";
 import FormikTextField from "../../../components/FormikTextField";
 import { Room } from "../../../entities/Room";
+import { useRoom } from "../../../hooks/useRoom";
 import { Hotel } from "../entities";
-
-const baseApiUrl = import.meta.env.VITE_BASE_API_URL;
 
 interface RoomDialogProps {
   type: "add" | "update";
@@ -44,6 +42,10 @@ const RoomDialog: React.FC<RoomDialogProps> = ({
   const [open, setOpen] = useState(false);
   const [hotelId, setHotelId] = useState<number | null>(selectedHotel!);
 
+  const { useAddRoom, useUpdateRoom } = useRoom();
+  const addRoom = useAddRoom();
+  const updateRoom = useUpdateRoom();
+
   useEffect(() => {
     if (selectedHotel) {
       setHotelId(selectedHotel);
@@ -60,42 +62,41 @@ const RoomDialog: React.FC<RoomDialogProps> = ({
 
   const handleSubmit = (values: Partial<Room>) => {
     if (isUpdateMode && room) {
-      axios
-        .put(`${baseApiUrl}/rooms/${room.roomId}`, values)
-        .then(() => {
-          const updatedRoom: Room = {
-            ...room,
-            roomNumber: values.roomNumber!,
-            price: values.price!,
-          };
-          onSubmit(updatedRoom);
-          setOpen(false);
-        })
-        .catch((error) => {
-          console.error("Error updating room:", error);
-        });
+      updateRoom.mutate({
+        roomId: room.roomId,
+        updatedRoom: {
+          roomNumber: values.roomNumber!.toString(),
+          cost: values.price!,
+        },
+      });
+      const updatedRoom: Room = {
+        ...room,
+        roomNumber: values.roomNumber!,
+        price: values.price!,
+      };
+      onSubmit(updatedRoom);
     } else {
-      axios
-        .post(`${baseApiUrl}/hotels/${hotelId}/rooms`, values)
-        .then(() => {
-          const newRoom: Room = {
-            roomId: Math.floor(Math.random() * 1000) + 1,
-            roomNumber: values.roomNumber!,
-            price: values.price!,
-            roomPhotoUrl: "",
-            roomType: "Standard",
-            capacityOfAdults: 2,
-            capacityOfChildren: 1,
-            roomAmenities: [],
-            availability: true,
-          };
-          onSubmit(newRoom);
-          setOpen(false);
-        })
-        .catch((error) => {
-          console.error("Error adding room:", error);
-        });
+      addRoom.mutate({
+        hotelId: hotelId!,
+        newRoom: {
+          roomNumber: values.roomNumber!.toString(),
+          cost: values.price!,
+        },
+      });
+      const newRoom: Room = {
+        roomId: Math.floor(Math.random() * 1000) + 1,
+        roomNumber: values.roomNumber!,
+        price: values.price!,
+        roomPhotoUrl: "",
+        roomType: "Standard",
+        capacityOfAdults: 2,
+        capacityOfChildren: 1,
+        roomAmenities: [],
+        availability: true,
+      };
+      onSubmit(newRoom);
     }
+    setOpen(false);
   };
 
   return (

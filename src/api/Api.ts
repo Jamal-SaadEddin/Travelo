@@ -1307,7 +1307,7 @@ export class Api<
       data: RoomForCreationDto,
       params: RequestParams = {},
     ) =>
-      this.request<HotelDto, ProblemDetails>({
+      this.request<RoomDto, ProblemDetails>({
         path: `/api/hotels/${hotelId}/rooms`,
         method: "POST",
         body: data,
