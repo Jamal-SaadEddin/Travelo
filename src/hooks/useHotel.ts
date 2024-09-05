@@ -53,24 +53,16 @@ export const useHotel = () => {
 
   const useDeleteHotel = () =>
     useMutation({
-      mutationFn: (deletedHotel: Hotel) =>
-        apiClient.api.citiesHotelsDelete(
-          deletedHotel.cityId!,
-          deletedHotel.id!,
-        ),
-      onSuccess: (_, deletedHotel: Hotel) => {
+      mutationFn: ({ cityId, hotelId }: { cityId: number; hotelId: number }) =>
+        apiClient.api.citiesHotelsDelete(cityId, hotelId),
+      onSuccess: (_, deletedHotel) => {
         queryClient
           .getQueryCache()
           .findAll({ queryKey: ["hotels"] })
           .forEach((query) => {
-            queryClient.setQueryData(query.queryKey, (oldHotels: Hotel[]) => {
-              return oldHotels.filter((hotel) => {
-                if (hotel.id === deletedHotel.id) {
-                  return false;
-                }
-                return true;
-              });
-            });
+            queryClient.setQueryData(query.queryKey, (oldHotels: Hotel[]) =>
+              oldHotels.filter((hotel) => hotel.id !== deletedHotel.hotelId),
+            );
           });
       },
     });

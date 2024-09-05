@@ -8,7 +8,7 @@ import {
   SelectChangeEvent,
   Stack,
 } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import RoomCard from "../../components/AvailableRooms/components/RoomCard";
 import SearchBar from "../../components/SearchBar";
 import { Room } from "../../entities/Room";
@@ -16,8 +16,9 @@ import { useCities } from "../../hooks/useCities";
 import { useHotels } from "../../hooks/useHotels";
 import { useRooms } from "../../hooks/useRooms";
 import useCurrentPageStore from "../../store/currentPage.store";
+import CityCard from "./components/CityCard";
 import CityDialog from "./components/CityDialog";
-import GenericCard from "./components/GenericCard";
+import HotelCard from "./components/HotelCard";
 import HotelDialog from "./components/HotelDialog";
 import { renderPaginationButtons } from "./components/PaginationButtons";
 import RoomDialog from "./components/RoomDialog";
@@ -31,25 +32,40 @@ const AdminPage = () => {
   const todayDate = new Date().toISOString().split("T")[0]; // Format today's date
 
   // Fetching data using custom hooks
-  const { data: cities } = useCities();
-  const { data: hotelsData } = useHotels(currentPage, cardsPerPage);
+  const { data: cities, isLoading: isLoadingCities } = useCities();
+  const { data: hotelsData, isLoading: isLoadingHotels } = useHotels(
+    currentPage,
+    cardsPerPage,
+  );
   const hotels = hotelsData?.data;
   const totalPages = hotelsData?.totalPages || 1;
-  const { data: rooms } = useRooms(selectedHotel, todayDate);
+  const { data: rooms, isLoading: isLoadingRooms } = useRooms(
+    selectedHotel,
+    todayDate,
+  );
+
   // Set the selected hotel by default to the first one if it's available
   if (pageData === "rooms" && hotels?.length && selectedHotel === null) {
     setSelectedHotel(hotels[0].id!);
   }
 
-  // Determine the items to display based on pageData
-  let items: (City | Hotel | Room)[] =
-    pageData === "cities"
-      ? cities!
-      : pageData === "hotels"
-        ? hotels!
-        : pageData === "rooms"
-          ? rooms!
-          : [];
+  useEffect(() => {
+    // Determine the items to display based on pageData
+    if (pageData === "cities") {
+      setCurrentItems(cities || []);
+      return;
+    }
+    if (pageData === "hotels") {
+      setCurrentItems(hotels || []);
+      return;
+    }
+    if (pageData === "rooms") {
+      setCurrentItems(rooms || []);
+      return;
+    }
+  }, [cities, hotels, pageData, rooms]);
+
+  const [currentItems, setCurrentItems] = useState<(City | Hotel | Room)[]>([]);
 
   const handleClick = (pageNumber: number) => {
     setCurrentPage(pageNumber);
@@ -65,9 +81,22 @@ const AdminPage = () => {
     setSelectedHotel(parseInt(event.target.value, 10));
   };
 
-  const handleAddCity = (newCity: City) => (items = [...items, newCity]);
-  const handleAddHotel = (newHotel: Hotel) => (items = [...items, newHotel]);
-  const handleAddRoom = (newRoom: Room) => (items = [...items, newRoom]);
+  const handleAddCity = (newCity: City) => {
+    const newItems = [...currentItems, newCity];
+    setCurrentItems(newItems);
+  };
+  const handleAddHotel = (newHotel: Hotel) => {
+    const newItems = [...currentItems, newHotel];
+    setCurrentItems(newItems);
+  };
+  const handleAddRoom = (newRoom: Room) => {
+    const newItems = [...currentItems, newRoom];
+    setCurrentItems(newItems);
+  };
+
+  if (isLoadingCities || isLoadingHotels || isLoadingRooms) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <Container maxWidth="lg">
@@ -89,14 +118,14 @@ const AdminPage = () => {
         )}
         {pageData === "hotels" && totalPages > 1 && (
           <FormControl>
-            <InputLabel>Items per page</InputLabel>
+            <InputLabel>Hotels per page</InputLabel>
             <Select
-              label="Items per page"
+              label="Hotels per page"
               value={cardsPerPage.toString()}
               onChange={handleSelectChange}
             >
-              <MenuItem value={9}>9 items per page</MenuItem>
-              <MenuItem value={18}>18 items per page</MenuItem>
+              <MenuItem value={9}>9 hotels per page</MenuItem>
+              <MenuItem value={18}>18 hotels per page</MenuItem>
             </Select>
           </FormControl>
         )}
@@ -119,8 +148,8 @@ const AdminPage = () => {
         )}
       </Stack>
       <Grid container spacing={3}>
-        {items &&
-          items.map((item) => (
+        {currentItems &&
+          currentItems.map((item) => (
             <Grid
               item
               xs={12}
@@ -132,13 +161,14 @@ const AdminPage = () => {
                   : (item as City | Hotel).id
               }
             >
-              {pageData === "rooms" ? (
+              {pageData === "rooms" && "roomId" in item ? (
                 <RoomCard room={item as Room} size="small" editable />
-              ) : pageData === "hotels" ? (
-                <GenericCard item={item as City | Hotel} type="hotel" />
-              ) : (
-                <GenericCard item={item as City | Hotel} type="city" />
-              )}
+              ) : pageData === "hotels" && "hotelType" in item ? (
+                <HotelCard hotel={item as Hotel} />
+              ) : pageData === "cities" &&
+                !("roomId" in item || "hotelType" in item) ? (
+                <CityCard city={item as City} />
+              ) : null}
             </Grid>
           ))}
       </Grid>

@@ -6,10 +6,10 @@ import {
   DialogContent,
   DialogTitle,
 } from "@mui/material";
-import axios from "axios";
 import React, { useState } from "react";
-
-const baseApiUrl = import.meta.env.VITE_BASE_API_URL;
+import { useCity } from "../../../hooks/useCity";
+import { useHotel } from "../../../hooks/useHotel";
+import { useRoom } from "../../../hooks/useRoom";
 
 interface DeleteDialogProps {
   type: "city" | "hotel" | "room";
@@ -17,7 +17,6 @@ interface DeleteDialogProps {
   hotelId?: number; // Required if type is "room" or "hotel"
   cityId?: number; // Required if type is "hotel"
   name: string; // Name of the entity to display in the confirmation message
-  onDelete: () => void; // Callback to be called after successful deletion
 }
 
 const DeleteDialog: React.FC<DeleteDialogProps> = ({
@@ -26,37 +25,40 @@ const DeleteDialog: React.FC<DeleteDialogProps> = ({
   hotelId,
   cityId,
   name,
-  onDelete,
 }) => {
   const [open, setOpen] = useState(false);
+  const [{ useDeleteCity }, { useDeleteHotel }, { useDeleteRoom }] = [
+    useCity(),
+    useHotel(),
+    useRoom(),
+  ];
+  const [deleteCity, deleteHotel, deleteRoom] = [
+    useDeleteCity(),
+    useDeleteHotel(),
+    useDeleteRoom(),
+  ];
 
   const handleDelete = () => {
-    let apiUrl = "";
-
     switch (type) {
       case "city":
-        apiUrl = `${baseApiUrl}/cities/${id}`;
+        deleteCity.mutate(id);
         break;
       case "hotel":
-        apiUrl = `${baseApiUrl}/cities/${cityId}/hotels/${id}`;
+        deleteHotel.mutate({
+          cityId: cityId!,
+          hotelId: id,
+        });
         break;
       case "room":
-        apiUrl = `${baseApiUrl}/hotels/${hotelId}/rooms/${id}`;
+        deleteRoom.mutate({
+          hotelId: hotelId!,
+          roomId: id,
+        });
         break;
       default:
-        console.error("Unknown type");
-        return;
+        break;
     }
-
-    axios
-      .delete(apiUrl)
-      .then(() => {
-        onDelete();
-        setOpen(false);
-      })
-      .catch((error) => {
-        console.error(`Error deleting ${type}:`, error);
-      });
+    setOpen(false);
   };
 
   const getDialogTitle = () => {

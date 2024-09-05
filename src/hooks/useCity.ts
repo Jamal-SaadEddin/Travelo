@@ -48,20 +48,14 @@ export const useCity = () => {
 
   const useDeleteCity = () =>
     useMutation({
-      mutationFn: (deletedCity: City) =>
-        apiClient.api.citiesDelete(deletedCity.id!),
-      onSuccess: (_, deletedCity: City) => {
+      mutationFn: (cityId: number) => apiClient.api.citiesDelete(cityId),
+      onSuccess: (_, deletedCityId) => {
         queryClient
           .getQueryCache()
           .findAll({ queryKey: ["cities"] })
           .forEach((query) => {
             queryClient.setQueryData(query.queryKey, (oldCities: City[]) => {
-              return oldCities.filter((city) => {
-                if (city.id === deletedCity.id) {
-                  return false;
-                }
-                return true;
-              });
+              return oldCities.filter((city) => city.id !== deletedCityId);
             });
           });
       },

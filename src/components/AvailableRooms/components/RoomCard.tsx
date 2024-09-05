@@ -73,10 +73,6 @@ const RoomCard = ({
     setCurrentRoom(updatedRoom);
   };
 
-  const handleDelete = () => {
-    alert("Room deleted!");
-  };
-
   return (
     <Card sx={styles.card}>
       {bookedRooms.includes(currentRoom) && size === "small" && (
@@ -158,7 +154,6 @@ const RoomCard = ({
               id={currentRoom.roomId} // ID of the room to delete
               hotelId={1} // ID of the hotel that contains the room
               name={currentRoom.roomType} // Name of the room
-              onDelete={handleDelete}
             />
           </Stack>
         )}
