@@ -51,7 +51,7 @@ const HotelDialog: React.FC<HotelDialogProps> = ({ type, hotel, onSubmit }) => {
   const initialUpdateValues: Hotel = {
     id: hotel?.id,
     name: hotel?.name || "",
-    cityId: hotel?.cityId || null,
+    cityId: hotel?.cityId || 1,
     hotelType: hotel?.hotelType as number,
     latitude: hotel?.latitude as number,
     longitude: hotel?.longitude as number,
