@@ -23,10 +23,10 @@ const DeleteDialog: React.FC<DeleteDialogProps> = ({
   type,
   id,
   hotelId,
-  cityId,
   name,
 }) => {
   const [open, setOpen] = useState(false);
+  let cityId = 1;
   const [{ useDeleteCity }, { useDeleteHotel }, { useDeleteRoom }] = [
     useCity(),
     useHotel(),
@@ -45,9 +45,14 @@ const DeleteDialog: React.FC<DeleteDialogProps> = ({
         break;
       case "hotel":
         deleteHotel.mutate({
-          cityId: cityId!,
+          cityId,
           hotelId: id,
         });
+        if (cityId < 9) {
+          cityId++;
+          handleDelete();
+          return;
+        }
         break;
       case "room":
         deleteRoom.mutate({

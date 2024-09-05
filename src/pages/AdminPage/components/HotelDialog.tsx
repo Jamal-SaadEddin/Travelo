@@ -111,14 +111,12 @@ const HotelDialog: React.FC<HotelDialogProps> = ({ type, hotel, onSubmit }) => {
               <FormikTextField
                 name="latitude"
                 label="Latitude"
-                maxLength={4}
                 placeholder="-180 to 180"
                 fullWidth
               />
               <FormikTextField
                 name="longitude"
                 label="Longitude"
-                maxLength={4}
                 placeholder="-180 to 180"
                 fullWidth
               />
