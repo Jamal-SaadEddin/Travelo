@@ -28,7 +28,7 @@ const AdminPage = () => {
   const pageData = useCurrentPageStore((state) => state.currentPage);
   const [currentPage, setCurrentPage] = useState(1);
   const [cardsPerPage, setCardsPerPage] = useState(9);
-  const [selectedHotel, setSelectedHotel] = useState<number | null>(139);
+  const [selectedHotel, setSelectedHotel] = useState<number | null>(-111);
   const todayDate = new Date().toISOString().split("T")[0]; // Format today's date
 
   // Fetching data using custom hooks
@@ -45,7 +45,7 @@ const AdminPage = () => {
   );
 
   // Set the selected hotel by default to the first one if it's available
-  if (pageData === "rooms" && hotels?.length && selectedHotel === null) {
+  if (pageData === "rooms" && hotels?.length && selectedHotel === -111) {
     setSelectedHotel(hotels[0].id!);
   }
 
@@ -99,53 +99,55 @@ const AdminPage = () => {
   }
 
   return (
-    <Container maxWidth="lg">
-      <SearchBar />
-      <Stack direction="row" justifyContent="right" my={3} spacing={2}>
-        {pageData === "cities" && (
-          <CityDialog type="add" onSubmit={handleAddCity} />
-        )}
-        {pageData === "hotels" && (
-          <HotelDialog type="add" onSubmit={handleAddHotel} />
-        )}
-        {pageData === "rooms" && (
-          <RoomDialog
-            type="add"
-            onSubmit={handleAddRoom}
-            selectedHotel={selectedHotel}
-            hotels={hotels || []}
-          />
-        )}
-        {pageData === "hotels" && totalPages > 1 && (
-          <FormControl>
-            <InputLabel>Hotels per page</InputLabel>
-            <Select
-              label="Hotels per page"
-              value={cardsPerPage.toString()}
-              onChange={handleSelectChange}
-            >
-              <MenuItem value={9}>9 hotels per page</MenuItem>
-              <MenuItem value={18}>18 hotels per page</MenuItem>
-            </Select>
-          </FormControl>
-        )}
+    <Container maxWidth="xl">
+      <Stack direction="row" my={5} gap={2} flexWrap="wrap">
+        <SearchBar />
+        <Stack direction="row" justifyContent="right" spacing={2}>
+          {pageData === "cities" && (
+            <CityDialog type="add" onSubmit={handleAddCity} />
+          )}
+          {pageData === "hotels" && (
+            <HotelDialog type="add" onSubmit={handleAddHotel} />
+          )}
+          {pageData === "rooms" && (
+            <RoomDialog
+              type="add"
+              onSubmit={handleAddRoom}
+              selectedHotel={selectedHotel}
+              hotels={hotels || []}
+            />
+          )}
+          {pageData === "hotels" && totalPages > 1 && (
+            <FormControl>
+              <InputLabel>Hotels per page</InputLabel>
+              <Select
+                label="Hotels per page"
+                value={cardsPerPage.toString()}
+                onChange={handleSelectChange}
+              >
+                <MenuItem value={9}>9 hotels per page</MenuItem>
+                <MenuItem value={18}>18 hotels per page</MenuItem>
+              </Select>
+            </FormControl>
+          )}
 
-        {pageData === "rooms" && (hotels?.length as number) > 0 && (
-          <FormControl sx={{ minWidth: "100px" }}>
-            <InputLabel>Hotel</InputLabel>
-            <Select
-              label="Hotel"
-              value={selectedHotel?.toString() || ""}
-              onChange={handleHotelChange}
-            >
-              {hotels?.map((hotel) => (
-                <MenuItem key={hotel.id} value={hotel.id}>
-                  {hotel.name}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-        )}
+          {pageData === "rooms" && (hotels?.length as number) > 0 && (
+            <FormControl sx={{ minWidth: "100px" }}>
+              <InputLabel>Hotel</InputLabel>
+              <Select
+                label="Hotel"
+                value={selectedHotel?.toString() || ""}
+                onChange={handleHotelChange}
+              >
+                {hotels?.map((hotel) => (
+                  <MenuItem key={hotel.id} value={hotel.id}>
+                    {hotel.name}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          )}
+        </Stack>
       </Stack>
       <Grid container spacing={3}>
         {currentItems &&
@@ -153,8 +155,9 @@ const AdminPage = () => {
             <Grid
               item
               xs={12}
-              md={6}
-              lg={4}
+              sm={6}
+              md={4}
+              xl={3}
               key={
                 pageData === "rooms"
                   ? (item as Room).roomId

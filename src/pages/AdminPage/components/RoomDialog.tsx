@@ -106,6 +106,7 @@ const RoomDialog: React.FC<RoomDialogProps> = ({
         onClick={() => setOpen(true)}
         color={isUpdateMode ? "info" : "primary"}
         endIcon={isUpdateMode ? <Edit /> : null}
+        sx={{ minWidth: 110 }}
       >
         {isUpdateMode ? "Edit" : "Add Room"}
       </Button>

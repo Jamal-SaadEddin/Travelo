@@ -10,7 +10,6 @@ const SearchBar = () => {
       id="cityName" // changable
       placeholder="Search for cities..." // changable
       variant="outlined"
-      fullWidth
       InputProps={{
         startAdornment: (
           <InputAdornment position="start">
@@ -18,9 +17,9 @@ const SearchBar = () => {
           </InputAdornment>
         ),
       }}
-      sx={{ mt: 5 }}
       value={searchText}
       onChange={(e) => setSearchText(e.target.value)}
+      sx={{ flexGrow: 1, minWidth: 250 }}
     />
   );
 };

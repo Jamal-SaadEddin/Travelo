@@ -61,6 +61,7 @@ const CityDialog: React.FC<CityDialogProps> = ({ type, city, onSubmit }) => {
         onClick={() => setOpen(true)}
         color={isUpdateMode ? "info" : "primary"}
         endIcon={isUpdateMode ? <Edit /> : null}
+        sx={{ minWidth: 110 }}
       >
         {isUpdateMode ? "Edit" : "Add City"}
       </Button>

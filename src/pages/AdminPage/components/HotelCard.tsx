@@ -23,13 +23,13 @@ const HotelCard = ({ hotel }: HotelCardProps) => {
       <CardHeader title={currentHotel.name} />
       <CardContent>
         <Grid container spacing={2}>
-          <Grid item xs={4.5}>
+          <Grid item xs={12}>
             <Stack gap={1}>
               <StarRating rating={currentHotel.starRating as number} />
               {truncateText(currentHotel.description, 100)}
             </Stack>
           </Grid>
-          <Grid item xs={7.5}>
+          <Grid item xs={12}>
             <MapComponent
               latitude={currentHotel.latitude as number}
               longitude={currentHotel.longitude as number}
