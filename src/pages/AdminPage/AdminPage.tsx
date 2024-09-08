@@ -23,20 +23,27 @@ import HotelDialog from "./components/HotelDialog";
 import { renderPaginationButtons } from "./components/PaginationButtons";
 import RoomDialog from "./components/RoomDialog";
 import { City, Hotel } from "./entities";
+import useAdminSearchBarStore from "../../store/adminSearchBar.store";
 
 const AdminPage = () => {
   const pageData = useCurrentPageStore((state) => state.currentPage);
   const [currentPage, setCurrentPage] = useState(1);
-  const [cardsPerPage, setCardsPerPage] = useState(9);
+  const [cardsPerPage, setCardsPerPage] = useState(8);
   const [selectedHotel, setSelectedHotel] = useState<number | null>(-111);
   const todayDate = new Date().toISOString().split("T")[0]; // Format today's date
+  const { cityName: city, hotelName } = useAdminSearchBarStore();
+
+  const cityName = city.replace(/(^\w{1})|(\s+\w{1})/g, (letter) =>
+    letter.toUpperCase(),
+  ); // This is a simple way to capitalize the first letter of each word
 
   // Fetching data using custom hooks
-  const { data: cities, isLoading: isLoadingCities } = useCities();
-  const { data: hotelsData, isLoading: isLoadingHotels } = useHotels(
+  const { data: cities, isLoading: isLoadingCities } = useCities({ cityName });
+  const { data: hotelsData, isLoading: isLoadingHotels } = useHotels({
+    hotelName,
     currentPage,
     cardsPerPage,
-  );
+  });
   const hotels = hotelsData?.data;
   const totalPages = hotelsData?.totalPages || 1;
   const { data: rooms, isLoading: isLoadingRooms } = useRooms(
@@ -100,8 +107,14 @@ const AdminPage = () => {
 
   return (
     <Container maxWidth="xl">
-      <Stack direction="row" my={5} gap={2} flexWrap="wrap">
-        <SearchBar />
+      <Stack
+        direction="row"
+        justifyContent="right"
+        my={5}
+        gap={2}
+        flexWrap="wrap"
+      >
+        {pageData !== "rooms" && <SearchBar />}
         <Stack direction="row" justifyContent="right" spacing={2}>
           {pageData === "cities" && (
             <CityDialog type="add" onSubmit={handleAddCity} />
@@ -125,8 +138,9 @@ const AdminPage = () => {
                 value={cardsPerPage.toString()}
                 onChange={handleSelectChange}
               >
-                <MenuItem value={9}>9 hotels per page</MenuItem>
-                <MenuItem value={18}>18 hotels per page</MenuItem>
+                <MenuItem value={8}>8 hotels per page</MenuItem>
+                <MenuItem value={16}>16 hotels per page</MenuItem>
+                <MenuItem value={20}>20 hotels per page</MenuItem>
               </Select>
             </FormControl>
           )}

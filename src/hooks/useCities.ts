@@ -4,11 +4,11 @@ import { createApiClient } from "../services/createApiClient";
 
 const apiClient = createApiClient();
 
-export const useCities = () =>
+export const useCities = ({ cityName }: { cityName: string }) =>
   useQuery<City[], Error>({
-    queryKey: ["cities"],
+    queryKey: ["cities", cityName],
     queryFn: async (): Promise<City[]> => {
-      const response = await apiClient.api.citiesList();
+      const response = await apiClient.api.citiesList({ name: cityName });
       return response.data.map((city) => ({
         ...city,
         name: city.name ?? "",

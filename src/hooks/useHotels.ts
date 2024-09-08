@@ -4,11 +4,20 @@ import { createApiClient } from "../services/createApiClient";
 
 const apiClient = createApiClient();
 
-export const useHotels = (currentPage: number, cardsPerPage: number) => {
-  return useQuery<{ data: Hotel[]; totalPages: number }, Error>({
-    queryKey: ["hotels", currentPage, cardsPerPage],
+export const useHotels = ({
+  hotelName,
+  currentPage,
+  cardsPerPage,
+}: {
+  hotelName: string;
+  currentPage: number;
+  cardsPerPage: number;
+}) =>
+  useQuery<{ data: Hotel[]; totalPages: number }, Error>({
+    queryKey: ["hotels", hotelName, currentPage, cardsPerPage],
     queryFn: async () => {
       const response = await apiClient.api.hotelsList({
+        name: hotelName,
         pageSize: cardsPerPage,
         pageNumber: currentPage,
       });
@@ -24,4 +33,3 @@ export const useHotels = (currentPage: number, cardsPerPage: number) => {
     staleTime: 1000 * 60 * 5, // 5 minutes
     placeholderData: keepPreviousData,
   });
-};
