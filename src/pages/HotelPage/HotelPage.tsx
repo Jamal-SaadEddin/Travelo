@@ -1,4 +1,5 @@
 import { Container, Divider, Grid, Toolbar } from "@mui/material";
+import { useEffect, useState } from "react";
 import AmenitiesStack from "../../components/AmenitiesStack";
 import AvailableRooms from "../../components/AvailableRooms";
 import HotelGallery from "../../components/HotelGallery";
@@ -8,18 +9,27 @@ import HotelPageHeader from "../../components/HotelPageHeader";
 import MapComponent from "../../components/MapComponent";
 import ReviewsSlider from "../../components/ReviewsSlider";
 import { reviews } from "../../components/ReviewsSlider/constants/reviews";
-import { HotelPageProps } from "./entities/HotelPageProps";
+import { useHotelPage } from "../../hooks/useHotelPage";
+import useSelectedHotelIdStore from "../../store/selectedHotelId.store";
+import { initialHotel } from "./constants/initialHotel";
+import { Hotel } from "./entities/Hotel";
 
-const HotelPage = ({ hotel }: HotelPageProps) => {
-  const {
-    hotelName,
-    location,
-    starRating,
-    amenities,
-    description,
-    latitude,
-    longitude,
-  } = hotel;
+const HotelPage = () => {
+  const selectedHotelId = useSelectedHotelIdStore(
+    (state) => state.selectedHotelId,
+  );
+  const { data: hotel, isLoading } = useHotelPage(selectedHotelId);
+  const [currentHotel, setCurrentHotel] = useState<Hotel>(initialHotel);
+
+  useEffect(() => {
+    if (hotel) {
+      setCurrentHotel(hotel);
+    }
+  }, [hotel]);
+
+  if (isLoading) {
+    return <p>Loading...</p>;
+  }
 
   return (
     <Container maxWidth="xl">
@@ -27,9 +37,9 @@ const HotelPage = ({ hotel }: HotelPageProps) => {
         sx={{ minHeight: { xs: "20px !important", md: "56px !important" } }}
       />
       <HotelPageHeader
-        hotelName={hotelName}
-        location={location}
-        starRating={starRating}
+        hotelName={currentHotel.hotelName}
+        location={currentHotel.location}
+        starRating={currentHotel.starRating}
       />
       <Divider sx={{ my: 2 }} />
       <Grid container spacing={2}>
@@ -39,10 +49,10 @@ const HotelPage = ({ hotel }: HotelPageProps) => {
               <HotelGallery gallery={gallery} />
             </Grid>
             <Grid item xs={12}>
-              <AmenitiesStack amenities={amenities} />
+              <AmenitiesStack amenities={currentHotel.amenities} />
             </Grid>
             <Grid item xs={12}>
-              <HotelOverview description={description} />
+              <HotelOverview description={currentHotel.description} />
             </Grid>
             <Grid item xs={12}>
               <AvailableRooms />
@@ -54,7 +64,10 @@ const HotelPage = ({ hotel }: HotelPageProps) => {
                 <ReviewsSlider reviews={reviews} />
               </Grid>
               <Grid item xs={12}>
-                <MapComponent latitude={latitude} longitude={longitude} />
+                <MapComponent
+                  latitude={currentHotel.latitude}
+                  longitude={currentHotel.longitude}
+                />
               </Grid>
             </Grid>
           </Grid>
