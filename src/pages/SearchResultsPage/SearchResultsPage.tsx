@@ -1,6 +1,7 @@
 import { Container, Grid, Toolbar } from "@mui/material";
 import FilterComponent from "../../components/FilterComponent";
 import HotelListings from "../../components/HotelListings";
+import SearchBox from "../../components/SearchBox";
 
 const SearchResultsPage = () => {
   return (
@@ -8,11 +9,14 @@ const SearchResultsPage = () => {
       <Toolbar
         sx={{ minHeight: { xs: "20px !important", md: "56px !important" } }}
       />
-      <Grid container spacing={2}>
-        <Grid item xs={12} md={5}>
+      <Grid container spacing={3}>
+        <Grid item xs={12}>
+          <SearchBox regularStyle />
+        </Grid>
+        <Grid item xs={12} md={6}>
           <FilterComponent />
         </Grid>
-        <Grid item xs={12} md={7}>
+        <Grid item xs={12} md={6}>
           <HotelListings />
         </Grid>
       </Grid>

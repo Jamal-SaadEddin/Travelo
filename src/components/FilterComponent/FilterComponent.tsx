@@ -3,6 +3,7 @@ import {
   Accordion,
   AccordionDetails,
   AccordionSummary,
+  Box,
   Divider,
   Typography,
   useMediaQuery,
@@ -87,57 +88,59 @@ const FilterComponent = () => {
   };
 
   return (
-    <Accordion
-      elevation={3}
-      sx={filterComponentStyles.paper}
-      defaultExpanded={isSmallScreen ? false : true}
-    >
-      <AccordionSummary
-        expandIcon={<ExpandMoreIcon />}
-        aria-controls="panel1-content"
-        id="panel1-header"
+    <Box sx={filterComponentStyles.container}>
+      <Accordion
+        elevation={3}
+        sx={filterComponentStyles.paper}
+        defaultExpanded={isSmallScreen ? false : true}
       >
-        <Typography variant="h5">Filter Results:</Typography>
-      </AccordionSummary>
-      <AccordionDetails>
-        <Divider />
-        <SliderComponent
-          title="Price per night:"
-          value={price}
-          handleValueChange={handlePriceChange}
-          steps={10}
-          minValue={100}
-          maxValue={180}
-          valueLabelFormat={(value) => `$${value}`}
-          ariaLabelledBy="price-slider"
-        />
-        <Divider />
-        <SliderComponent
-          title="Star Rating:"
-          value={rating}
-          handleValueChange={handleRatingChange}
-          steps={1}
-          minValue={1}
-          maxValue={5}
-          valueLabelFormat={(value) => `${value} Star${value > 1 ? "s" : ""}`}
-          ariaLabelledBy="star-rating-slider"
-        />
-        <Divider />
-        <ToggleButtonsGroup
-          title="Amenities:"
-          buttons={amenities}
-          selectedButtons={selectedAmenities}
-          toggleButton={toggleAmenity}
-        />
-        <Divider />
-        <ToggleButtonsGroup
-          title="Room Type:"
-          buttons={roomTypes}
-          selectedButtons={selectedRoomType}
-          toggleButton={toggleRoomType}
-        />
-      </AccordionDetails>
-    </Accordion>
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls="panel1-content"
+          id="panel1-header"
+        >
+          <Typography variant="h5">Filter Results:</Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          <Divider />
+          <SliderComponent
+            title="Price per night:"
+            value={price}
+            handleValueChange={handlePriceChange}
+            steps={10}
+            minValue={100}
+            maxValue={180}
+            valueLabelFormat={(value) => `$${value}`}
+            ariaLabelledBy="price-slider"
+          />
+          <Divider />
+          <SliderComponent
+            title="Star Rating:"
+            value={rating}
+            handleValueChange={handleRatingChange}
+            steps={1}
+            minValue={1}
+            maxValue={5}
+            valueLabelFormat={(value) => `${value} Star${value > 1 ? "s" : ""}`}
+            ariaLabelledBy="star-rating-slider"
+          />
+          <Divider />
+          <ToggleButtonsGroup
+            title="Amenities:"
+            buttons={amenities}
+            selectedButtons={selectedAmenities}
+            toggleButton={toggleAmenity}
+          />
+          <Divider />
+          <ToggleButtonsGroup
+            title="Room Type:"
+            buttons={roomTypes}
+            selectedButtons={selectedRoomType}
+            toggleButton={toggleRoomType}
+          />
+        </AccordionDetails>
+      </Accordion>
+    </Box>
   );
 };
 
