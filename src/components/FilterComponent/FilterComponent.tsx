@@ -9,8 +9,9 @@ import {
   useTheme,
 } from "@mui/material";
 import { useEffect, useState } from "react";
+import { useSearchHotels } from "../../hooks/useSearchHotels";
+import useSearchBoxStore from "../../store/searchBoxStore";
 import { useStyles } from "../../styles";
-import { hotels } from "../HotelListings/constants/hotels";
 import { ListingHotel } from "../common/HotelCard/entities/Hotel";
 import SliderComponent from "./components/SliderComponent";
 import ToggleButtonsGroup from "./components/ToggleButtonsGroup";
@@ -24,6 +25,16 @@ const FilterComponent = () => {
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("md"));
 
+  const searchQueries = useSearchBoxStore((state) => state.searchQueries);
+  const query = {
+    checkInDate: searchQueries.checkIn.format("YYYY-MM-DD"),
+    checkOutDate: searchQueries.checkOut.format("YYYY-MM-DD"),
+    city: searchQueries.cityName,
+    adults: searchQueries.adults,
+    children: searchQueries.children,
+    numberOfRooms: searchQueries.rooms,
+  };
+  const { data: hotels } = useSearchHotels(query);
   const { setFilteredHotels } = useFilteredHotelsStore();
 
   const [price, setPrice] = useState<number[]>([100, 180]);
@@ -31,19 +42,25 @@ const FilterComponent = () => {
   const [selectedAmenities, setSelectedAmenities] = useState<string[]>([]);
   const [selectedRoomType, setSelectedRoomType] = useState<string[]>([]);
 
-  const applyFilters = () =>
-    filterHotels(hotels as ListingHotel[], {
-      price,
-      rating,
-      selectedAmenities,
-      selectedRoomType,
-    });
-
   // Apply filters whenever any of the filter states change
   useEffect(() => {
-    setFilteredHotels(applyFilters());
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [price, rating, selectedAmenities, selectedRoomType]);
+    const applyFilters = () =>
+      filterHotels(hotels as ListingHotel[], {
+        price,
+        rating,
+        selectedAmenities,
+        selectedRoomType,
+      });
+
+    if (hotels) setFilteredHotels(applyFilters());
+  }, [
+    hotels,
+    price,
+    rating,
+    selectedAmenities,
+    selectedRoomType,
+    setFilteredHotels,
+  ]);
 
   const handlePriceChange = (_event: Event, newValue: number | number[]) => {
     setPrice(newValue as number[]);
@@ -80,7 +97,7 @@ const FilterComponent = () => {
         aria-controls="panel1-content"
         id="panel1-header"
       >
-        <Typography variant="h6">Filter Results:</Typography>
+        <Typography variant="h5">Filter Results:</Typography>
       </AccordionSummary>
       <AccordionDetails>
         <Divider />

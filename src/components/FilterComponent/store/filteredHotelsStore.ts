@@ -1,14 +1,13 @@
 import { create } from "zustand";
-import { ListingHotel } from "../../common/HotelCard/entities/Hotel";
-import { hotels } from "../../HotelListings/constants/hotels";
+import { Hotel } from "../../common/HotelCard/entities/Hotel";
 
 interface FilteredHotelsStore {
-  filteredHotels: ListingHotel[];
-  setFilteredHotels: (filteredHotels: ListingHotel[]) => void;
+  filteredHotels: Hotel[];
+  setFilteredHotels: (filteredHotels: Hotel[]) => void;
 }
 
 const useFilteredHotelsStore = create<FilteredHotelsStore>((set) => ({
-  filteredHotels: hotels as ListingHotel[],
+  filteredHotels: [],
   setFilteredHotels: (filteredHotels) => set(() => ({ filteredHotels })),
 }));
 
