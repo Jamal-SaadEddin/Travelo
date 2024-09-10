@@ -1330,7 +1330,7 @@ export class Api<
       hotelId: number,
       query?: {
         checkInDate?: string;
-        CheckOutDate?: string;
+        checkOutDate?: string;
       },
       params: RequestParams = {},
     ) =>

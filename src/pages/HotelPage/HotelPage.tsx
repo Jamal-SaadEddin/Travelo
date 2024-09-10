@@ -3,12 +3,10 @@ import { useEffect, useState } from "react";
 import AmenitiesStack from "../../components/AmenitiesStack";
 import AvailableRooms from "../../components/AvailableRooms";
 import HotelGallery from "../../components/HotelGallery";
-import { gallery } from "../../components/HotelGallery/constants/gallery";
 import HotelOverview from "../../components/HotelOverview";
 import HotelPageHeader from "../../components/HotelPageHeader";
 import MapComponent from "../../components/MapComponent";
 import ReviewsSlider from "../../components/ReviewsSlider";
-import { reviews } from "../../components/ReviewsSlider/constants/reviews";
 import { useHotelPage } from "../../hooks/useHotelPage";
 import useSelectedHotelIdStore from "../../store/selectedHotelId.store";
 import { initialHotel } from "./constants/initialHotel";
@@ -18,7 +16,12 @@ const HotelPage = () => {
   const selectedHotelId = useSelectedHotelIdStore(
     (state) => state.selectedHotelId,
   );
-  const { data: hotel, isLoading } = useHotelPage(selectedHotelId);
+  const { useHotelData, useHotelGallery, useHotelReviews } =
+    useHotelPage(selectedHotelId);
+  const { data: hotel, isLoading } = useHotelData();
+  const { data: gallery } = useHotelGallery();
+  const { data: reviews } = useHotelReviews();
+
   const [currentHotel, setCurrentHotel] = useState<Hotel>(initialHotel);
 
   useEffect(() => {
@@ -46,7 +49,7 @@ const HotelPage = () => {
         <Grid item xs={12} container spacing={2}>
           <Grid item container spacing={2} xs={12} md={6.5} lg={8}>
             <Grid item xs={12}>
-              <HotelGallery gallery={gallery} />
+              {gallery && <HotelGallery gallery={gallery} />}
             </Grid>
             <Grid item xs={12}>
               <AmenitiesStack amenities={currentHotel.amenities} />
@@ -61,7 +64,7 @@ const HotelPage = () => {
           <Grid item xs={12} md={5.5} lg={4}>
             <Grid container spacing={3}>
               <Grid item xs={12}>
-                <ReviewsSlider reviews={reviews} />
+                {reviews && <ReviewsSlider reviews={reviews} />}
               </Grid>
               <Grid item xs={12}>
                 <MapComponent
