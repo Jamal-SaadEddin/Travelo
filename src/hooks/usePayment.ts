@@ -8,12 +8,14 @@ import { useNavigate } from "react-router-dom";
 import { BookingRequest } from "../api/Api";
 import { BookingResponse } from "../pages/ConfirmationPage/entities";
 import { createApiClient } from "../services/createApiClient";
+import useCartStore from "../store/cartStore";
 
 const apiClient = createApiClient();
 
 export const usePayment = () => {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
+  const setBookedRooms = useCartStore((s) => s.setBookedRooms);
 
   const useBooking = () =>
     useQuery<BookingResponse, Error>({
@@ -39,6 +41,7 @@ export const usePayment = () => {
               return savedBooking.data;
             });
           });
+        setBookedRooms([]);
         navigate("/confirmation");
       },
     });
