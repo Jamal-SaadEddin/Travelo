@@ -1,0 +1,28 @@
+@media print {
+  /* Hide everything */
+  body * {
+    visibility: hidden;
+  }
+
+  /* Show only the print section */
+  #print-section,
+  #print-section * {
+    visibility: visible;
+  }
+
+  #print-section {
+    scale: 1.6;
+  }
+
+  #print-section::after {
+    content: "\A Verified by Travelo Team \f058"; /* \f058 is the Font Awesome icon for a check-circle */
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    white-space: pre;
+  }
+
+  /* Hide the print button */
+  button {
+    display: none !important;
+  }
+}
