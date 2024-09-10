@@ -9,11 +9,7 @@ export const useHotelPage = (hotelId: number) =>
     queryKey: ["hotel", hotelId],
     queryFn: async (): Promise<Hotel> => {
       const response = await apiClient.api.getHotel(hotelId);
-
-      // Check if the response format is incorrect and extract JSON manually
-      const jsonResponse = await response.json();
-
-      return jsonResponse as Hotel;
+      return response.data as unknown as Hotel;
     },
     staleTime: 1000 * 60 * 5, // 5 minutes
     placeholderData: keepPreviousData,

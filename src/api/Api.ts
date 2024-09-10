@@ -1218,6 +1218,7 @@ export class Api<
         method: "GET",
         query: query,
         secure: true,
+        format: "json",
         ...params,
       }),
 
