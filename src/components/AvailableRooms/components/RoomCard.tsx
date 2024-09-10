@@ -62,7 +62,7 @@ const RoomCard = ({
 
   const handleCancelBooking = () => {
     const newBookedRooms = bookedRooms.filter(
-      (bookedRoom) => bookedRoom !== currentRoom,
+      (bookedRoom) => bookedRoom.roomId !== currentRoom.roomId,
     );
     setBookedRooms(newBookedRooms);
 
@@ -162,19 +162,31 @@ const RoomCard = ({
         <CardActions sx={{ justifyContent: "center", mt: "auto", pb: 3 }}>
           <Button
             variant={
-              bookedRooms.includes(currentRoom) ? "outlined" : "contained"
+              bookedRooms.filter((room) => room.roomId === currentRoom.roomId)
+                .length > 0
+                ? "outlined"
+                : "contained"
             }
-            color={bookedRooms.includes(currentRoom) ? "error" : "primary"}
+            color={
+              bookedRooms.filter((room) => room.roomId === currentRoom.roomId)
+                .length > 0
+                ? "error"
+                : "primary"
+            }
             size="large"
             fullWidth
             sx={{ fontWeight: 600 }}
             onClick={
-              bookedRooms.includes(currentRoom)
+              bookedRooms.filter((room) => room.roomId === currentRoom.roomId)
+                .length > 0
                 ? handleCancelBooking
                 : handleBookRoom
             }
           >
-            {bookedRooms.includes(currentRoom) ? "Cancel Booking" : "Book Room"}
+            {bookedRooms.filter((room) => room.roomId === currentRoom.roomId)
+              .length > 0
+              ? "Cancel Booking"
+              : "Book Room"}
           </Button>
         </CardActions>
       )}
