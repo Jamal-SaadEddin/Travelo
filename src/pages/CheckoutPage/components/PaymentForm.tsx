@@ -1,7 +1,11 @@
 import { Button, Grid } from "@mui/material";
 import { Form, Formik } from "formik";
-import { useNavigate } from "react-router-dom";
 import FormikTextField from "../../../components/FormikTextField";
+import { useHotelPage } from "../../../hooks/useHotelPage";
+import { usePayment } from "../../../hooks/usePayment";
+import useCartStore from "../../../store/cartStore";
+import useSearchBoxStore from "../../../store/searchBoxStore";
+import useSelectedHotelIdStore from "../../../store/selectedHotelId.store";
 import { validationSchema } from "../utils/validationSchema";
 
 const initialValues = {
@@ -15,7 +19,16 @@ const initialValues = {
 };
 
 const PaymentForm = () => {
-  const navigate = useNavigate();
+  const bookedRooms = useCartStore((s) => s.bookedRooms);
+  const searchQueries = useSearchBoxStore((state) => state.searchQueries);
+  const selectedHotelId = useSelectedHotelIdStore(
+    (state) => state.selectedHotelId,
+  );
+
+  const { useHotelData } = useHotelPage(selectedHotelId);
+  const { data: hotel } = useHotelData();
+  const { useAddBooking } = usePayment();
+  const addBooking = useAddBooking();
 
   const handleSubmit = (values: {
     firstName: string;
@@ -26,8 +39,17 @@ const PaymentForm = () => {
     cvc: string;
     zip: string;
   }) => {
-    console.log("onSubmit", values);
-    navigate("/confirmation");
+    if (hotel)
+      for (const room of bookedRooms)
+        addBooking.mutate({
+          customerName: `${values.firstName} ${values.lastName}`,
+          hotelName: hotel.hotelName,
+          roomNumber: room.roomNumber?.toString(),
+          roomType: room.roomType,
+          bookingDateTime: searchQueries.checkIn.toISOString(),
+          totalCost: room.price!,
+          paymentMethod: "Credit Card",
+        });
   };
 
   return (

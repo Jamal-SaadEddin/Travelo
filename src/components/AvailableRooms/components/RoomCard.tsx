@@ -43,7 +43,7 @@ const RoomCard = ({
       position: "absolute",
       top: 5,
       right: -10,
-      zIndex: 1000,
+      zIndex: 999,
       color: "white",
       bgcolor: "error.main",
       p: 0.5,
