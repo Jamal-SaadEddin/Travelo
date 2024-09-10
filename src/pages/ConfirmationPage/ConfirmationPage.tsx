@@ -8,7 +8,7 @@ import {
   Typography,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { bookingDetails } from "./constants";
+import { usePayment } from "../../hooks/usePayment";
 
 const RowStack = ({
   title,
@@ -25,6 +25,13 @@ const RowStack = ({
 
 const ConfirmationPage = () => {
   const navigate = useNavigate();
+
+  const { useBooking } = usePayment();
+  const { data: bookingDetails, isLoading } = useBooking();
+
+  if (isLoading) {
+    return <p>Loading...</p>;
+  }
 
   return (
     <Container maxWidth="xl">
@@ -53,32 +60,41 @@ const ConfirmationPage = () => {
               </Stack>
               <RowStack
                 title="Customer Name"
-                content={bookingDetails.customerName}
+                content={bookingDetails?.customerName ?? "N/A"}
               />
-              <RowStack title="Hotel Name" content={bookingDetails.hotelName} />
+              <RowStack
+                title="Hotel Name"
+                content={bookingDetails?.hotelName ?? "N/A"}
+              />
               <RowStack
                 title="Room Number"
-                content={bookingDetails.roomNumber}
+                content={bookingDetails?.roomNumber ?? "N/A"}
               />
-              <RowStack title="Room Type" content={bookingDetails.roomType} />
+              <RowStack
+                title="Room Type"
+                content={bookingDetails?.roomType ?? "N/A"}
+              />
               <RowStack
                 title="Booking Date & Time"
-                content={new Date(
-                  bookingDetails?.bookingDateTime ?? Date(),
-                ).toLocaleString()}
+                content={
+                  bookingDetails?.bookingDateTime.toLocaleString() ?? "N/A"
+                }
               />
-              <RowStack title="Total Cost" content={bookingDetails.totalCost} />
+              <RowStack
+                title="Total Cost"
+                content={bookingDetails?.totalCost ?? "N/A"}
+              />
               <RowStack
                 title="Payment Method"
-                content={bookingDetails.paymentMethod}
+                content={bookingDetails?.paymentMethod ?? "N/A"}
               />
               <RowStack
                 title="Booking Status"
-                content={bookingDetails.bookingStatus}
+                content={bookingDetails?.bookingStatus ?? "N/A"}
               />
               <RowStack
                 title="Confirmation Number"
-                content={bookingDetails.confirmationNumber}
+                content={bookingDetails?.confirmationNumber ?? "N/A"}
               />
             </Stack>
           </Paper>
