@@ -9,6 +9,7 @@ import {
 } from "../api/Api";
 import { Hotel } from "../pages/AdminPage/entities";
 import { createApiClient } from "../services/createApiClient";
+import useCurrentPageStore from "../store/currentPage.store";
 
 export const useHotel = () => {
   const apiClient = createApiClient();
@@ -82,6 +83,8 @@ export const useHotel = () => {
 
   const useDeleteHotel = () => {
     let response: HttpResponse<void, ProblemDetails> | undefined;
+    let deletedHotelId: number;
+    const { currentItems, setCurrentItems } = useCurrentPageStore();
 
     return useMutation({
       mutationFn: async ({
@@ -92,6 +95,7 @@ export const useHotel = () => {
         hotelId: number;
       }) => {
         response = await apiClient.api.citiesHotelsDelete(cityId, hotelId);
+        deletedHotelId = hotelId;
       },
       onSuccess: (_, deletedHotel) => {
         queryClient
@@ -108,6 +112,11 @@ export const useHotel = () => {
           toast.success("Hotel deleted successfully");
           const data = response.data;
           response = undefined;
+          setCurrentItems(
+            currentItems.filter(
+              (item) => (item as Hotel).id !== deletedHotelId,
+            ),
+          );
           return data;
         }
       },

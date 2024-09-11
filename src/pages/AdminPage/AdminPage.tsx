@@ -26,7 +26,11 @@ import { City, Hotel } from "./entities";
 import useAdminSearchBarStore from "../../store/adminSearchBar.store";
 
 const AdminPage = () => {
-  const pageData = useCurrentPageStore((state) => state.currentPage);
+  const {
+    currentPage: pageData,
+    currentItems,
+    setCurrentItems,
+  } = useCurrentPageStore();
   const [currentPage, setCurrentPage] = useState(1);
   const [cardsPerPage, setCardsPerPage] = useState(8);
   const [selectedHotel, setSelectedHotel] = useState<number | null>(-111);
@@ -70,9 +74,7 @@ const AdminPage = () => {
       setCurrentItems(rooms || []);
       return;
     }
-  }, [cities, hotels, pageData, rooms]);
-
-  const [currentItems, setCurrentItems] = useState<(City | Hotel | Room)[]>([]);
+  }, [cities, hotels, pageData, rooms, setCurrentItems]);
 
   const handleClick = (pageNumber: number) => {
     setCurrentPage(pageNumber);
