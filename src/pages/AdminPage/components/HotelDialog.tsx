@@ -7,14 +7,13 @@ import {
   DialogTitle,
   MenuItem,
 } from "@mui/material";
-import axios from "axios";
 import { Form, Formik } from "formik";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import * as Yup from "yup";
 import FormikTextField from "../../../components/FormikTextField";
-import { City, Hotel } from "../entities";
-
-const baseApiUrl = import.meta.env.VITE_BASE_API_URL;
+import { useCities } from "../../../hooks/useCities";
+import { useHotel } from "../../../hooks/useHotel";
+import { Hotel } from "../entities";
 
 interface HotelDialogProps {
   type: "add" | "update";
@@ -44,32 +43,15 @@ const validationSchema = Yup.object({
 
 const HotelDialog: React.FC<HotelDialogProps> = ({ type, hotel, onSubmit }) => {
   const [open, setOpen] = useState(false);
-  const [cities, setCities] = useState<City[]>([]);
-
-  useEffect(() => {
-    axios
-      .get(`${baseApiUrl}/cities`)
-      .then((response) => {
-        if (Array.isArray(response.data)) {
-          setCities(response.data);
-        } else {
-          console.error(
-            "Unexpected API response, expected an array:",
-            response.data,
-          );
-          setCities([]);
-        }
-      })
-      .catch((error) => {
-        console.error("Error fetching cities:", error);
-        setCities([]); // Set to empty array in case of error to avoid further issues
-      });
-  }, []);
+  const { data: cities } = useCities({ cityName: "" });
+  const { useAddHotel, useUpdateHotel } = useHotel();
+  const addHotel = useAddHotel();
+  const updateHotel = useUpdateHotel();
 
   const initialUpdateValues: Hotel = {
     id: hotel?.id,
     name: hotel?.name || "",
-    cityId: hotel?.cityId || null,
+    cityId: hotel?.cityId || 1,
     hotelType: hotel?.hotelType as number,
     latitude: hotel?.latitude as number,
     longitude: hotel?.longitude as number,
@@ -81,27 +63,11 @@ const HotelDialog: React.FC<HotelDialogProps> = ({ type, hotel, onSubmit }) => {
   const initialValues = isUpdateMode ? initialUpdateValues : initialAddValues;
 
   const handleSubmit = (values: Hotel) => {
-    if (isUpdateMode) {
-      axios
-        .put(`${baseApiUrl}/hotels/${hotel?.id}`, values)
-        .then(() => {
-          onSubmit(values);
-          setOpen(false);
-        })
-        .catch((error) => {
-          console.error("Error updating hotel:", error);
-        });
-    } else {
-      axios
-        .post(`${baseApiUrl}/cities/${values.cityId}/hotels`, values)
-        .then((response) => {
-          onSubmit(response.data);
-          setOpen(false);
-        })
-        .catch((error) => {
-          console.error("Error adding hotel:", error);
-        });
-    }
+    if (isUpdateMode) updateHotel.mutate(values);
+    else addHotel.mutate(values);
+
+    onSubmit(values);
+    setOpen(false);
   };
 
   return (
@@ -111,6 +77,7 @@ const HotelDialog: React.FC<HotelDialogProps> = ({ type, hotel, onSubmit }) => {
         onClick={() => setOpen(true)}
         color={isUpdateMode ? "info" : "primary"}
         endIcon={isUpdateMode ? <Edit /> : null}
+        sx={{ minWidth: 110 }}
       >
         {isUpdateMode ? "Edit" : "Add Hotel"}
       </Button>
@@ -128,7 +95,7 @@ const HotelDialog: React.FC<HotelDialogProps> = ({ type, hotel, onSubmit }) => {
               <FormikTextField name="name" label="Hotel name" fullWidth />
               {!isUpdateMode && (
                 <FormikTextField name="cityId" label="City" fullWidth select>
-                  {cities.map((city) => (
+                  {cities?.map((city) => (
                     <MenuItem key={city.id} value={city.id}>
                       {city.name}
                     </MenuItem>
@@ -145,14 +112,12 @@ const HotelDialog: React.FC<HotelDialogProps> = ({ type, hotel, onSubmit }) => {
               <FormikTextField
                 name="latitude"
                 label="Latitude"
-                maxLength={4}
                 placeholder="-180 to 180"
                 fullWidth
               />
               <FormikTextField
                 name="longitude"
                 label="Longitude"
-                maxLength={4}
                 placeholder="-180 to 180"
                 fullWidth
               />

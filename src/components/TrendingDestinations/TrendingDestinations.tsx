@@ -1,11 +1,17 @@
 import { Grid } from "@mui/material";
+import { useTrendingDestinations } from "../../hooks/useTrendingDestinations";
 import Destination from "./components/Destination";
-import { destinations } from "./constants/destinations";
 
 const TrendingDestinations = () => {
+  const { data: destinations, isLoading } = useTrendingDestinations();
+
+  if (isLoading) {
+    return <p>Loading...</p>;
+  }
+
   return (
     <Grid container spacing={2}>
-      {destinations.map((destination, index) => (
+      {destinations?.map((destination, index) => (
         <Grid
           item
           xs={12}

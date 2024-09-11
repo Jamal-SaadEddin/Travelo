@@ -22,10 +22,6 @@ const CityCard = ({ city }: CityCardProps) => {
     setCurrentCity(updatedCity);
   };
 
-  const handleDelete = () => {
-    alert("City deleted!");
-  };
-
   return (
     <Card elevation={3}>
       <CardHeader title={currentCity.name} />
@@ -37,7 +33,6 @@ const CityCard = ({ city }: CityCardProps) => {
             type="city"
             id={city.id!} // ID of the city to delete
             name={city.name} // Name of the city
-            onDelete={handleDelete}
           />
         </Stack>
       </CardContent>

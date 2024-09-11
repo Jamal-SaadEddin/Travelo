@@ -1,16 +1,50 @@
 import SearchIcon from "@mui/icons-material/Search";
 import { InputAdornment, TextField } from "@mui/material";
-import { useState } from "react";
+import useAdminSearchBarStore from "../../store/adminSearchBar.store";
+import useCurrentPageStore from "../../store/currentPage.store";
 
 const SearchBar = () => {
-  const [searchText, setSearchText] = useState("");
+  const { cityName, setCityName, hotelName, setHotelName } =
+    useAdminSearchBarStore();
+  const pageData = useCurrentPageStore((state) => state.currentPage);
+  let id;
+  let placeholder;
+  let value = "";
+
+  switch (pageData) {
+    case "cities":
+      id = "search-cities";
+      placeholder = "Search for cities...";
+      value = cityName;
+      break;
+    case "hotels":
+      id = "search-hotels";
+      placeholder = "Search for hotels...";
+      value = hotelName;
+      break;
+    default:
+      id = "search";
+      placeholder = "Search...";
+      break;
+  }
+
+  const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const value = event.target.value;
+    switch (pageData) {
+      case "cities":
+        setCityName(value);
+        break;
+      case "hotels":
+        setHotelName(value);
+        break;
+    }
+  };
 
   return (
     <TextField
-      id="cityName" // changable
-      placeholder="Search for cities..." // changable
+      id={id}
+      placeholder={placeholder}
       variant="outlined"
-      fullWidth
       InputProps={{
         startAdornment: (
           <InputAdornment position="start">
@@ -18,9 +52,9 @@ const SearchBar = () => {
           </InputAdornment>
         ),
       }}
-      sx={{ mt: 5 }}
-      value={searchText}
-      onChange={(e) => setSearchText(e.target.value)}
+      value={value}
+      onChange={handleSearch}
+      sx={{ flexGrow: 1, minWidth: 250 }}
     />
   );
 };

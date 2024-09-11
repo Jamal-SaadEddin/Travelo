@@ -14,6 +14,7 @@ import { truncateText } from "../../../services/truncateText";
 import useSearchBoxStore from "../../../store/searchBoxStore";
 import { useStyles } from "../../../styles";
 import StarRating from "../StarRating";
+import useSelectedHotelIdStore from "./../../../store/selectedHotelId.store";
 import { HotelCardProps } from "./entities/HotelCardProps";
 import {
   isFeaturedDealHotel,
@@ -40,6 +41,9 @@ const HotelCard = ({ hotel }: HotelCardProps) => {
 
   const navigate = useNavigate();
   const searchQueries = useSearchBoxStore((state) => state.searchQueries);
+  const setSelectedHotelId = useSelectedHotelIdStore(
+    (state) => state.setSelectedHotelId,
+  );
 
   const handleClick = () => {
     const { cityName, checkIn, checkOut, adults, children, rooms } =
@@ -54,6 +58,7 @@ const HotelCard = ({ hotel }: HotelCardProps) => {
       numberOfRooms: rooms,
     });
 
+    setSelectedHotelId(hotel.hotelId);
     navigate(`/hotel/${hotel.hotelId}?${queryParams}`);
   };
 

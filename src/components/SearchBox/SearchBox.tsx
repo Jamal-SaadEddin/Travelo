@@ -3,6 +3,7 @@ import {
   Box,
   Button,
   InputAdornment,
+  Paper,
   TextField,
   useTheme,
 } from "@mui/material";
@@ -17,20 +18,6 @@ import * as yup from "yup";
 import useSearchBoxStore from "../../store/searchBoxStore";
 import RoomBookingSelector from "./components/RoomBookingSelector";
 
-const styles = {
-  searchBox: {
-    display: "flex",
-    gap: 2,
-    justifyContent: "space-between",
-    p: 2,
-    border: "1px solid #ccc",
-    borderRadius: 1,
-    position: "absolute",
-    bottom: "20px",
-    width: "100%",
-  },
-};
-
 const validationSchema = yup.object({
   checkIn: yup.date().required("Check-in date is required"),
   checkOut: yup.date().required("Check-out date is required"),
@@ -39,7 +26,11 @@ const validationSchema = yup.object({
   rooms: yup.number().min(1).required("Rooms is required"),
 });
 
-const SearchBox = () => {
+interface SearchBoxProps {
+  regularStyle?: boolean;
+}
+
+const SearchBox = ({ regularStyle = false }: SearchBoxProps) => {
   const theme = useTheme();
   const navigate = useNavigate();
   const { searchQueries, setSearchQueries } = useSearchBoxStore();
@@ -90,6 +81,26 @@ const SearchBox = () => {
     });
   };
 
+  const styles = {
+    searchBox: {
+      display: "flex",
+      gap: 2,
+      justifyContent: "space-between",
+      p: 2,
+      border:
+        regularStyle && theme.palette.mode === "dark"
+          ? "none"
+          : "1px solid #ccc",
+      borderRadius: 1,
+      position: regularStyle ? "static" : "absolute",
+      bottom: "20px",
+      width: "100%",
+      minWidth: 300,
+      maxWidth: regularStyle ? { xs: 555, md: "100%" } : "100%",
+      mx: "auto",
+    },
+  };
+
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <form onSubmit={formik.handleSubmit}>
@@ -97,14 +108,25 @@ const SearchBox = () => {
           <Box
             sx={styles.searchBox}
             flexDirection={{ xs: "column", md: "row" }}
-            bgcolor={theme.palette.mode === "dark" ? "#272727" : "#eee"}
+            bgcolor={
+              regularStyle
+                ? "inherit"
+                : theme.palette.mode === "dark"
+                  ? "#272727"
+                  : "#fff"
+            }
+            component={regularStyle ? Paper : Box}
+            elevation={theme.palette.mode === "dark" ? 3 : 1}
           >
             <Box width={{ xs: "100%", md: "25%" }}>
               <TextField
                 id="cityName"
-                placeholder="Search for hotels, cities..."
+                placeholder="Search cities to visit..."
                 variant="outlined"
                 fullWidth
+                sx={{
+                  minWidth: 215,
+                }}
                 InputProps={{
                   startAdornment: (
                     <InputAdornment position="start">

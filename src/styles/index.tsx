@@ -7,13 +7,12 @@ export const useStyles = () => {
     cardsStackStyles: {
       width: "100%",
       flexWrap: "wrap",
-      justifyContent: "flex-start",
+      justifyContent: "center",
       gap: 4,
     },
     cardStyles: {
-      maxWidth: 650,
+      maxWidth: 555,
       minWidth: 300,
-      mx: "auto",
       display: "flex",
       flexDirection: "column",
       justifyContent: "space-between",
@@ -66,13 +65,17 @@ export const useStyles = () => {
   };
 
   const filterComponentStyles = {
+    container: {
+      display: "flex",
+      alignItems: "center",
+      flexDirection: "column",
+      position: "sticky",
+      top: 90,
+    },
     paper: {
       padding: 1,
       minWidth: 300,
-      maxWidth: 650,
-      mx: "auto !important",
-      position: "sticky !important",
-      top: "90px !important",
+      maxWidth: 555,
     },
     titleColor: theme.palette.mode === "dark" ? "grey.300" : "textSecondary",
     slider: {

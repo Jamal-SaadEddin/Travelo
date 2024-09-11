@@ -18,22 +18,18 @@ const HotelCard = ({ hotel }: HotelCardProps) => {
     setCurrentHotel(updatedHotel);
   };
 
-  const handleDelete = () => {
-    alert("Hotel deleted!");
-  };
-
   return (
     <Card elevation={3}>
       <CardHeader title={currentHotel.name} />
       <CardContent>
         <Grid container spacing={2}>
-          <Grid item xs={4.5}>
+          <Grid item xs={12}>
             <Stack gap={1}>
               <StarRating rating={currentHotel.starRating as number} />
               {truncateText(currentHotel.description, 100)}
             </Stack>
           </Grid>
-          <Grid item xs={7.5}>
+          <Grid item xs={12}>
             <MapComponent
               latitude={currentHotel.latitude as number}
               longitude={currentHotel.longitude as number}
@@ -51,7 +47,6 @@ const HotelCard = ({ hotel }: HotelCardProps) => {
                 id={currentHotel.id!} // ID of the hotel to delete
                 cityId={1} // ID of the city that contains the hotel
                 name={currentHotel.name} // Name of the hotel
-                onDelete={handleDelete}
               />
             </Stack>
           </Grid>

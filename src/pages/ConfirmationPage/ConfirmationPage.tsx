@@ -7,8 +7,9 @@ import {
   Toolbar,
   Typography,
 } from "@mui/material";
+import { useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { bookingDetails } from "./constants";
+import { usePayment } from "../../hooks/usePayment";
 
 const RowStack = ({
   title,
@@ -25,6 +26,19 @@ const RowStack = ({
 
 const ConfirmationPage = () => {
   const navigate = useNavigate();
+  const printRef = useRef<HTMLDivElement>(null); // Create a ref for the print area
+
+  const { useBooking } = usePayment();
+  const { data: bookingDetails, isLoading } = useBooking();
+
+  if (isLoading) {
+    return <p>Loading...</p>;
+  }
+
+  // Handle the print functionality
+  const handlePrint = () => {
+    window.print(); // Trigger the print dialog
+  };
 
   return (
     <Container maxWidth="xl">
@@ -44,43 +58,56 @@ const ConfirmationPage = () => {
         </Typography>
         <Container maxWidth="xs">
           <Paper sx={{ p: 2, my: 3 }}>
-            <Stack gap={2}>
-              <Stack direction="row" justifyContent="space-between">
-                <Typography variant="h5" textAlign="left" gutterBottom>
-                  Booking Details
-                </Typography>
-                <Button endIcon={<PrintIcon />}>Print</Button>
+            <div ref={printRef} id="print-section">
+              <Stack gap={2}>
+                <Stack direction="row" justifyContent="space-between">
+                  <Typography variant="h5" textAlign="left" gutterBottom>
+                    Booking Details
+                  </Typography>
+                  <Button onClick={handlePrint} endIcon={<PrintIcon />}>
+                    Print
+                  </Button>
+                </Stack>
+                <RowStack
+                  title="Customer Name"
+                  content={bookingDetails?.customerName ?? "N/A"}
+                />
+                <RowStack
+                  title="Hotel Name"
+                  content={bookingDetails?.hotelName ?? "N/A"}
+                />
+                <RowStack
+                  title="Room Number"
+                  content={bookingDetails?.roomNumber ?? "N/A"}
+                />
+                <RowStack
+                  title="Room Type"
+                  content={bookingDetails?.roomType ?? "N/A"}
+                />
+                <RowStack
+                  title="Booking Date & Time"
+                  content={
+                    bookingDetails?.bookingDateTime.toLocaleString() ?? "N/A"
+                  }
+                />
+                <RowStack
+                  title="Total Cost"
+                  content={bookingDetails?.totalCost ?? "N/A"}
+                />
+                <RowStack
+                  title="Payment Method"
+                  content={bookingDetails?.paymentMethod ?? "N/A"}
+                />
+                <RowStack
+                  title="Booking Status"
+                  content={bookingDetails?.bookingStatus ?? "N/A"}
+                />
+                <RowStack
+                  title="Confirmation Number"
+                  content={bookingDetails?.confirmationNumber ?? "N/A"}
+                />
               </Stack>
-              <RowStack
-                title="Customer Name"
-                content={bookingDetails.customerName}
-              />
-              <RowStack title="Hotel Name" content={bookingDetails.hotelName} />
-              <RowStack
-                title="Room Number"
-                content={bookingDetails.roomNumber}
-              />
-              <RowStack title="Room Type" content={bookingDetails.roomType} />
-              <RowStack
-                title="Booking Date & Time"
-                content={new Date(
-                  bookingDetails?.bookingDateTime ?? Date(),
-                ).toLocaleString()}
-              />
-              <RowStack title="Total Cost" content={bookingDetails.totalCost} />
-              <RowStack
-                title="Payment Method"
-                content={bookingDetails.paymentMethod}
-              />
-              <RowStack
-                title="Booking Status"
-                content={bookingDetails.bookingStatus}
-              />
-              <RowStack
-                title="Confirmation Number"
-                content={bookingDetails.confirmationNumber}
-              />
-            </Stack>
+            </div>
           </Paper>
         </Container>
         <Button variant="contained" onClick={() => navigate("/")}>
