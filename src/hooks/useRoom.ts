@@ -1,4 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import toast from "react-hot-toast";
 import { RoomForCreationDto, RoomForUpdateDto } from "../api/Api";
 import { Room } from "../entities/Room";
 import { createApiClient } from "../services/createApiClient";
@@ -36,6 +37,10 @@ export const useRoom = () => {
               return [...oldRooms, newRoom];
             });
           });
+        toast.success("Room added successfully");
+      },
+      onError: () => {
+        toast.error("Room creation failed");
       },
     });
 
@@ -62,6 +67,10 @@ export const useRoom = () => {
               });
             });
           });
+        toast.success("Room updated successfully");
+      },
+      onError: () => {
+        toast.error("Room update failed");
       },
     });
 
@@ -80,6 +89,10 @@ export const useRoom = () => {
               );
             });
           });
+        toast.success("Room deleted successfully");
+      },
+      onError: () => {
+        toast.error("Room deletion failed");
       },
     });
 

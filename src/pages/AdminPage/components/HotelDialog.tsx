@@ -43,9 +43,10 @@ const validationSchema = Yup.object({
 
 const HotelDialog: React.FC<HotelDialogProps> = ({ type, hotel, onSubmit }) => {
   const [open, setOpen] = useState(false);
+  const [currentValues, setCurrentValues] = useState<Hotel>(initialAddValues);
   const { data: cities } = useCities({ cityName: "" });
   const { useAddHotel, useUpdateHotel } = useHotel();
-  const addHotel = useAddHotel();
+  const addHotel = useAddHotel(currentValues);
   const updateHotel = useUpdateHotel();
 
   const initialUpdateValues: Hotel = {
@@ -64,7 +65,10 @@ const HotelDialog: React.FC<HotelDialogProps> = ({ type, hotel, onSubmit }) => {
 
   const handleSubmit = (values: Hotel) => {
     if (isUpdateMode) updateHotel.mutate(values);
-    else addHotel.mutate(values);
+    else {
+      setCurrentValues(values);
+      addHotel.mutate();
+    }
 
     onSubmit(values);
     setOpen(false);

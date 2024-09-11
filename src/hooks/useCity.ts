@@ -1,4 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import toast from "react-hot-toast";
 import { City } from "../pages/AdminPage/entities";
 import { createApiClient } from "../services/createApiClient";
 
@@ -18,6 +19,10 @@ export const useCity = () => {
               return [...oldCities, savedCity.data];
             });
           });
+        toast.success("City added successfully");
+      },
+      onError: () => {
+        toast.error("City creation failed");
       },
     });
 
@@ -42,6 +47,10 @@ export const useCity = () => {
               });
             });
           });
+        toast.success("City updated successfully");
+      },
+      onError: () => {
+        toast.error("City update failed");
       },
     });
 
@@ -57,6 +66,10 @@ export const useCity = () => {
               return oldCities.filter((city) => city.id !== deletedCityId);
             });
           });
+        toast.success("City deleted successfully");
+      },
+      onError: () => {
+        toast.error("City deletion failed");
       },
     });
 
