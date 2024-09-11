@@ -51,16 +51,19 @@ export const Links = () => {
       child_1: <img src={Logo} alt="travelo-logo" width={25} />,
     },
     {
+      scrollTo: "root",
       sx: { fontSize: 16 },
       title: "Cities",
       onClick: () => setCurrentPage("cities"),
     },
     {
+      scrollTo: "root",
       sx: { fontSize: 16 },
       title: "Hotels",
       onClick: () => setCurrentPage("hotels"),
     },
     {
+      scrollTo: "root",
       sx: { fontSize: 16 },
       title: "Rooms",
       onClick: () => setCurrentPage("rooms"),
