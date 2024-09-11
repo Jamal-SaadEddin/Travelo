@@ -89,15 +89,15 @@ const AdminPage = () => {
   };
 
   const handleAddCity = (newCity: City) => {
-    const newItems = [...currentItems, newCity];
+    const newItems = [newCity, ...currentItems];
     setCurrentItems(newItems);
   };
   const handleAddHotel = (newHotel: Hotel) => {
-    const newItems = [...currentItems, newHotel];
+    const newItems = [newHotel, ...currentItems];
     setCurrentItems(newItems);
   };
   const handleAddRoom = (newRoom: Room) => {
-    const newItems = [...currentItems, newRoom];
+    const newItems = [newRoom, ...currentItems];
     setCurrentItems(newItems);
   };
 

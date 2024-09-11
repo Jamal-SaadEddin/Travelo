@@ -14,35 +14,31 @@ export const useHotel = () => {
   const apiClient = createApiClient();
   const queryClient = useQueryClient();
 
-  const useAddHotel = () => {
+  const useAddHotel = (newHotel: Hotel) => {
     let response: HttpResponse<HotelDto, ProblemDetails> | undefined;
 
     return useMutation({
-      mutationFn: async (newHotel: Hotel) => {
+      mutationFn: async () => {
         response = await apiClient.api.citiesHotelsCreate(
           newHotel.cityId!,
           newHotel as HotelForCreationDto,
         );
       },
-      onSuccess: (savedHotel) => {
+      onSuccess: () => {
+        toast.success("Hotel added successfully");
+        response = undefined;
         queryClient
           .getQueryCache()
           .findAll({ queryKey: ["hotels"] })
           .forEach((query) => {
             queryClient.setQueryData(query.queryKey, (oldhotels: Hotel[]) => {
-              return [...oldhotels, savedHotel];
+              return [newHotel, ...oldhotels];
             });
           });
-        toast.success("Hotel added successfully");
       },
       onError: () => {
-        if (response && response.status === 201) {
-          toast.success("Hotel added successfully");
-          const data = response.data;
-          response = undefined;
-          return data;
-        }
-        toast.error("Hotel creation failed");
+        if (response) toast.error("Hotel creation failed");
+        response = undefined;
       },
     });
   };
