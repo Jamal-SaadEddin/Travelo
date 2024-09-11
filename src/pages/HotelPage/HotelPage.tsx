@@ -1,4 +1,4 @@
-import { Container, Divider, Grid, Toolbar } from "@mui/material";
+import { Container, Divider, Grid, Skeleton, Toolbar } from "@mui/material";
 import { useEffect, useState } from "react";
 import AmenitiesStack from "../../components/AmenitiesStack";
 import AvailableRooms from "../../components/AvailableRooms";
@@ -18,9 +18,9 @@ const HotelPage = () => {
   );
   const { useHotelData, useHotelGallery, useHotelReviews } =
     useHotelPage(selectedHotelId);
-  const { data: hotel, isLoading } = useHotelData();
-  const { data: gallery } = useHotelGallery();
-  const { data: reviews } = useHotelReviews();
+  const { data: hotel, isLoading: isLoadingHotel } = useHotelData();
+  const { data: gallery, isLoading: isLoadingGallery } = useHotelGallery();
+  const { data: reviews, isLoading: isLoadingReviews } = useHotelReviews();
 
   const [currentHotel, setCurrentHotel] = useState<Hotel>(initialHotel);
 
@@ -29,10 +29,6 @@ const HotelPage = () => {
       setCurrentHotel(hotel);
     }
   }, [hotel]);
-
-  if (isLoading) {
-    return <p>Loading...</p>;
-  }
 
   return (
     <Container maxWidth="xl">
@@ -43,19 +39,31 @@ const HotelPage = () => {
         hotelName={currentHotel.hotelName}
         location={currentHotel.location}
         starRating={currentHotel.starRating}
+        isLoading={isLoadingHotel}
       />
       <Divider sx={{ my: 2 }} />
       <Grid container spacing={2}>
         <Grid item xs={12} container spacing={2}>
           <Grid item container spacing={2} xs={12} md={6.5} lg={8}>
             <Grid item xs={12}>
-              {gallery && <HotelGallery gallery={gallery} />}
+              {isLoadingGallery ? (
+                <Skeleton height={363} />
+              ) : (
+                gallery && <HotelGallery gallery={gallery} />
+              )}
             </Grid>
             <Grid item xs={12}>
-              <AmenitiesStack amenities={currentHotel.amenities} />
+              <AmenitiesStack
+                amenities={currentHotel.amenities}
+                isLoading={isLoadingHotel}
+              />
             </Grid>
             <Grid item xs={12}>
-              <HotelOverview description={currentHotel.description} />
+              {isLoadingHotel ? (
+                <Skeleton height={220} />
+              ) : (
+                <HotelOverview description={currentHotel.description} />
+              )}
             </Grid>
             <Grid item xs={12}>
               <AvailableRooms />
@@ -64,13 +72,21 @@ const HotelPage = () => {
           <Grid item xs={12} md={5.5} lg={4}>
             <Grid container spacing={3}>
               <Grid item xs={12}>
-                {reviews && <ReviewsSlider reviews={reviews} />}
+                {isLoadingReviews ? (
+                  <Skeleton height={224} />
+                ) : (
+                  reviews && <ReviewsSlider reviews={reviews} />
+                )}
               </Grid>
               <Grid item xs={12}>
-                <MapComponent
-                  latitude={currentHotel.latitude}
-                  longitude={currentHotel.longitude}
-                />
+                {isLoadingHotel ? (
+                  <Skeleton height={331} />
+                ) : (
+                  <MapComponent
+                    latitude={currentHotel.latitude}
+                    longitude={currentHotel.longitude}
+                  />
+                )}
               </Grid>
             </Grid>
           </Grid>
