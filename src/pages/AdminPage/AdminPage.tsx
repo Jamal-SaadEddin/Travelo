@@ -1,3 +1,4 @@
+import SentimentVeryDissatisfiedIcon from "@mui/icons-material/SentimentVeryDissatisfied";
 import {
   Container,
   FormControl,
@@ -7,6 +8,7 @@ import {
   Select,
   SelectChangeEvent,
   Stack,
+  Typography,
 } from "@mui/material";
 import { useEffect, useState } from "react";
 import RoomCard from "../../components/AvailableRooms/components/RoomCard";
@@ -15,6 +17,7 @@ import { Room } from "../../entities/Room";
 import { useCities } from "../../hooks/useCities";
 import { useHotels } from "../../hooks/useHotels";
 import { useRooms } from "../../hooks/useRooms";
+import useAdminSearchBarStore from "../../store/adminSearchBar.store";
 import useCurrentPageStore from "../../store/currentPage.store";
 import CityCard from "./components/CityCard";
 import CityDialog from "./components/CityDialog";
@@ -23,7 +26,6 @@ import HotelDialog from "./components/HotelDialog";
 import { renderPaginationButtons } from "./components/PaginationButtons";
 import RoomDialog from "./components/RoomDialog";
 import { City, Hotel } from "./entities";
-import useAdminSearchBarStore from "../../store/adminSearchBar.store";
 
 const AdminPage = () => {
   const {
@@ -190,6 +192,15 @@ const AdminPage = () => {
               ) : null}
             </Grid>
           ))}
+        {currentItems.length === 0 && (
+          <Grid item xs={12} textAlign="center">
+            <Typography variant="h6">
+              No {pageData} found.
+              <br />
+              <SentimentVeryDissatisfiedIcon sx={{ fontSize: "48px", mt: 1 }} />
+            </Typography>
+          </Grid>
+        )}
       </Grid>
       {pageData === "hotels" && (
         <Stack direction="row" justifyContent="center" mt={3}>
