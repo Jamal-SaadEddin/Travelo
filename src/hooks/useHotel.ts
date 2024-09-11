@@ -3,9 +3,8 @@ import { Hotel } from "../pages/AdminPage/entities";
 import { createApiClient } from "../services/createApiClient";
 import { HotelForCreationDto, HotelForUpdateDto } from "../api/Api";
 
-const apiClient = createApiClient();
-
 export const useHotel = () => {
+  const apiClient = createApiClient();
   const queryClient = useQueryClient();
 
   const useAddHotel = () =>

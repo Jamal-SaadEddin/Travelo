@@ -3,9 +3,8 @@ import { RoomForCreationDto, RoomForUpdateDto } from "../api/Api";
 import { Room } from "../entities/Room";
 import { createApiClient } from "../services/createApiClient";
 
-const apiClient = createApiClient();
-
 export const useRoom = () => {
+  const apiClient = createApiClient();
   const queryClient = useQueryClient();
 
   const useAddRoom = () =>

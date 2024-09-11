@@ -2,10 +2,10 @@ import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { Destination } from "../components/TrendingDestinations/entities/Destination";
 import { createApiClient } from "../services/createApiClient";
 
-const apiClient = createApiClient();
+export const useTrendingDestinations = () => {
+  const apiClient = createApiClient();
 
-export const useTrendingDestinations = () =>
-  useQuery<Destination[], Error>({
+  return useQuery<Destination[], Error>({
     queryKey: ["trending-destinations"],
     queryFn: async (): Promise<Destination[]> => {
       const response = await apiClient.api.homeDestinationsTrendingList();
@@ -14,3 +14,4 @@ export const useTrendingDestinations = () =>
     staleTime: 1000 * 60 * 5, // 5 minutes
     placeholderData: keepPreviousData,
   });
+};

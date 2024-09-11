@@ -4,9 +4,8 @@ import { AuthRequest, AuthResponse } from "../entities/Auth";
 import { createApiClient } from "../services/createApiClient";
 import useAuthStore from "../store/auth.store";
 
-const apiClient = createApiClient();
-
 const useAuth = () => {
+  const apiClient = createApiClient();
   const { signin, signout } = useAuthStore();
   const navigate = useNavigate();
 

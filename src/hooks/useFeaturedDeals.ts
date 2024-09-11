@@ -2,10 +2,10 @@ import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { Hotel } from "../components/common/HotelCard/entities/Hotel";
 import { createApiClient } from "../services/createApiClient";
 
-const apiClient = createApiClient();
+export const useFeaturedDeals = () => {
+  const apiClient = createApiClient();
 
-export const useFeaturedDeals = () =>
-  useQuery<Hotel[], Error>({
+  return useQuery<Hotel[], Error>({
     queryKey: ["featured-deals"],
     queryFn: async (): Promise<Hotel[]> => {
       const response = await apiClient.api.homeFeaturedDealsList();
@@ -14,3 +14,4 @@ export const useFeaturedDeals = () =>
     staleTime: 1000 * 60 * 5, // 5 minutes
     placeholderData: keepPreviousData,
   });
+};

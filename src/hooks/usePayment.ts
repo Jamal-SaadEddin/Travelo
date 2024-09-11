@@ -10,9 +10,8 @@ import { BookingResponse } from "../pages/ConfirmationPage/entities";
 import { createApiClient } from "../services/createApiClient";
 import useCartStore from "../store/cartStore";
 
-const apiClient = createApiClient();
-
 export const usePayment = () => {
+  const apiClient = createApiClient();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const setBookedRooms = useCartStore((s) => s.setBookedRooms);

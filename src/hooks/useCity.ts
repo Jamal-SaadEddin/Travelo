@@ -2,9 +2,8 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { City } from "../pages/AdminPage/entities";
 import { createApiClient } from "../services/createApiClient";
 
-const apiClient = createApiClient();
-
 export const useCity = () => {
+  const apiClient = createApiClient();
   const queryClient = useQueryClient();
 
   const useAddCity = () =>

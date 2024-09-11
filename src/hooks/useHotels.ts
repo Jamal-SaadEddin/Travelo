@@ -2,8 +2,6 @@ import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { Hotel } from "../pages/AdminPage/entities";
 import { createApiClient } from "../services/createApiClient";
 
-const apiClient = createApiClient();
-
 export const useHotels = ({
   hotelName,
   currentPage,
@@ -12,8 +10,10 @@ export const useHotels = ({
   hotelName: string;
   currentPage: number;
   cardsPerPage: number;
-}) =>
-  useQuery<{ data: Hotel[]; totalPages: number }, Error>({
+}) => {
+  const apiClient = createApiClient();
+
+  return useQuery<{ data: Hotel[]; totalPages: number }, Error>({
     queryKey: ["hotels", hotelName, currentPage, cardsPerPage],
     queryFn: async () => {
       const response = await apiClient.api.hotelsList({
@@ -33,3 +33,4 @@ export const useHotels = ({
     staleTime: 1000 * 60 * 5, // 5 minutes
     placeholderData: keepPreviousData,
   });
+};

@@ -6,9 +6,8 @@ import { Hotel } from "../pages/HotelPage/entities/Hotel";
 import { createApiClient } from "../services/createApiClient";
 import useSearchBoxStore from "../store/searchBoxStore";
 
-const apiClient = createApiClient();
-
 export const useHotelPage = (hotelId: number) => {
+  const apiClient = createApiClient();
   const searchQueries = useSearchBoxStore((state) => state.searchQueries);
 
   const useHotelData = () =>

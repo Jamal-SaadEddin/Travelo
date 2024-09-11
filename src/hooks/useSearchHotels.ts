@@ -2,8 +2,6 @@ import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { ListingHotel } from "../components/common/HotelCard/entities/Hotel";
 import { createApiClient } from "../services/createApiClient";
 
-const apiClient = createApiClient();
-
 export const useSearchHotels = (query?: {
   checkInDate?: string;
   checkOutDate?: string;
@@ -13,8 +11,10 @@ export const useSearchHotels = (query?: {
   numberOfRooms?: number;
   adults?: number;
   children?: number;
-}) =>
-  useQuery<ListingHotel[], Error>({
+}) => {
+  const apiClient = createApiClient();
+
+  return useQuery<ListingHotel[], Error>({
     queryKey: ["searchHotels", query],
     queryFn: async (): Promise<ListingHotel[]> => {
       const response = await apiClient.api.homeSearchList(query);
@@ -23,3 +23,4 @@ export const useSearchHotels = (query?: {
     staleTime: 1000 * 60 * 5, // 5 minutes
     placeholderData: keepPreviousData,
   });
+};

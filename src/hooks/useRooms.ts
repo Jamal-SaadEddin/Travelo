@@ -2,9 +2,9 @@ import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { Room } from "../entities/Room";
 import { createApiClient } from "../services/createApiClient";
 
-const apiClient = createApiClient();
-
 export const useRooms = (selectedHotel: number | null, todayDate: string) => {
+  const apiClient = createApiClient();
+
   return useQuery<Room[], Error>({
     queryKey: ["rooms", selectedHotel, todayDate],
     queryFn: async () => {

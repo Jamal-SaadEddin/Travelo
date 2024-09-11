@@ -3,9 +3,8 @@ import { Hotel } from "../components/common/HotelCard/entities/Hotel";
 import { createApiClient } from "../services/createApiClient";
 import useAuthStore from "../store/auth.store";
 
-const apiClient = createApiClient();
-
 export const useRecentlyVisitedHotels = () => {
+  const apiClient = createApiClient();
   const user = useAuthStore((state) => state.user);
 
   return useQuery<Hotel[], Error>({
