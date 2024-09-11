@@ -6,7 +6,8 @@ const useWelcomeToast = () => {
   const { user } = useAuthStore();
 
   useEffect(() => {
-    toast.success(`Welcome back ${user?.given_name}`, { icon: "👋" });
+    if (user?.given_name)
+      toast.success(`Welcome back ${user?.given_name}`, { icon: "👋" });
   }, [user?.given_name]);
 };
 
