@@ -1,19 +1,29 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import toast from "react-hot-toast";
+import {
+  HotelDto,
+  HotelForCreationDto,
+  HotelForUpdateDto,
+  HttpResponse,
+  ProblemDetails,
+} from "../api/Api";
 import { Hotel } from "../pages/AdminPage/entities";
 import { createApiClient } from "../services/createApiClient";
-import { HotelForCreationDto, HotelForUpdateDto } from "../api/Api";
 
 export const useHotel = () => {
   const apiClient = createApiClient();
   const queryClient = useQueryClient();
 
-  const useAddHotel = () =>
-    useMutation({
-      mutationFn: (newHotel: Hotel) =>
-        apiClient.api.citiesHotelsCreate(
+  const useAddHotel = () => {
+    let response: HttpResponse<HotelDto, ProblemDetails> | undefined;
+
+    return useMutation({
+      mutationFn: async (newHotel: Hotel) => {
+        response = await apiClient.api.citiesHotelsCreate(
           newHotel.cityId!,
           newHotel as HotelForCreationDto,
-        ),
+        );
+      },
       onSuccess: (savedHotel) => {
         queryClient
           .getQueryCache()
@@ -23,16 +33,30 @@ export const useHotel = () => {
               return [...oldhotels, savedHotel];
             });
           });
+        toast.success("Hotel added successfully");
+      },
+      onError: () => {
+        if (response && response.status === 201) {
+          toast.success("Hotel added successfully");
+          const data = response.data;
+          response = undefined;
+          return data;
+        }
+        toast.error("Hotel creation failed");
       },
     });
+  };
 
-  const useUpdateHotel = () =>
-    useMutation({
-      mutationFn: (updatedHotel: Hotel) =>
-        apiClient.api.hotelsUpdate(
+  const useUpdateHotel = () => {
+    let response: HttpResponse<void, ProblemDetails> | undefined;
+
+    return useMutation({
+      mutationFn: async (updatedHotel: Hotel) => {
+        response = await apiClient.api.hotelsUpdate(
           updatedHotel.id!,
           updatedHotel as HotelForUpdateDto,
-        ),
+        );
+      },
       onSuccess: (_, updatedHotel: Hotel) => {
         queryClient
           .getQueryCache()
@@ -48,12 +72,31 @@ export const useHotel = () => {
             });
           });
       },
+      onError: () => {
+        if (response && response.status === 204) {
+          toast.success("Hotel updated successfully");
+          const data = response.data;
+          response = undefined;
+          return data;
+        }
+        toast.error("Hotel update failed");
+      },
     });
+  };
 
-  const useDeleteHotel = () =>
-    useMutation({
-      mutationFn: ({ cityId, hotelId }: { cityId: number; hotelId: number }) =>
-        apiClient.api.citiesHotelsDelete(cityId, hotelId),
+  const useDeleteHotel = () => {
+    let response: HttpResponse<void, ProblemDetails> | undefined;
+
+    return useMutation({
+      mutationFn: async ({
+        cityId,
+        hotelId,
+      }: {
+        cityId: number;
+        hotelId: number;
+      }) => {
+        response = await apiClient.api.citiesHotelsDelete(cityId, hotelId);
+      },
       onSuccess: (_, deletedHotel) => {
         queryClient
           .getQueryCache()
@@ -64,7 +107,16 @@ export const useHotel = () => {
             );
           });
       },
+      onError: () => {
+        if (response && response.status === 204) {
+          toast.success("Hotel deleted successfully");
+          const data = response.data;
+          response = undefined;
+          return data;
+        }
+      },
     });
+  };
 
   return {
     useAddHotel,

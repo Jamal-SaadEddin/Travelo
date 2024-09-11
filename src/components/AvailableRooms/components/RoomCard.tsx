@@ -1,3 +1,4 @@
+import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import ChildCareRoundedIcon from "@mui/icons-material/ChildCareRounded";
 import CloseIcon from "@mui/icons-material/Close";
 import PersonOutlineRoundedIcon from "@mui/icons-material/PersonOutlineRounded";
@@ -16,6 +17,8 @@ import {
   useTheme,
 } from "@mui/material";
 import { useState } from "react";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 import { Room } from "../../../entities/Room";
 import DeleteDialog from "../../../pages/AdminPage/components/DeleteDialog";
 import RoomDialog from "../../../pages/AdminPage/components/RoomDialog";
@@ -33,6 +36,7 @@ const RoomCard = ({
   const setBookedRooms = useCartStore((s) => s.setBookedRooms);
 
   const theme = useTheme();
+  const navigate = useNavigate();
 
   const styles = {
     card: {
@@ -56,8 +60,25 @@ const RoomCard = ({
   const handleBookRoom = () => {
     const newBookedRooms = [currentRoom, ...bookedRooms];
     setBookedRooms(newBookedRooms);
-
-    // alert("Room booked!");
+    toast.success(
+      (t) => (
+        <Stack direction="row" alignItems="center">
+          <Typography variant="body1" color="text.primary">
+            Finish you booking
+          </Typography>
+          <IconButton
+            onClick={() => {
+              navigate("/checkout");
+              toast.dismiss(t.id);
+            }}
+            color="success"
+          >
+            <ChevronRightIcon />
+          </IconButton>
+        </Stack>
+      ),
+      { duration: 3000 },
+    );
   };
 
   const handleCancelBooking = () => {
@@ -65,8 +86,6 @@ const RoomCard = ({
       (bookedRoom) => bookedRoom.roomId !== currentRoom.roomId,
     );
     setBookedRooms(newBookedRooms);
-
-    // alert("Booking canceled!");
   };
 
   const handleUpdate = (updatedRoom: Room) => {
