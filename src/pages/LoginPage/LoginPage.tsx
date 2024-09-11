@@ -12,10 +12,7 @@ import { Form, Formik } from "formik";
 import * as Yup from "yup";
 import FormikTextField from "../../components/FormikTextField";
 import PromotionalSection from "../../components/PromotionalSection";
-import useAuthStore from "../../store/auth.store";
-import { useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
-import { useEffect } from "react";
 
 const initialValues = {
   username: "",
@@ -23,8 +20,6 @@ const initialValues = {
 };
 
 const LoginPage = () => {
-  const user = useAuthStore((state) => state.user);
-  const navigate = useNavigate();
   const auth = useAuth();
 
   const validationSchema = Yup.object({
@@ -36,12 +31,6 @@ const LoginPage = () => {
     const { username, password } = values;
     auth.mutate({ username, password });
   };
-
-  useEffect(() => {
-    if (user?.userType) {
-      navigate("/");
-    }
-  }, [user?.userType, navigate]);
 
   return (
     <Grid

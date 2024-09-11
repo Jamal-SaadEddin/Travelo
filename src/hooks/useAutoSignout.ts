@@ -9,9 +9,9 @@ const useAutoSignout = (expTime: number, signout: () => void) => {
 
     if (remainingTime > 0) {
       const logoutTimer = setTimeout(() => {
-        navigate("/");
+        signout();
         setTimeout(() => {
-          signout();
+          navigate("/login");
         });
       }, remainingTime * 1000);
 

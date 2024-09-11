@@ -1,4 +1,5 @@
 import { useMutation } from "@tanstack/react-query";
+import { useNavigate } from "react-router-dom";
 import { AuthRequest, AuthResponse } from "../entities/Auth";
 import { createApiClient } from "../services/createApiClient";
 import useAuthStore from "../store/auth.store";
@@ -7,6 +8,7 @@ const apiClient = createApiClient();
 
 const useAuth = () => {
   const { signin, signout } = useAuthStore();
+  const navigate = useNavigate();
 
   return useMutation<AuthResponse, Error, AuthRequest>({
     mutationFn: (data: AuthRequest) =>
@@ -15,10 +17,13 @@ const useAuth = () => {
         .then((response) => response.data as unknown as AuthResponse),
     onSuccess: (data: AuthResponse) => {
       signin(data.authentication);
-      window.location.href = "/";
+      navigate("/");
     },
     onError: () => {
       signout();
+      setTimeout(() => {
+        navigate("/login");
+      });
     },
   });
 };
