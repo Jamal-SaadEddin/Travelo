@@ -1,5 +1,5 @@
 import SentimentVeryDissatisfiedIcon from "@mui/icons-material/SentimentVeryDissatisfied";
-import { Box, Typography } from "@mui/material";
+import { Box, Skeleton, Typography } from "@mui/material";
 import { useEffect } from "react";
 import { useSearchHotels } from "../../hooks/useSearchHotels";
 import useSearchBoxStore from "../../store/searchBoxStore";
@@ -24,14 +24,6 @@ const HotelListings = () => {
     if (hotels) setFilteredHotels(hotels);
   }, [hotels, setFilteredHotels]);
 
-  if (isLoading) {
-    return (
-      <Typography variant="h4" textAlign="center">
-        Loading hotels...
-      </Typography>
-    );
-  }
-
   return (
     <Box
       display="flex"
@@ -41,7 +33,16 @@ const HotelListings = () => {
       alignItems="center"
       justifyContent={filteredHotels.length > 0 ? "flex-start" : "center"}
     >
-      {filteredHotels.length > 0 ? (
+      {isLoading ? (
+        Array.from({ length: 2 }).map((_, index) => (
+          <Skeleton
+            variant="rectangular"
+            sx={{ width: "100%", maxWidth: 555, minWidth: 300 }}
+            height={584}
+            key={index}
+          />
+        ))
+      ) : filteredHotels.length > 0 ? (
         filteredHotels.map((hotel) => (
           <HotelCard key={hotel.hotelId} hotel={hotel} />
         ))

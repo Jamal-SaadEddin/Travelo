@@ -3,6 +3,7 @@ import {
   Button,
   Container,
   Paper,
+  Skeleton,
   Stack,
   Toolbar,
   Typography,
@@ -16,7 +17,7 @@ const RowStack = ({
   content,
 }: {
   title: string;
-  content: string | number;
+  content: string | number | JSX.Element;
 }) => (
   <Stack direction="row" justifyContent="space-between" spacing={2}>
     <Typography variant="body1">{title}</Typography>
@@ -30,10 +31,6 @@ const ConfirmationPage = () => {
 
   const { useBooking } = usePayment();
   const { data: bookingDetails, isLoading } = useBooking();
-
-  if (isLoading) {
-    return <p>Loading...</p>;
-  }
 
   // Handle the print functionality
   const handlePrint = () => {
@@ -64,47 +61,102 @@ const ConfirmationPage = () => {
                   <Typography variant="h5" textAlign="left" gutterBottom>
                     Booking Details
                   </Typography>
-                  <Button onClick={handlePrint} endIcon={<PrintIcon />}>
-                    Print
-                  </Button>
+                  {!isLoading && (
+                    <Button onClick={handlePrint} endIcon={<PrintIcon />}>
+                      Print
+                    </Button>
+                  )}
                 </Stack>
                 <RowStack
                   title="Customer Name"
-                  content={bookingDetails?.customerName ?? "N/A"}
+                  content={
+                    isLoading ? (
+                      <Skeleton variant="text" animation="wave" width={120} />
+                    ) : (
+                      (bookingDetails?.customerName ?? "N/A")
+                    )
+                  }
                 />
                 <RowStack
                   title="Hotel Name"
-                  content={bookingDetails?.hotelName ?? "N/A"}
+                  content={
+                    isLoading ? (
+                      <Skeleton variant="text" animation="wave" width={120} />
+                    ) : (
+                      (bookingDetails?.hotelName ?? "N/A")
+                    )
+                  }
                 />
                 <RowStack
                   title="Room Number"
-                  content={bookingDetails?.roomNumber ?? "N/A"}
+                  content={
+                    isLoading ? (
+                      <Skeleton variant="text" animation="wave" width={120} />
+                    ) : (
+                      (bookingDetails?.roomNumber ?? "N/A")
+                    )
+                  }
                 />
                 <RowStack
                   title="Room Type"
-                  content={bookingDetails?.roomType ?? "N/A"}
+                  content={
+                    isLoading ? (
+                      <Skeleton variant="text" animation="wave" width={120} />
+                    ) : (
+                      (bookingDetails?.roomType ?? "N/A")
+                    )
+                  }
                 />
                 <RowStack
                   title="Booking Date & Time"
                   content={
-                    bookingDetails?.bookingDateTime.toLocaleString() ?? "N/A"
+                    isLoading ? (
+                      <Skeleton variant="text" animation="wave" width={120} />
+                    ) : (
+                      (bookingDetails?.bookingDateTime.toLocaleString() ??
+                      "N/A")
+                    )
                   }
                 />
                 <RowStack
                   title="Total Cost"
-                  content={bookingDetails?.totalCost ?? "N/A"}
+                  content={
+                    isLoading ? (
+                      <Skeleton variant="text" animation="wave" width={120} />
+                    ) : (
+                      (bookingDetails?.totalCost ?? "N/A")
+                    )
+                  }
                 />
                 <RowStack
                   title="Payment Method"
-                  content={bookingDetails?.paymentMethod ?? "N/A"}
+                  content={
+                    isLoading ? (
+                      <Skeleton variant="text" animation="wave" width={120} />
+                    ) : (
+                      (bookingDetails?.paymentMethod ?? "N/A")
+                    )
+                  }
                 />
                 <RowStack
                   title="Booking Status"
-                  content={bookingDetails?.bookingStatus ?? "N/A"}
+                  content={
+                    isLoading ? (
+                      <Skeleton variant="text" animation="wave" width={120} />
+                    ) : (
+                      (bookingDetails?.bookingStatus ?? "N/A")
+                    )
+                  }
                 />
                 <RowStack
                   title="Confirmation Number"
-                  content={bookingDetails?.confirmationNumber ?? "N/A"}
+                  content={
+                    isLoading ? (
+                      <Skeleton variant="text" animation="wave" width={120} />
+                    ) : (
+                      (bookingDetails?.confirmationNumber ?? "N/A")
+                    )
+                  }
                 />
               </Stack>
             </div>

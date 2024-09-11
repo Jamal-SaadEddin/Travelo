@@ -1,4 +1,4 @@
-import { Stack } from "@mui/material";
+import { Grid, Skeleton, Stack } from "@mui/material";
 import { useFeaturedDeals } from "../../hooks/useFeaturedDeals";
 import { useStyles } from "../../styles";
 import HotelCard from "../common/HotelCard";
@@ -9,9 +9,13 @@ const FeaturedDeals = () => {
 
   if (isLoading)
     return (
-      <Stack direction="row" sx={hotelCardsStyles.cardsStackStyles}>
-        Loading...
-      </Stack>
+      <Grid container spacing={3}>
+        {Array.from({ length: 4 }).map((_, index) => (
+          <Grid item xs={12} sm={6} md={4} xl={3} key={index}>
+            <Skeleton variant="rectangular" height={526} />
+          </Grid>
+        ))}
+      </Grid>
     );
 
   return (

@@ -1,4 +1,4 @@
-import { Stack } from "@mui/material";
+import { Grid, Skeleton, Stack } from "@mui/material";
 import { useRecentlyVisitedHotels } from "../../hooks/useRecentlyVisitedHotels";
 import { useStyles } from "../../styles";
 import HotelCard from "../common/HotelCard";
@@ -8,7 +8,15 @@ const RecentlyVisitedHotels = () => {
   const { data: hotels, isLoading } = useRecentlyVisitedHotels();
 
   if (isLoading) {
-    return <p>Loading...</p>;
+    return (
+      <Grid container spacing={3}>
+        {Array.from({ length: 3 }).map((_, index) => (
+          <Grid item xs={12} sm={6} md={4} key={index}>
+            <Skeleton variant="rectangular" height={424} />
+          </Grid>
+        ))}
+      </Grid>
+    );
   }
 
   return (

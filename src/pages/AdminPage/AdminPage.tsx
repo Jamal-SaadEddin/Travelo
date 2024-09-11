@@ -7,6 +7,7 @@ import {
   MenuItem,
   Select,
   SelectChangeEvent,
+  Skeleton,
   Stack,
   Typography,
 } from "@mui/material";
@@ -105,10 +106,6 @@ const AdminPage = () => {
     setCurrentItems(newItems);
   };
 
-  if (isLoadingCities || isLoadingHotels || isLoadingRooms) {
-    return <div>Loading...</div>;
-  }
-
   return (
     <Container maxWidth="xl">
       <Stack
@@ -168,6 +165,28 @@ const AdminPage = () => {
         </Stack>
       </Stack>
       <Grid container spacing={3}>
+        {pageData === "cities" &&
+          isLoadingCities &&
+          Array.from({ length: 8 }).map((_, index) => (
+            <Grid item xs={12} sm={6} md={4} xl={3} key={index}>
+              <Skeleton variant="rectangular" height={220} />
+            </Grid>
+          ))}
+        {pageData === "hotels" &&
+          isLoadingHotels &&
+          Array.from({ length: 8 }).map((_, index) => (
+            <Grid item xs={12} sm={6} md={4} xl={3} key={index}>
+              <Skeleton variant="rectangular" height={583} />
+            </Grid>
+          ))}
+        {pageData === "rooms" &&
+          isLoadingRooms &&
+          Array.from({ length: 8 }).map((_, index) => (
+            <Grid item xs={12} sm={6} md={4} xl={3} key={index}>
+              <Skeleton variant="rectangular" height={361} />
+            </Grid>
+          ))}
+
         {currentItems &&
           currentItems.map((item) => (
             <Grid
