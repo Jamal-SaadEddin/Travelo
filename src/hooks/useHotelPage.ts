@@ -1,10 +1,10 @@
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
-import { GalleryPhoto } from "../components/HotelGallery/entities/GalleryPhoto";
-import { Review } from "../components/ReviewsSlider/entities/Review";
-import { Room } from "../entities/Room";
-import { Hotel } from "../pages/HotelPage/entities/Hotel";
+import { Room } from "../entities/common/Room";
 import { createApiClient } from "../services/createApiClient";
 import useSearchBoxStore from "../store/searchBoxStore";
+import { Hotel } from "../entities/common/Hotel";
+import { Review } from "../entities/common/Review";
+import { GalleryPhoto } from "../pages/HotelPage/components/HotelGallery/entities/GalleryPhoto";
 
 export const useHotelPage = (hotelId: number) => {
   const apiClient = createApiClient();

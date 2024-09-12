@@ -3,7 +3,7 @@ import Footer from "../../components/Footer";
 import Navbar from "../../components/Navbar";
 import useAutoSignout from "../../hooks/useAutoSignout";
 import useWelcomeToast from "../../hooks/useWelcomeToast";
-import ScrollToTop from "../../routes/ScrollToTop";
+import ScrollToTop from "../../components/ScrollToTop";
 import useAuthStore from "../../store/auth.store";
 
 const HomePage = () => {

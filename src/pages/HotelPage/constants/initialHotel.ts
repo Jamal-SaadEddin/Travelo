@@ -1,4 +1,4 @@
-import { Hotel } from "../entities/Hotel";
+import { Hotel } from "../../../entities/common/Hotel";
 
 export const initialHotel: Hotel = {
   hotelName: "",

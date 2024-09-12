@@ -1,16 +1,16 @@
 import { Container, Divider, Grid, Skeleton, Toolbar } from "@mui/material";
 import { useEffect, useState } from "react";
-import AmenitiesStack from "../../components/AmenitiesStack";
-import AvailableRooms from "../../components/AvailableRooms";
-import HotelGallery from "../../components/HotelGallery";
-import HotelOverview from "../../components/HotelOverview";
-import HotelPageHeader from "../../components/HotelPageHeader";
-import MapComponent from "../../components/MapComponent";
-import ReviewsSlider from "../../components/ReviewsSlider";
+import AmenitiesStack from "../../components/common/AmenitiesStack";
+import MapComponent from "../../components/common/MapComponent";
+import { HotelPage_Hotel } from "../../entities/common/Hotel";
 import { useHotelPage } from "../../hooks/useHotelPage";
 import useSelectedHotelIdStore from "../../store/selectedHotelId.store";
+import AvailableRooms from "./components/AvailableRooms";
+import HotelGallery from "./components/HotelGallery";
+import HotelOverview from "./components/HotelOverview";
+import HotelPageHeader from "./components/HotelPageHeader";
+import ReviewsSlider from "./components/ReviewsSlider";
 import { initialHotel } from "./constants/initialHotel";
-import { Hotel } from "./entities/Hotel";
 
 const HotelPage = () => {
   const selectedHotelId = useSelectedHotelIdStore(
@@ -22,11 +22,13 @@ const HotelPage = () => {
   const { data: gallery, isLoading: isLoadingGallery } = useHotelGallery();
   const { data: reviews, isLoading: isLoadingReviews } = useHotelReviews();
 
-  const [currentHotel, setCurrentHotel] = useState<Hotel>(initialHotel);
+  const [currentHotel, setCurrentHotel] = useState<HotelPage_Hotel>(
+    initialHotel as HotelPage_Hotel,
+  );
 
   useEffect(() => {
     if (hotel) {
-      setCurrentHotel(hotel);
+      setCurrentHotel(hotel as HotelPage_Hotel);
     }
   }, [hotel]);
 

@@ -6,9 +6,9 @@ import {
 } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import { BookingRequest } from "../api/Api";
-import { BookingResponse } from "../pages/ConfirmationPage/entities";
 import { createApiClient } from "../services/createApiClient";
 import useCartStore from "../store/cartStore";
+import { BookingResponse } from "../entities/BookingResponse";
 
 export const usePayment = () => {
   const apiClient = createApiClient();

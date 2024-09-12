@@ -1,5 +1,5 @@
 import ReactDOM from "react-dom/client";
-import AppWrapper from "./AppWrapper.tsx";
-import "./styles/index.css";
+import App from "./App";
+import "./styles/styles.css";
 
-ReactDOM.createRoot(document.getElementById("root")!).render(<AppWrapper />);
+ReactDOM.createRoot(document.getElementById("root")!).render(<App />);

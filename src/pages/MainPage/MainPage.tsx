@@ -1,11 +1,10 @@
 import { Container } from "@mui/material";
 import { Navigate } from "react-router-dom";
-import FeaturedDeals from "../../components/FeaturedDeals";
-import HeroSection from "../../components/HeroSection";
-import RecentlyVisitedHotels from "../../components/RecentlyVisitedHotels";
-import SearchBox from "../../components/SearchBox";
-import TrendingDestinations from "../../components/TrendingDestinations";
-// import { user } from "../../hooks/useAuth";
+import FeaturedDeals from "./components/FeaturedDeals";
+import HeroSection from "./components/HeroSection";
+import RecentlyVisitedHotels from "./components/RecentlyVisitedHotels";
+import SearchBox from "../../components/common/SearchBox";
+import TrendingDestinations from "./components/TrendingDestinations";
 import HomeSection from "./components/HomeSection";
 
 const user = { type: "user" };

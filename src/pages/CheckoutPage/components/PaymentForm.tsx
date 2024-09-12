@@ -1,12 +1,13 @@
 import { Button, Grid } from "@mui/material";
 import { Form, Formik } from "formik";
-import FormikTextField from "../../../components/FormikTextField";
+import FormikTextField from "../../../components/common/FormikTextField";
 import { useHotelPage } from "../../../hooks/useHotelPage";
 import { usePayment } from "../../../hooks/usePayment";
 import useCartStore from "../../../store/cartStore";
 import useSearchBoxStore from "../../../store/searchBoxStore";
 import useSelectedHotelIdStore from "../../../store/selectedHotelId.store";
 import { validationSchema } from "../utils/validationSchema";
+import { HotelPage_Hotel } from "../../../entities/common/Hotel";
 
 const initialValues = {
   firstName: "",
@@ -43,7 +44,7 @@ const PaymentForm = () => {
       for (const room of bookedRooms)
         addBooking.mutate({
           customerName: `${values.firstName} ${values.lastName}`,
-          hotelName: hotel.hotelName,
+          hotelName: (hotel as HotelPage_Hotel).hotelName,
           roomNumber: room.roomNumber?.toString(),
           roomType: room.roomType,
           bookingDateTime: searchQueries.checkIn.toISOString(),

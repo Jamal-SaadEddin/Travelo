@@ -7,9 +7,9 @@ import {
 } from "@mui/material";
 import { useState } from "react";
 import { truncateText } from "../../../services/truncateText";
-import { City } from "../entities";
 import CityDialog from "./CityDialog";
-import DeleteDialog from "./DeleteDialog";
+import DeleteDialog from "../../../components/common/DeleteDialog";
+import { City } from "../../../entities/common/City";
 
 interface CityCardProps {
   city: City;

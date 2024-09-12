@@ -10,7 +10,7 @@ import {
 import { Form, Formik } from "formik";
 import React, { useState } from "react";
 import * as Yup from "yup";
-import FormikTextField from "../../../components/FormikTextField";
+import FormikTextField from "../../../components/common/FormikTextField";
 import { useCities } from "../../../hooks/useCities";
 import { useHotel } from "../../../hooks/useHotel";
 import { Hotel } from "../entities";

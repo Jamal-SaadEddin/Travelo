@@ -15,12 +15,16 @@ import useSearchBoxStore from "../../../store/searchBoxStore";
 import { useStyles } from "../../../styles";
 import StarRating from "../StarRating";
 import useSelectedHotelIdStore from "./../../../store/selectedHotelId.store";
-import { HotelCardProps } from "./entities/HotelCardProps";
 import {
   isFeaturedDealHotel,
   isListingHotel,
   isRecentlyVisitedHotel,
-} from "./utils/typeGuards";
+} from "./utils/hotelTypeGuards";
+import { Hotel } from "../../../entities/common/Hotel";
+
+interface HotelCardProps {
+  hotel: Hotel;
+}
 
 const HotelCard = ({ hotel }: HotelCardProps) => {
   const {

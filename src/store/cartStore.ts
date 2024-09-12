@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { Room as BookedRoom } from "../entities/Room";
+import { Room as BookedRoom } from "../entities/common/Room";
 
 // Function to load booked rooms from local storage
 const loadBookedRooms = (): BookedRoom[] => {

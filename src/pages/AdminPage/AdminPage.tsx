@@ -12,9 +12,9 @@ import {
   Typography,
 } from "@mui/material";
 import { useEffect, useState } from "react";
-import RoomCard from "../../components/AvailableRooms/components/RoomCard";
-import SearchBar from "../../components/SearchBar";
-import { Room } from "../../entities/Room";
+import RoomCard from "../../components/common/RoomCard";
+import SearchBar from "./components/SearchBar";
+import { Room } from "../../entities/common/Room";
 import { useCities } from "../../hooks/useCities";
 import { useHotels } from "../../hooks/useHotels";
 import { useRooms } from "../../hooks/useRooms";
@@ -22,11 +22,12 @@ import useAdminSearchBarStore from "../../store/adminSearchBar.store";
 import useCurrentPageStore from "../../store/currentPage.store";
 import CityCard from "./components/CityCard";
 import CityDialog from "./components/CityDialog";
-import HotelCard from "./components/HotelCard";
+import AdminHotelCard from "./components/AdminHotelCard";
 import HotelDialog from "./components/HotelDialog";
 import { renderPaginationButtons } from "./components/PaginationButtons";
-import RoomDialog from "./components/RoomDialog";
-import { City, Hotel } from "./entities";
+import RoomDialog from "../../components/common/RoomDialog";
+import { City } from "../../entities/common/City";
+import { AdminHotel, Hotel } from "../../entities/common/Hotel";
 
 const AdminPage = () => {
   const {
@@ -198,13 +199,13 @@ const AdminPage = () => {
               key={
                 pageData === "rooms"
                   ? (item as Room).roomId
-                  : (item as City | Hotel).id
+                  : (item as City | AdminHotel).id
               }
             >
               {pageData === "rooms" && "roomId" in item ? (
                 <RoomCard room={item as Room} size="small" editable />
               ) : pageData === "hotels" && "hotelType" in item ? (
-                <HotelCard hotel={item as Hotel} />
+                <AdminHotelCard hotel={item as Hotel} />
               ) : pageData === "cities" &&
                 !("roomId" in item || "hotelType" in item) ? (
                 <CityCard city={item as City} />

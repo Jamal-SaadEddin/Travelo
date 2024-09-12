@@ -1,10 +1,10 @@
 import { Divider, Grid, Typography } from "@mui/material";
-import RoomCard from "../../../components/AvailableRooms/components/RoomCard";
 import useCartStore from "../../../store/cartStore";
+import RoomCard from "../../../components/common/RoomCard";
 
 const BookedRooms = () => {
   const bookedRooms = useCartStore((s) => s.bookedRooms);
-  const totalPrice = bookedRooms.reduce((acc, room) => acc + room.price, 0);
+  const totalPrice = bookedRooms.reduce((acc, room) => acc + room.price!, 0);
 
   return (
     <>

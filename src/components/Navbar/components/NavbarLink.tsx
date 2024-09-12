@@ -1,7 +1,16 @@
 import { Link } from "@mui/material";
 import { NavLink } from "react-router-dom";
 import { Link as ScrollLink } from "react-scroll";
-import NavbarLinkProps from "../entities/NavbarLinkProps";
+
+export interface NavbarLinkProps {
+  scrollTo?: string;
+  href?: string;
+  sx?: object;
+  title?: string;
+  child_1?: React.ReactNode;
+  child_2?: React.ReactNode;
+  onClick?: () => void;
+}
 
 const NavbarLink = ({
   scrollTo = "",

@@ -10,8 +10,8 @@ import {
 } from "@mui/material";
 import { Form, Formik } from "formik";
 import * as Yup from "yup";
-import FormikTextField from "../../components/FormikTextField";
-import PromotionalSection from "../../components/PromotionalSection";
+import FormikTextField from "../../components/common/FormikTextField";
+import PromotionalSection from "./components/PromotionalSection";
 import useAuth from "../../hooks/useAuth";
 
 const initialValues = {

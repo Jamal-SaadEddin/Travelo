@@ -1,5 +1,10 @@
 import { Box, Typography } from "@mui/material";
-import { HomeSectionProps } from "../entities/HomeSectionProps";
+
+interface HomeSectionProps {
+  id: string;
+  title: string;
+  children: React.ReactNode;
+}
 
 const HomeSection = ({ id, title, children }: HomeSectionProps) => {
   return (
