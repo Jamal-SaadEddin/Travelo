@@ -5,6 +5,11 @@ import react from "@vitejs/plugin-react";
 export default defineConfig({
   plugins: [react()],
   optimizeDeps: {
-    include: ["@mui/material/Box"],
+    include: ["@mui/material/Box", "@mui/icons-material"],
+  },
+  resolve: {
+    alias: {
+      "@src": "/src",
+    },
   },
 });
