@@ -1,6 +1,6 @@
+import { Hotel } from "@src/entities/common/Hotel";
+import { createApiClient } from "@src/services/createApiClient";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
-import { Hotel } from "../components/common/HotelCard/entities/Hotel";
-import { createApiClient } from "../services/createApiClient";
 
 export const useFeaturedDeals = () => {
   const apiClient = createApiClient();

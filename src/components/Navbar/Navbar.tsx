@@ -1,12 +1,11 @@
 import { Container, Hidden } from "@mui/material";
 import MuiAppBar from "@mui/material/AppBar";
 import MuiToolbar from "@mui/material/Toolbar";
-// import { user } from "../../hooks/useAuth";
+import useAuthStore from "@src/store/auth.store";
 import NavbarLink from "./components/NavbarLink";
 import NavbarList from "./components/NavbarList";
 import NavbarMenu from "./components/NavbarMenu";
 import ThemeMenu from "./components/ThemeMenu";
-import useAuthStore from "../../store/auth.store";
 import { Links } from "./constants/Links";
 
 const Navbar = () => {

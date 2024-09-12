@@ -9,8 +9,8 @@ import {
   Toolbar,
   Typography,
 } from "@mui/material";
+import useCartStore from "@src/store/cartStore";
 import { Link as RouterLink } from "react-router-dom";
-import useCartStore from "../../store/cartStore";
 import BookedRooms from "./components/BookedRooms";
 import PaymentForm from "./components/PaymentForm";
 import TripDetails from "./components/TripDetails";

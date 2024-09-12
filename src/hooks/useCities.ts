@@ -1,6 +1,6 @@
+import { City } from "@src/entities/common/City";
+import { createApiClient } from "@src/services/createApiClient";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
-import { City } from "../pages/AdminPage/entities";
-import { createApiClient } from "../services/createApiClient";
 
 export const useCities = ({ cityName }: { cityName: string }) => {
   const apiClient = createApiClient();

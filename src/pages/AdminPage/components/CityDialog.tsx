@@ -6,12 +6,12 @@ import {
   DialogContent,
   DialogTitle,
 } from "@mui/material";
+import FormikTextField from "@src/components/common/FormikTextField";
+import { City } from "@src/entities/common/City";
+import { useCity } from "@src/hooks/useCity";
 import { Form, Formik } from "formik";
 import React, { useState } from "react";
 import * as Yup from "yup";
-import FormikTextField from "../../../components/FormikTextField";
-import { useCity } from "../../../hooks/useCity";
-import { City } from "../entities";
 
 interface CityDialogProps {
   type: "add" | "update";

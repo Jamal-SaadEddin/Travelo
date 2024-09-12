@@ -8,11 +8,11 @@ import {
   Paper,
   Typography,
 } from "@mui/material";
+import FormikTextField from "@src/components/common/FormikTextField";
+import useAuth from "@src/hooks/useAuth";
 import { Form, Formik } from "formik";
 import * as Yup from "yup";
-import FormikTextField from "../../components/FormikTextField";
-import PromotionalSection from "../../components/PromotionalSection";
-import useAuth from "../../hooks/useAuth";
+import PromotionalSection from "./components/PromotionalSection";
 
 const initialValues = {
   username: "",

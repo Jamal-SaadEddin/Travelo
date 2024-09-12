@@ -1,7 +1,7 @@
 import { Meta, StoryFn } from "@storybook/react";
 import NavbarMenu from "../components/NavbarMenu";
-import NavbarLinkProps from "../entities/NavbarLinkProps";
 import { Links } from "../constants/Links";
+import { NavbarLinkProps } from "./NavbarLink";
 
 const { userLeftNavLinks, userRightNavLinks } = Links();
 

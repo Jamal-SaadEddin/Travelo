@@ -8,19 +8,23 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { SxProps } from "@mui/system";
+import { Hotel } from "@src/entities/common/Hotel";
+import { truncateText } from "@src/services/truncateText";
+import useSearchBoxStore from "@src/store/searchBoxStore";
+import useSelectedHotelIdStore from "@src/store/selectedHotelId.store";
+import { useStyles } from "@src/styles";
 import queryString from "query-string";
 import { useNavigate } from "react-router-dom";
-import { truncateText } from "../../../services/truncateText";
-import useSearchBoxStore from "../../../store/searchBoxStore";
-import { useStyles } from "../../../styles";
 import StarRating from "../StarRating";
-import useSelectedHotelIdStore from "./../../../store/selectedHotelId.store";
-import { HotelCardProps } from "./entities/HotelCardProps";
 import {
   isFeaturedDealHotel,
   isListingHotel,
   isRecentlyVisitedHotel,
-} from "./utils/typeGuards";
+} from "./utils/hotelTypeGuards";
+
+interface HotelCardProps {
+  hotel: Hotel;
+}
 
 const HotelCard = ({ hotel }: HotelCardProps) => {
   const {
@@ -58,26 +62,36 @@ const HotelCard = ({ hotel }: HotelCardProps) => {
       numberOfRooms: rooms,
     });
 
-    setSelectedHotelId(hotel.hotelId);
-    navigate(`/hotel/${hotel.hotelId}?${queryParams}`);
+    if (isFeaturedDealHotel(hotel) || isListingHotel(hotel)) {
+      setSelectedHotelId(hotel.hotelId);
+      navigate(`/hotel/${hotel.hotelId}?${queryParams}`);
+    }
   };
 
   return (
     <Card elevation={3} sx={dynamicCardStyles}>
-      <CardMedia
-        component="img"
-        alt={`${hotel.hotelName} image`}
-        height={isListingHotel(hotel) ? "320" : "220"}
-        image={
-          isFeaturedDealHotel(hotel) || isListingHotel(hotel)
-            ? hotel.roomPhotoUrl
-            : hotel.thumbnailUrl
-        }
-      />
+      {(isFeaturedDealHotel(hotel) ||
+        isListingHotel(hotel) ||
+        isRecentlyVisitedHotel(hotel)) && (
+        <CardMedia
+          component="img"
+          alt={`${hotel.hotelName} image`}
+          height={isListingHotel(hotel) ? "320" : "220"}
+          image={
+            isFeaturedDealHotel(hotel) || isListingHotel(hotel)
+              ? hotel.roomPhotoUrl
+              : hotel.thumbnailUrl
+          }
+        />
+      )}
       <CardContent sx={{ flexGrow: 1 }}>
-        <Typography gutterBottom variant="h5" component="div">
-          {isFeaturedDealHotel(hotel) ? hotel.title : hotel.hotelName}
-        </Typography>
+        {(isFeaturedDealHotel(hotel) ||
+          isListingHotel(hotel) ||
+          isRecentlyVisitedHotel(hotel)) && (
+          <Typography gutterBottom variant="h5" component="div">
+            {isFeaturedDealHotel(hotel) ? hotel.title : hotel.hotelName}
+          </Typography>
+        )}
         {isFeaturedDealHotel(hotel) && (
           <Typography variant="body2">
             {truncateText(hotel.description, 150)}
@@ -101,13 +115,17 @@ const HotelCard = ({ hotel }: HotelCardProps) => {
           <Stack direction="row" justifyContent="space-between">
             <Stack direction="row" alignItems="center" gap={1}>
               <LocationOnIcon />
-              <Typography variant="body1">{hotel.cityName}</Typography>
+              {(isFeaturedDealHotel(hotel) ||
+                isListingHotel(hotel) ||
+                isRecentlyVisitedHotel(hotel)) && (
+                <Typography variant="body1">{hotel.cityName}</Typography>
+              )}
             </Stack>
             <StarRating
               rating={
                 isFeaturedDealHotel(hotel)
                   ? hotel.hotelStarRating
-                  : hotel.starRating
+                  : hotel.starRating || 0
               }
             />
           </Stack>
@@ -144,7 +162,7 @@ const HotelCard = ({ hotel }: HotelCardProps) => {
                     ${hotel.priceUpperBound}
                   </Typography>
                 </>
-              ) : (
+              ) : isListingHotel(hotel) ? (
                 <>
                   <Typography variant="subtitle1" color="success.main">
                     ${hotel.roomPrice}
@@ -153,7 +171,7 @@ const HotelCard = ({ hotel }: HotelCardProps) => {
                     &nbsp;/ night
                   </Typography>
                 </>
-              )}
+              ) : null}
             </Stack>
             {isListingHotel(hotel) && (
               <Chip label={`${hotel.roomType} Room`} color="info" />

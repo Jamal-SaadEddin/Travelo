@@ -8,9 +8,9 @@ import {
   Toolbar,
   Typography,
 } from "@mui/material";
+import { usePayment } from "@src/hooks/usePayment";
 import { useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { usePayment } from "../../hooks/usePayment";
 
 const RowStack = ({
   title,

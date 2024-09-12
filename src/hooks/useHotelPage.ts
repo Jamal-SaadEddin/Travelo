@@ -1,10 +1,10 @@
+import { GalleryPhoto } from "@src/entities/common/GalleryPhoto";
+import { Hotel } from "@src/entities/common/Hotel";
+import { Review } from "@src/entities/common/Review";
+import { Room } from "@src/entities/common/Room";
+import { createApiClient } from "@src/services/createApiClient";
+import useSearchBoxStore from "@src/store/searchBoxStore";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
-import { GalleryPhoto } from "../components/HotelGallery/entities/GalleryPhoto";
-import { Review } from "../components/ReviewsSlider/entities/Review";
-import { Room } from "../entities/Room";
-import { Hotel } from "../pages/HotelPage/entities/Hotel";
-import { createApiClient } from "../services/createApiClient";
-import useSearchBoxStore from "../store/searchBoxStore";
 
 export const useHotelPage = (hotelId: number) => {
   const apiClient = createApiClient();

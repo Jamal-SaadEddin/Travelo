@@ -1,6 +1,5 @@
 import { Box } from "@mui/material";
-import NavbarLinkProps from "../entities/NavbarLinkProps";
-import NavbarLink from "./NavbarLink";
+import NavbarLink, { NavbarLinkProps } from "./NavbarLink";
 
 interface Props {
   justifyContent: string;

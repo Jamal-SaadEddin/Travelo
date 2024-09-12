@@ -1,6 +1,6 @@
+import { ListingHotel } from "@src/entities/common/Hotel";
+import { createApiClient } from "@src/services/createApiClient";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
-import { ListingHotel } from "../components/common/HotelCard/entities/Hotel";
-import { createApiClient } from "../services/createApiClient";
 
 export const useSearchHotels = (query?: {
   checkInDate?: string;

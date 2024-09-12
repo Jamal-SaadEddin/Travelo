@@ -1,6 +1,7 @@
+import { City } from "@src/entities/common/City";
+import { Hotel } from "@src/entities/common/Hotel";
+import { Room } from "@src/entities/common/Room";
 import { create } from "zustand";
-import { City, Hotel } from "../pages/AdminPage/entities";
-import { Room } from "../entities/Room";
 
 // Function to load current page from local storage
 const loadCurrentPage = (): string => {

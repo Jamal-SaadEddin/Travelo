@@ -1,6 +1,6 @@
 import ShoppingCartCheckoutIcon from "@mui/icons-material/ShoppingCartCheckout";
 import { Badge } from "@mui/material";
-import useCartStore from "../../../store/cartStore";
+import useCartStore from "@src/store/cartStore";
 
 const CheckoutBadge = () => {
   const bookedRooms = useCartStore((s) => s.bookedRooms);

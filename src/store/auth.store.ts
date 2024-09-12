@@ -1,7 +1,7 @@
+import getDecodedJWT, { DecodedJWTUser } from "@src/utils/getDecodedJWT";
 import Cookies from "js-cookie";
 import { create } from "zustand";
 import { devtools } from "zustand/middleware";
-import getDecodedJWT, { DecodedJWTUser } from "../utils/getDecodedJWT";
 
 interface AuthStore {
   user: DecodedJWTUser | null;

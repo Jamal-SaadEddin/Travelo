@@ -11,22 +11,23 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
+import RoomCard from "@src/components/common/RoomCard";
+import RoomDialog from "@src/components/common/RoomDialog";
+import { City } from "@src/entities/common/City";
+import { AdminHotel, Hotel } from "@src/entities/common/Hotel";
+import { Room } from "@src/entities/common/Room";
+import { useCities } from "@src/hooks/useCities";
+import { useHotels } from "@src/hooks/useHotels";
+import { useRooms } from "@src/hooks/useRooms";
+import useAdminSearchBarStore from "@src/store/adminSearchBar.store";
+import useCurrentPageStore from "@src/store/currentPage.store";
 import { useEffect, useState } from "react";
-import RoomCard from "../../components/AvailableRooms/components/RoomCard";
-import SearchBar from "../../components/SearchBar";
-import { Room } from "../../entities/Room";
-import { useCities } from "../../hooks/useCities";
-import { useHotels } from "../../hooks/useHotels";
-import { useRooms } from "../../hooks/useRooms";
-import useAdminSearchBarStore from "../../store/adminSearchBar.store";
-import useCurrentPageStore from "../../store/currentPage.store";
+import AdminHotelCard from "./components/AdminHotelCard";
 import CityCard from "./components/CityCard";
 import CityDialog from "./components/CityDialog";
-import HotelCard from "./components/HotelCard";
 import HotelDialog from "./components/HotelDialog";
 import { renderPaginationButtons } from "./components/PaginationButtons";
-import RoomDialog from "./components/RoomDialog";
-import { City, Hotel } from "./entities";
+import SearchBar from "./components/SearchBar";
 
 const AdminPage = () => {
   const {
@@ -165,61 +166,59 @@ const AdminPage = () => {
         </Stack>
       </Stack>
       <Grid container spacing={3}>
-        {pageData === "cities" &&
-          isLoadingCities &&
-          Array.from({ length: 8 }).map((_, index) => (
-            <Grid item xs={12} sm={6} md={4} xl={3} key={index}>
-              <Skeleton variant="rectangular" height={220} />
-            </Grid>
-          ))}
-        {pageData === "hotels" &&
-          isLoadingHotels &&
-          Array.from({ length: 8 }).map((_, index) => (
-            <Grid item xs={12} sm={6} md={4} xl={3} key={index}>
-              <Skeleton variant="rectangular" height={583} />
-            </Grid>
-          ))}
-        {pageData === "rooms" &&
-          isLoadingRooms &&
-          Array.from({ length: 8 }).map((_, index) => (
-            <Grid item xs={12} sm={6} md={4} xl={3} key={index}>
-              <Skeleton variant="rectangular" height={361} />
-            </Grid>
-          ))}
-
-        {currentItems &&
-          currentItems.map((item) => (
-            <Grid
-              item
-              xs={12}
-              sm={6}
-              md={4}
-              xl={3}
-              key={
-                pageData === "rooms"
-                  ? (item as Room).roomId
-                  : (item as City | Hotel).id
-              }
-            >
-              {pageData === "rooms" && "roomId" in item ? (
-                <RoomCard room={item as Room} size="small" editable />
-              ) : pageData === "hotels" && "hotelType" in item ? (
-                <HotelCard hotel={item as Hotel} />
-              ) : pageData === "cities" &&
-                !("roomId" in item || "hotelType" in item) ? (
-                <CityCard city={item as City} />
-              ) : null}
-            </Grid>
-          ))}
-        {currentItems.length === 0 && (
-          <Grid item xs={12} textAlign="center">
-            <Typography variant="h6">
-              No {pageData} found.
-              <br />
-              <SentimentVeryDissatisfiedIcon sx={{ fontSize: "48px", mt: 1 }} />
-            </Typography>
-          </Grid>
-        )}
+        {pageData === "cities" && isLoadingCities
+          ? Array.from({ length: 8 }).map((_, index) => (
+              <Grid item xs={12} sm={6} md={4} xl={3} key={index}>
+                <Skeleton variant="rectangular" height={220} />
+              </Grid>
+            ))
+          : pageData === "hotels" && isLoadingHotels
+            ? Array.from({ length: 8 }).map((_, index) => (
+                <Grid item xs={12} sm={6} md={4} xl={3} key={index}>
+                  <Skeleton variant="rectangular" height={583} />
+                </Grid>
+              ))
+            : pageData === "rooms" && isLoadingRooms
+              ? Array.from({ length: 8 }).map((_, index) => (
+                  <Grid item xs={12} sm={6} md={4} xl={3} key={index}>
+                    <Skeleton variant="rectangular" height={361} />
+                  </Grid>
+                ))
+              : currentItems.length > 0
+                ? currentItems.map((item) => (
+                    <Grid
+                      item
+                      xs={12}
+                      sm={6}
+                      md={4}
+                      xl={3}
+                      key={
+                        pageData === "rooms"
+                          ? (item as Room).roomId
+                          : (item as City | AdminHotel).id
+                      }
+                    >
+                      {pageData === "rooms" && "roomId" in item ? (
+                        <RoomCard room={item as Room} size="small" editable />
+                      ) : pageData === "hotels" && "hotelType" in item ? (
+                        <AdminHotelCard hotel={item as Hotel} />
+                      ) : pageData === "cities" &&
+                        !("roomId" in item || "hotelType" in item) ? (
+                        <CityCard city={item as City} />
+                      ) : null}
+                    </Grid>
+                  ))
+                : currentItems.length === 0 && (
+                    <Grid item xs={12} textAlign="center">
+                      <Typography variant="h6">
+                        No {pageData} found.
+                        <br />
+                        <SentimentVeryDissatisfiedIcon
+                          sx={{ fontSize: "48px", mt: 1 }}
+                        />
+                      </Typography>
+                    </Grid>
+                  )}
       </Grid>
       {pageData === "hotels" && (
         <Stack direction="row" justifyContent="center" mt={3}>

@@ -1,5 +1,5 @@
+import { Api } from "@src/api/Api";
 import Cookies from "js-cookie";
-import { Api } from "../api/Api";
 
 export const createApiClient = () => {
   const apiClient = new Api();

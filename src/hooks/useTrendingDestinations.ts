@@ -1,6 +1,6 @@
+import { Destination } from "@src/entities/common/Destination";
+import { createApiClient } from "@src/services/createApiClient";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
-import { Destination } from "../components/TrendingDestinations/entities/Destination";
-import { createApiClient } from "../services/createApiClient";
 
 export const useTrendingDestinations = () => {
   const apiClient = createApiClient();

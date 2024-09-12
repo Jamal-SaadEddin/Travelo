@@ -1,6 +1,6 @@
+import { AdminHotel as Hotel } from "@src/entities/common/Hotel";
+import { createApiClient } from "@src/services/createApiClient";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
-import { Hotel } from "../pages/AdminPage/entities";
-import { createApiClient } from "../services/createApiClient";
 
 export const useHotels = ({
   hotelName,

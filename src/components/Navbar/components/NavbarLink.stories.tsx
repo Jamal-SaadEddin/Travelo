@@ -1,5 +1,5 @@
 import { Meta, StoryFn } from "@storybook/react";
-import NavbarLink from "../components/NavbarLink";
+import NavbarLink from "./NavbarLink";
 
 export default {
   title: "Components/Navbar/NavbarLink",
