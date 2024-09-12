@@ -9,15 +9,15 @@ const MapComponent = ({
 
   return (
     <iframe
+      style={{
+        border: 0,
+        borderRadius: 4,
+      }}
       width="100%"
       height="300"
-      frameborder="0"
-      scrolling="no"
-      marginheight="0"
-      marginwidth="0"
       title="Google Map"
       src={src}
-    ></iframe>
+    />
   );
 };
 
