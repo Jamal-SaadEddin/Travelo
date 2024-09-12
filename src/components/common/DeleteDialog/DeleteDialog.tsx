@@ -6,10 +6,10 @@ import {
   DialogContent,
   DialogTitle,
 } from "@mui/material";
+import { useCity } from "@src/hooks/useCity";
+import { useHotel } from "@src/hooks/useHotel";
+import { useRoom } from "@src/hooks/useRoom";
 import React, { useState } from "react";
-import { useCity } from "../../../hooks/useCity";
-import { useHotel } from "../../../hooks/useHotel";
-import { useRoom } from "../../../hooks/useRoom";
 
 interface DeleteDialogProps {
   type: "city" | "hotel" | "room";

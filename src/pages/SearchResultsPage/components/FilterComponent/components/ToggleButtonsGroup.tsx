@@ -6,7 +6,7 @@ import {
   Tooltip,
   Typography,
 } from "@mui/material";
-import { useStyles } from "../../../../../styles/index";
+import { useStyles } from "@src/styles/index";
 
 export interface ToggleButtonsGroupProps {
   title: string;

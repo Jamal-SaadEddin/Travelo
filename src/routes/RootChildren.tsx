@@ -1,11 +1,11 @@
+import AdminPage from "@src/pages/AdminPage";
+import CheckoutPage from "@src/pages/CheckoutPage";
+import ConfirmationPage from "@src/pages/ConfirmationPage";
+import HotelPage from "@src/pages/HotelPage";
+import MainPage from "@src/pages/MainPage";
+import SearchResultsPage from "@src/pages/SearchResultsPage";
+import useAuthStore from "@src/store/auth.store";
 import { Navigate, Route } from "react-router-dom";
-import AdminPage from "../pages/AdminPage";
-import CheckoutPage from "../pages/CheckoutPage";
-import ConfirmationPage from "../pages/ConfirmationPage";
-import HotelPage from "../pages/HotelPage";
-import MainPage from "../pages/MainPage";
-import SearchResultsPage from "../pages/SearchResultsPage";
-import useAuthStore from "../store/auth.store";
 
 export const RootChildren = () => {
   const { user } = useAuthStore();

@@ -7,9 +7,9 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
+import { Review } from "@src/entities/common/Review";
 import { useState } from "react";
 import ReviewItem from "./ReviewItem";
-import { Review } from "../../../../../entities/common/Review";
 
 const styles = {
   textTransform: "none",

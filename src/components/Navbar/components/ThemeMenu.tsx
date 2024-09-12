@@ -9,8 +9,8 @@ import {
   Menu,
   MenuItem,
 } from "@mui/material";
+import { useThemeContext } from "@src/contexts/useThemeContext";
 import React, { useState } from "react";
-import { useThemeContext } from "../../../contexts/useThemeContext";
 
 interface ThemeMenuProps {
   lgDown?: boolean;

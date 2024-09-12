@@ -1,3 +1,7 @@
+import { BookingRequest } from "@src/api/Api";
+import { BookingResponse } from "@src/entities/BookingResponse";
+import { createApiClient } from "@src/services/createApiClient";
+import useCartStore from "@src/store/cartStore";
 import {
   keepPreviousData,
   useMutation,
@@ -5,10 +9,6 @@ import {
   useQueryClient,
 } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
-import { BookingRequest } from "../api/Api";
-import { createApiClient } from "../services/createApiClient";
-import useCartStore from "../store/cartStore";
-import { BookingResponse } from "../entities/BookingResponse";
 
 export const usePayment = () => {
   const apiClient = createApiClient();

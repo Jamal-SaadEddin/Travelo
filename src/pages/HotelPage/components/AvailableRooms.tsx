@@ -1,7 +1,7 @@
 import { Grid, Paper, Skeleton, Typography } from "@mui/material";
-import RoomCard from "../../../components/common/RoomCard/RoomCard";
-import { useHotelPage } from "../../../hooks/useHotelPage";
-import useSelectedHotelIdStore from "../../../store/selectedHotelId.store";
+import RoomCard from "@src/components/common/RoomCard/RoomCard";
+import { useHotelPage } from "@src/hooks/useHotelPage";
+import useSelectedHotelIdStore from "@src/store/selectedHotelId.store";
 
 const AvailableRooms = () => {
   const selectedHotelId = useSelectedHotelIdStore(

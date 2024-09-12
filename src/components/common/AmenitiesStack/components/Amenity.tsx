@@ -1,5 +1,5 @@
 import { Chip, Fade, Tooltip } from "@mui/material";
-import { Amenity as AmenityProps } from "../../../../entities/common/Amenity";
+import { Amenity as AmenityProps } from "@src/entities/common/Amenity";
 
 const styles = {
   mediumChip: {

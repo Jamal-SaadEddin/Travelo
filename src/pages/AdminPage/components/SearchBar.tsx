@@ -1,7 +1,7 @@
 import SearchIcon from "@mui/icons-material/Search";
 import { InputAdornment, TextField } from "@mui/material";
-import useAdminSearchBarStore from "../../../store/adminSearchBar.store";
-import useCurrentPageStore from "../../../store/currentPage.store";
+import useAdminSearchBarStore from "@src/store/adminSearchBar.store";
+import useCurrentPageStore from "@src/store/currentPage.store";
 
 const SearchBar = () => {
   const { cityName, setCityName, hotelName, setHotelName } =

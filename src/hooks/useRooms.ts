@@ -1,6 +1,6 @@
+import { Room } from "@src/entities/common/Room";
+import { createApiClient } from "@src/services/createApiClient";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
-import { Room } from "../entities/common/Room";
-import { createApiClient } from "../services/createApiClient";
 
 export const useRooms = (selectedHotel: number | null, todayDate: string) => {
   const apiClient = createApiClient();

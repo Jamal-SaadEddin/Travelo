@@ -1,7 +1,8 @@
 import { Grid, Skeleton, Stack } from "@mui/material";
-import { useFeaturedDeals } from "../../hooks/useFeaturedDeals";
-import { useStyles } from "../../styles";
-import HotelCard from "../common/HotelCard";
+import HotelCard from "@src/components/common/HotelCard";
+import { FeaturedDealHotel } from "@src/entities/common/Hotel";
+import { useFeaturedDeals } from "@src/hooks/useFeaturedDeals";
+import { useStyles } from "@src/styles";
 
 const FeaturedDeals = () => {
   const { hotelCardsStyles } = useStyles();
@@ -20,7 +21,9 @@ const FeaturedDeals = () => {
 
   return (
     <Stack direction="row" sx={hotelCardsStyles.cardsStackStyles}>
-      {hotels?.map((hotel) => <HotelCard key={hotel.hotelId} hotel={hotel} />)}
+      {hotels?.map((hotel) => (
+        <HotelCard key={(hotel as FeaturedDealHotel).hotelId} hotel={hotel} />
+      ))}
     </Stack>
   );
 };

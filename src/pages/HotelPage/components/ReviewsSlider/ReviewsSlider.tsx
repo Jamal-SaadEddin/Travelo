@@ -1,11 +1,11 @@
 import { Paper } from "@mui/material";
+import { Review } from "@src/entities/common/Review";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick-theme.css";
 import "slick-carousel/slick/slick.css";
 import Header from "./components/Header";
 import ReviewItem from "./components/ReviewItem";
 import "./styles.css";
-import { Review } from "../../../../entities/common/Review";
 
 interface ReviewsSliderProps {
   reviews: Review[];

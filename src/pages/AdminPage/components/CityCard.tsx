@@ -5,11 +5,11 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
+import DeleteDialog from "@src/components/common/DeleteDialog";
+import { City } from "@src/entities/common/City";
+import { truncateText } from "@src/services/truncateText";
 import { useState } from "react";
-import { truncateText } from "../../../services/truncateText";
 import CityDialog from "./CityDialog";
-import DeleteDialog from "../../../components/common/DeleteDialog";
-import { City } from "../../../entities/common/City";
 
 interface CityCardProps {
   city: City;

@@ -1,6 +1,6 @@
 import { Divider, Grid, Typography } from "@mui/material";
-import useCartStore from "../../../store/cartStore";
-import RoomCard from "../../../components/common/RoomCard";
+import RoomCard from "@src/components/common/RoomCard";
+import useCartStore from "@src/store/cartStore";
 
 const BookedRooms = () => {
   const bookedRooms = useCartStore((s) => s.bookedRooms);

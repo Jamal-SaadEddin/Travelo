@@ -1,11 +1,11 @@
 import { Card, CardContent, CardHeader, Grid, Stack } from "@mui/material";
+import DeleteDialog from "@src/components/common/DeleteDialog";
+import MapComponent from "@src/components/common/MapComponent";
+import StarRating from "@src/components/common/StarRating";
+import { AdminHotel, Hotel } from "@src/entities/common/Hotel";
+import { truncateText } from "@src/services/truncateText";
 import { useState } from "react";
-import StarRating from "../../../components/common/StarRating";
-import MapComponent from "../../../components/common/MapComponent";
-import { truncateText } from "../../../services/truncateText";
-import DeleteDialog from "../../../components/common/DeleteDialog";
 import HotelDialog from "./HotelDialog";
-import { AdminHotel, Hotel } from "../../../entities/common/Hotel";
 
 interface HotelCardProps {
   hotel: Hotel;

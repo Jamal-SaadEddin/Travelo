@@ -1,4 +1,4 @@
-import { ListingHotel } from "../../common/HotelCard/entities/Hotel";
+import { ListingHotel } from "@src/entities/common/Hotel";
 
 interface Filters {
   price: number[];

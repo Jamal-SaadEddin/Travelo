@@ -1,7 +1,7 @@
 import { Box, Button, Container, Typography } from "@mui/material";
+import Logo from "@src/assets/travelo-logo-dark.png";
 import React from "react";
 import { Link as RouterLink } from "react-router-dom";
-import Logo from "../../assets/travelo-logo-dark.png";
 
 const NotFound: React.FC = () => {
   return (

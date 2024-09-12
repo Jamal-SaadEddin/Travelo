@@ -1,5 +1,5 @@
 import { Box, Slider, Typography } from "@mui/material";
-import { useStyles } from "../../../../../styles";
+import { useStyles } from "@src/styles";
 
 export interface SliderComponentProps {
   title: string;

@@ -1,9 +1,9 @@
 import LogoutIcon from "@mui/icons-material/Logout";
-import Logo from "../../../assets/travelo-logo-dark.png";
+import Logo from "@src/assets/travelo-logo-dark.png";
+import useAuthStore from "@src/store/auth.store";
+import useCurrentPageStore from "@src/store/currentPage.store";
 import CheckoutBadge from "../components/CheckoutBadge";
-import NavbarLinkProps from "../entities/NavbarLinkProps";
-import useAuthStore from "../../../store/auth.store";
-import useCurrentPageStore from "../../../store/currentPage.store";
+import { NavbarLinkProps } from "../components/NavbarLink";
 
 export const Links = () => {
   const signout = useAuthStore((state) => state.signout);

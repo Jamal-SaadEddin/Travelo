@@ -10,12 +10,12 @@ import {
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import useSearchBoxStore from "@src/store/searchBoxStore";
 import dayjs from "dayjs";
 import { useFormik } from "formik";
 import queryString from "query-string";
 import { useNavigate } from "react-router-dom";
 import * as yup from "yup";
-import useSearchBoxStore from "../../store/searchBoxStore";
 import RoomBookingSelector from "./components/RoomBookingSelector";
 
 const validationSchema = yup.object({

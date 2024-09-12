@@ -1,13 +1,12 @@
 import { Meta, StoryFn } from "@storybook/react";
 import StarRating from "./StarRating";
-import { StarRatingProps } from "./entities/StarRatingProps";
 
 export default {
   title: "Components/Common/Star Rating",
   component: StarRating,
 } as Meta<typeof StarRating>;
 
-const Template: StoryFn<StarRatingProps> = (args) => <StarRating {...args} />;
+const Template: StoryFn<typeof StarRating> = (args) => <StarRating {...args} />;
 
 export const ZeroStars = Template.bind({});
 ZeroStars.args = {

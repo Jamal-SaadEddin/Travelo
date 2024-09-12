@@ -1,9 +1,9 @@
 import { Paper } from "@mui/material";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
+import Promotional_BG from "@src/assets/promotional-background.jpg";
+import Logo from "@src/assets/travelo-logo-dark.png";
 import * as React from "react";
-import Promotional_BG from "../assets/promotional-background.jpg";
-import Logo from "../assets/travelo-logo-dark.png";
 
 const PromotionalSection: React.FC = () => {
   return (

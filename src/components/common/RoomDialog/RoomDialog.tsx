@@ -6,13 +6,13 @@ import {
   DialogContent,
   DialogTitle,
 } from "@mui/material";
+import { AdminHotel, Hotel } from "@src/entities/common/Hotel";
+import { Room } from "@src/entities/common/Room";
+import { useRoom } from "@src/hooks/useRoom";
 import { Form, Formik } from "formik";
 import React, { useEffect, useState } from "react";
 import * as Yup from "yup";
 import FormikTextField from "../FormikTextField";
-import { Room } from "../../../entities/common/Room";
-import { useRoom } from "../../../hooks/useRoom";
-import { AdminHotel, Hotel } from "../../../entities/common/Hotel";
 
 interface RoomDialogProps {
   type: "add" | "update";

@@ -9,11 +9,11 @@ import {
   useMediaQuery,
   useTheme,
 } from "@mui/material";
+import { ListingHotel } from "@src/entities/common/Hotel";
+import { useSearchHotels } from "@src/hooks/useSearchHotels";
+import useSearchBoxStore from "@src/store/searchBoxStore";
+import { useStyles } from "@src/styles";
 import { useEffect, useState } from "react";
-import { useSearchHotels } from "../../hooks/useSearchHotels";
-import useSearchBoxStore from "../../store/searchBoxStore";
-import { useStyles } from "../../styles";
-import { ListingHotel } from "../common/HotelCard/entities/Hotel";
 import SliderComponent from "./components/SliderComponent";
 import ToggleButtonsGroup from "./components/ToggleButtonsGroup";
 import { amenities } from "./constants/amenities";

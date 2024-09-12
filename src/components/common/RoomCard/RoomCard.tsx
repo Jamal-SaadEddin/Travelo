@@ -16,14 +16,14 @@ import {
   Typography,
   useTheme,
 } from "@mui/material";
+import { Room } from "@src/entities/common/Room";
+import useCartStore from "@src/store/cartStore";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
-import { Room } from "../../../entities/common/Room";
+import AmenitiesStack from "../AmenitiesStack";
 import DeleteDialog from "../DeleteDialog";
 import RoomDialog from "../RoomDialog";
-import AmenitiesStack from "../../common/AmenitiesStack";
-import useCartStore from "./../../../store/cartStore";
 
 export interface RoomCardProps {
   room: Room;

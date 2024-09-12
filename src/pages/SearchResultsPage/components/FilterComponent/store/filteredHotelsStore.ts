@@ -1,5 +1,5 @@
+import { Hotel } from "@src/entities/common/Hotel";
 import { create } from "zustand";
-import { Hotel } from "../../common/HotelCard/entities/Hotel";
 
 interface FilteredHotelsStore {
   filteredHotels: Hotel[];

@@ -1,13 +1,13 @@
 import { Button, Grid } from "@mui/material";
+import FormikTextField from "@src/components/common/FormikTextField";
+import { HotelPage_Hotel } from "@src/entities/common/Hotel";
+import { useHotelPage } from "@src/hooks/useHotelPage";
+import { usePayment } from "@src/hooks/usePayment";
+import useCartStore from "@src/store/cartStore";
+import useSearchBoxStore from "@src/store/searchBoxStore";
+import useSelectedHotelIdStore from "@src/store/selectedHotelId.store";
 import { Form, Formik } from "formik";
-import FormikTextField from "../../../components/common/FormikTextField";
-import { useHotelPage } from "../../../hooks/useHotelPage";
-import { usePayment } from "../../../hooks/usePayment";
-import useCartStore from "../../../store/cartStore";
-import useSearchBoxStore from "../../../store/searchBoxStore";
-import useSelectedHotelIdStore from "../../../store/selectedHotelId.store";
 import { validationSchema } from "../utils/validationSchema";
-import { HotelPage_Hotel } from "../../../entities/common/Hotel";
 
 const initialValues = {
   firstName: "",

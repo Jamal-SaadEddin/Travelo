@@ -1,5 +1,5 @@
 import { Stack, TextField } from "@mui/material";
-import useSearchBoxStore from "../../../store/searchBoxStore";
+import useSearchBoxStore from "@src/store/searchBoxStore";
 
 const TripDetails = () => {
   const searchQueries = useSearchBoxStore((state) => state.searchQueries);

@@ -1,8 +1,8 @@
 import StarIcon from "@mui/icons-material/Star";
 import { Avatar, Stack, Typography } from "@mui/material";
+import { Review } from "@src/entities/common/Review";
+import { truncateText } from "@src/services/truncateText";
 import { stringAvatar } from "../utils/stringAvatar";
-import { truncateText } from "../../../../../services/truncateText";
-import { Review } from "../../../../../entities/common/Review";
 
 interface ReviewItemProps {
   review: Review;

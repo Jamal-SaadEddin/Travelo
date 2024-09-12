@@ -1,10 +1,11 @@
 import SentimentVeryDissatisfiedIcon from "@mui/icons-material/SentimentVeryDissatisfied";
 import { Box, Skeleton, Typography } from "@mui/material";
+import HotelCard from "@src/components/common/HotelCard";
+import { ListingHotel } from "@src/entities/common/Hotel";
+import { useSearchHotels } from "@src/hooks/useSearchHotels";
+import useSearchBoxStore from "@src/store/searchBoxStore";
 import { useEffect } from "react";
 import useFilteredHotelsStore from "./FilterComponent/store/filteredHotelsStore";
-import HotelCard from "../../../components/common/HotelCard";
-import { useSearchHotels } from "../../../hooks/useSearchHotels";
-import useSearchBoxStore from "../../../store/searchBoxStore";
 
 const HotelListings = () => {
   const { filteredHotels, setFilteredHotels } = useFilteredHotelsStore();
@@ -44,7 +45,7 @@ const HotelListings = () => {
         ))
       ) : filteredHotels.length > 0 ? (
         filteredHotels.map((hotel) => (
-          <HotelCard key={hotel.hotelId} hotel={hotel} />
+          <HotelCard key={(hotel as ListingHotel).hotelId} hotel={hotel} />
         ))
       ) : (
         <Typography variant="h4" textAlign="center">

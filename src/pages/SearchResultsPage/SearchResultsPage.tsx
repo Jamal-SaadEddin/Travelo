@@ -1,7 +1,7 @@
 import { Container, Grid, Toolbar } from "@mui/material";
-import HotelListings from "./components/HotelListings";
-import SearchBox from "../../components/common/SearchBox";
+import SearchBox from "@src/components/common/SearchBox";
 import FilterComponent from "./components/FilterComponent";
+import HotelListings from "./components/HotelListings";
 
 const SearchResultsPage = () => {
   return (

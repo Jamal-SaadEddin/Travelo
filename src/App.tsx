@@ -1,8 +1,8 @@
+import ThemeContextProvider from "@src/contexts/ThemeContext";
+import AppRoutes from "@src/routes/router";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import React from "react";
 import { Toaster } from "react-hot-toast";
-import ThemeContextProvider from "./contexts/ThemeContext";
-import AppRoutes from "./routes/router";
 
 const queryClient = new QueryClient();
 

@@ -1,7 +1,7 @@
+import { City } from "@src/entities/common/City";
+import { createApiClient } from "@src/services/createApiClient";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
-import { City } from "../pages/AdminPage/entities";
-import { createApiClient } from "../services/createApiClient";
 
 export const useCity = () => {
   const apiClient = createApiClient();

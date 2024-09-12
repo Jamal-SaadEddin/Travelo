@@ -1,8 +1,8 @@
+import { RoomForCreationDto, RoomForUpdateDto } from "@src/api/Api";
+import { Room } from "@src/entities/common/Room";
+import { createApiClient } from "@src/services/createApiClient";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
-import { RoomForCreationDto, RoomForUpdateDto } from "../api/Api";
-import { Room } from "../entities/common/Room";
-import { createApiClient } from "../services/createApiClient";
 
 export const useRoom = () => {
   const apiClient = createApiClient();

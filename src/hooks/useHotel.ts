@@ -1,15 +1,15 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import toast from "react-hot-toast";
 import {
   HotelDto,
   HotelForCreationDto,
   HotelForUpdateDto,
   HttpResponse,
   ProblemDetails,
-} from "../api/Api";
-import { Hotel } from "../pages/AdminPage/entities";
-import { createApiClient } from "../services/createApiClient";
-import useCurrentPageStore from "../store/currentPage.store";
+} from "@src/api/Api";
+import { AdminHotel as Hotel } from "@src/entities/common/Hotel";
+import { createApiClient } from "@src/services/createApiClient";
+import useCurrentPageStore from "@src/store/currentPage.store";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import toast from "react-hot-toast";
 
 export const useHotel = () => {
   const apiClient = createApiClient();

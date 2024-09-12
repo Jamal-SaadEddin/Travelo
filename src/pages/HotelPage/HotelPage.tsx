@@ -1,10 +1,10 @@
 import { Container, Divider, Grid, Skeleton, Toolbar } from "@mui/material";
+import AmenitiesStack from "@src/components/common/AmenitiesStack";
+import MapComponent from "@src/components/common/MapComponent";
+import { HotelPage_Hotel } from "@src/entities/common/Hotel";
+import { useHotelPage } from "@src/hooks/useHotelPage";
+import useSelectedHotelIdStore from "@src/store/selectedHotelId.store";
 import { useEffect, useState } from "react";
-import AmenitiesStack from "../../components/common/AmenitiesStack";
-import MapComponent from "../../components/common/MapComponent";
-import { HotelPage_Hotel } from "../../entities/common/Hotel";
-import { useHotelPage } from "../../hooks/useHotelPage";
-import useSelectedHotelIdStore from "../../store/selectedHotelId.store";
 import AvailableRooms from "./components/AvailableRooms";
 import HotelGallery from "./components/HotelGallery";
 import HotelOverview from "./components/HotelOverview";

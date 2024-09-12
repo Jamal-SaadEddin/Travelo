@@ -6,7 +6,7 @@ import {
   useMediaQuery,
   useTheme,
 } from "@mui/material";
-import StarRating from "../../../components/common/StarRating";
+import StarRating from "@src/components/common/StarRating";
 
 interface HotelPageHeaderProps {
   hotelName: string;

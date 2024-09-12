@@ -1,3 +1,6 @@
+import HomePage from "@src/pages/HomePage";
+import LoginPage from "@src/pages/LoginPage";
+import NotFoundPage from "@src/pages/NotFoundPage";
 import React from "react";
 import {
   Navigate,
@@ -5,9 +8,6 @@ import {
   BrowserRouter as Router,
   Routes,
 } from "react-router-dom";
-import HomePage from "../pages/HomePage";
-import LoginPage from "../pages/LoginPage";
-import NotFoundPage from "../pages/NotFoundPage";
 import { RootChildren } from "./RootChildren";
 
 const AppRoutes: React.FC = () => {

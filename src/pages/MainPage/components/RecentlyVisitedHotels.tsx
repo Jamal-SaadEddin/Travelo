@@ -1,7 +1,8 @@
 import { Grid, Skeleton, Stack } from "@mui/material";
-import { useRecentlyVisitedHotels } from "../../hooks/useRecentlyVisitedHotels";
-import { useStyles } from "../../styles";
-import HotelCard from "../common/HotelCard";
+import HotelCard from "@src/components/common/HotelCard";
+import { RecentlyVisitedHotel } from "@src/entities/common/Hotel";
+import { useRecentlyVisitedHotels } from "@src/hooks/useRecentlyVisitedHotels";
+import { useStyles } from "@src/styles";
 
 const RecentlyVisitedHotels = () => {
   const { hotelCardsStyles } = useStyles();
@@ -21,7 +22,12 @@ const RecentlyVisitedHotels = () => {
 
   return (
     <Stack direction="row" sx={hotelCardsStyles.cardsStackStyles}>
-      {hotels?.map((hotel) => <HotelCard key={hotel.hotelId} hotel={hotel} />)}
+      {hotels?.map((hotel) => (
+        <HotelCard
+          key={(hotel as RecentlyVisitedHotel).hotelId}
+          hotel={hotel}
+        />
+      ))}
     </Stack>
   );
 };

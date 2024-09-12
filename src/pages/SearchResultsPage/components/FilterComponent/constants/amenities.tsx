@@ -5,7 +5,7 @@ import LocalBarIcon from "@mui/icons-material/LocalBar";
 import RoomServiceIcon from "@mui/icons-material/RoomService";
 import Spa from "@mui/icons-material/Spa";
 import WifiIcon from "@mui/icons-material/Wifi";
-import { Amenity } from "../../../../../entities/common/Amenity";
+import { Amenity } from "@src/entities/common/Amenity";
 
 export const amenities: Amenity[] = [
   {

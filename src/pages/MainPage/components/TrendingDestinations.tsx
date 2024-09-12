@@ -1,14 +1,6 @@
 import { Box, CardMedia, Grid, Skeleton, Typography } from "@mui/material";
-import { useTrendingDestinations } from "../../../hooks/useTrendingDestinations";
-import { useStyles } from "../../../styles";
-
-export interface Destination {
-  cityId: number;
-  cityName: string;
-  countryName: string;
-  description: string;
-  thumbnailUrl: string;
-}
+import { useTrendingDestinations } from "@src/hooks/useTrendingDestinations";
+import { useStyles } from "@src/styles";
 
 const TrendingDestinations = () => {
   const { trendingDestinationStyles } = useStyles();

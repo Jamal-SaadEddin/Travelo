@@ -6,7 +6,7 @@ import {
   useMediaQuery,
   useTheme,
 } from "@mui/material";
-import hero from "../../../assets/hero.jpg";
+import hero from "@src/assets/hero.jpg";
 
 const styles = {
   hero: {

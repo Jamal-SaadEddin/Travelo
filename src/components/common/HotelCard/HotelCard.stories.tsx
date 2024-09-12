@@ -1,5 +1,4 @@
 import { Meta, StoryFn } from "@storybook/react";
-import { HotelCardProps } from "./entities/HotelCardProps";
 import HotelCard from "./HotelCard";
 
 export default {
@@ -7,7 +6,7 @@ export default {
   component: HotelCard,
 } as Meta<typeof HotelCard>;
 
-const Template: StoryFn<HotelCardProps> = (args) => <HotelCard {...args} />;
+const Template: StoryFn<typeof HotelCard> = (args) => <HotelCard {...args} />;
 
 export const FeaturedDeal = Template.bind({});
 FeaturedDeal.args = {

@@ -4,8 +4,7 @@ import Fade from "@mui/material/Fade";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import * as React from "react";
-import NavbarLinkProps from "../entities/NavbarLinkProps";
-import NavbarLink from "./NavbarLink";
+import NavbarLink, { NavbarLinkProps } from "./NavbarLink";
 
 interface Props {
   leftNavLinks: NavbarLinkProps[];

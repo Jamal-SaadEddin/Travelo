@@ -7,13 +7,13 @@ import {
   DialogTitle,
   MenuItem,
 } from "@mui/material";
+import FormikTextField from "@src/components/common/FormikTextField";
+import { AdminHotel as Hotel } from "@src/entities/common/Hotel";
+import { useCities } from "@src/hooks/useCities";
+import { useHotel } from "@src/hooks/useHotel";
 import { Form, Formik } from "formik";
 import React, { useState } from "react";
 import * as Yup from "yup";
-import FormikTextField from "../../../components/common/FormikTextField";
-import { useCities } from "../../../hooks/useCities";
-import { useHotel } from "../../../hooks/useHotel";
-import { Hotel } from "../entities";
 
 interface HotelDialogProps {
   type: "add" | "update";

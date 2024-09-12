@@ -1,4 +1,5 @@
 import { useMediaQuery, useTheme } from "@mui/material";
+import { GalleryPhoto } from "@src/entities/common/GalleryPhoto";
 import "lightgallery/css/lg-thumbnail.css";
 import "lightgallery/css/lg-zoom.css";
 import "lightgallery/css/lightgallery.css";
@@ -6,7 +7,6 @@ import lgAutoPlay from "lightgallery/plugins/autoplay";
 import lgThumbnail from "lightgallery/plugins/thumbnail";
 import LightGallery from "lightgallery/react";
 import GalleryItem from "./components/GalleryItem";
-import { GalleryPhoto } from "./entities/GalleryPhoto";
 import "./styles.css";
 
 interface HotelGalleryProps {

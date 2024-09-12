@@ -1,6 +1,6 @@
 import { Skeleton, Stack } from "@mui/material";
+import { Amenity as AmenityProps } from "@src/entities/common/Amenity";
 import Amenity from "./components/Amenity";
-import { Amenity as AmenityProps } from "../../../entities/common/Amenity";
 
 interface AmenitiesStackProps {
   amenities: AmenityProps[];

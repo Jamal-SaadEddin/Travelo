@@ -3,7 +3,7 @@ import {
   Hotel,
   ListingHotel,
   RecentlyVisitedHotel,
-} from "../../../../entities/common/Hotel";
+} from "@src/entities/common/Hotel";
 
 export function isFeaturedDealHotel(hotel: Hotel): hotel is FeaturedDealHotel {
   return (hotel as FeaturedDealHotel).originalRoomPrice !== undefined;
