@@ -92,6 +92,15 @@ const LoginPage = () => {
                   {auth.error &&
                     "The username or password provided were incorrect!"}
                 </Typography>
+                <Typography variant="caption" color="info" align="left">
+                  <strong>Hint:</strong> Type <strong>user</strong> for both
+                  fields to login as user.
+                </Typography>
+                <Box />
+                <Typography variant="caption" color="info" align="left">
+                  <strong>Hint:</strong> Type <strong>admin</strong> for both
+                  fields to login as admin.
+                </Typography>
                 <Button
                   type="submit"
                   fullWidth
