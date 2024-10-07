@@ -2,12 +2,16 @@
   /* Hide everything */
   body * {
     visibility: hidden;
+    background: white !important;
+    color: black !important;
   }
 
   /* Show only the print section */
   #print-section,
   #print-section * {
     visibility: visible;
+    background: white !important;
+    color: black !important;
   }
 
   #print-section {
