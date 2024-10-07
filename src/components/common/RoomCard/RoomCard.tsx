@@ -68,9 +68,7 @@ const RoomCard = ({
     toast.success(
       (t) => (
         <Stack direction="row" alignItems="center">
-          <Typography variant="body1" color="text.primary">
-            Finish you booking
-          </Typography>
+          <Typography variant="body1">Finish you booking</Typography>
           <IconButton
             onClick={() => {
               navigate("/checkout");
